@@ -326,6 +326,10 @@
 		{
 			"Name": "SimpleUGC",
 			"Enabled": true
+		},
+		{
+			"Name": "FunctionalTestingEditor",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
