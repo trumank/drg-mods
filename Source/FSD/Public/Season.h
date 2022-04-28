@@ -14,7 +14,7 @@ class UMissionStat;
 class UMissionWarning;
 class UReward;
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class FSD_API USeason : public USavableDataAsset {
     GENERATED_BODY()
 public:

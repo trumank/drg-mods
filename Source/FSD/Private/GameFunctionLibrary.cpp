@@ -1,5 +1,13 @@
 #include "GameFunctionLibrary.h"
 
+#include "GameData.h"
+#include "FSDGameInstance.h"
+
+#include "AssetRegistry/AssetRegistryModule.h"
+#include "Modules/ModuleManager.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
+
 class UFSDGameInstance;
 class UObject;
 class APlayerCharacter;
@@ -102,7 +110,7 @@ AFSDGameMode* UGameFunctionLibrary::GetFSDGameMode(UObject* WorldContextObject) 
 }
 
 UFSDGameInstance* UGameFunctionLibrary::GetFSDGameInstance(UObject* WorldContextObject) {
-    return NULL;
+    return Cast<UFSDGameInstance>(UGameplayStatics::GetGameInstance(WorldContextObject));
 }
 
 UGameData* UGameFunctionLibrary::GetFSDGameData() {

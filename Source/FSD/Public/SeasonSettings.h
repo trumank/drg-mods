@@ -7,7 +7,7 @@ class USeason;
 class USeasonChallenge;
 class UCurveFloat;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable, BlueprintType)
 class USeasonSettings : public UDataAsset {
     GENERATED_BODY()
 public:

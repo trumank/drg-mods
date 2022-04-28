@@ -80,7 +80,7 @@ class UPerkAsset;
 class UHUDVisibilityGroup;
 class UMissionStat;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable, BlueprintType)
 class FSD_API UGameData : public UObject {
     GENERATED_BODY()
 public:

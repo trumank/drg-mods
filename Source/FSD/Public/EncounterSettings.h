@@ -14,7 +14,7 @@ class UEnemyDescriptor;
 class UCritterDescriptor;
 class UMutator;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable, BlueprintType)
 class UEncounterSettings : public UDataAsset {
     GENERATED_BODY()
 public:
