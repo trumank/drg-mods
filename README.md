@@ -2,7 +2,7 @@
 
 Source for my blueprint mods is under `Content/_AssemblyStorm/`
 
-- https://drg.mod.io/sandbox-utilties
+- https://drg.mod.io/sandbox-utilities
 - https://drg.mod.io/custom-difficulty
 - https://drg.mod.io/mission-selector
 
