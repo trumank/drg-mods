@@ -8,3 +8,4 @@ Source for my blueprint mods is under `Content/_AssemblyStorm/`
 
 Maintained versions of [ArcticEcho's mods](https://github.com/ArcticEcho/My-DRG-Mods)
 - https://drg.mod.io/better-spectator-reloaded
+- https://drg.mod.io/better-post-processing-reloaded
