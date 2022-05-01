@@ -9,3 +9,7 @@ Source for my blueprint mods is under `Content/_AssemblyStorm/`
 Maintained versions of [ArcticEcho's mods](https://github.com/ArcticEcho/My-DRG-Mods)
 - https://drg.mod.io/better-spectator-reloaded
 - https://drg.mod.io/better-post-processing-reloaded
+
+## Credits
+- Samamstar - creator of DRGLib, an excellent library of utility and debugging tools
+- ArcticEcho - original creator of many mods in this repo
