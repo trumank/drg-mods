@@ -7,7 +7,7 @@ class UCommnuityRewardBundle;
 class UObject;
 class UResourceData;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UCommnuityRewardSetup : public UDataAsset {
     GENERATED_BODY()
 public:

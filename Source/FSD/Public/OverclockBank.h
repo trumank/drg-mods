@@ -4,11 +4,11 @@
 #include "SchematicBankInterface.h"
 #include "OverclockBank.generated.h"
 
+class UOverclockUpgrade;
 class USchematic;
 class UItemID;
-class UOverclockUpgrade;
 
-UCLASS()
+UCLASS(Blueprintable)
 class FSD_API UOverclockBank : public UDataAsset, public ISchematicBankInterface {
     GENERATED_BODY()
 public:

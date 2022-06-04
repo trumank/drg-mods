@@ -1,19 +1,19 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "HealthComponentBase.h"
 #include "UObject/NoExportTypes.h"
+#include "HealthComponentBase.h"
 #include "SimpleHealthComponent.generated.h"
 
+class UEnemyComponent;
 class UPawnStat;
 class UDamageTag;
-class UEnemyComponent;
 
-UCLASS(meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class USimpleHealthComponent : public UHealthComponentBase {
     GENERATED_BODY()
 public:
 protected:
-    UPROPERTY(BlueprintReadWrite, Transient, ReplicatedUsing=OnRep_Damage, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_Damage, meta=(AllowPrivateAccess=true))
     float Damage;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -28,7 +28,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FVector HealthBarOffsetWorld;
     
-    UPROPERTY(BlueprintReadWrite, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, Export, Transient)
     TWeakObjectPtr<UEnemyComponent> EnemyComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

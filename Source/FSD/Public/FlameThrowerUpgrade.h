@@ -1,15 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "StandardItemUpgrade.h"
 #include "EFlameThrowerUpgradeType.h"
+#include "StandardItemUpgrade.h"
 #include "UpgradeValues.h"
 #include "FlameThrowerUpgrade.generated.h"
 
-class AItem;
 class AFSDPlayerState;
+class AItem;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UFlameThrowerUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

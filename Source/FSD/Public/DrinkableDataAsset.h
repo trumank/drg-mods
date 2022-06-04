@@ -4,20 +4,20 @@
 #include "EDrinkableAlcoholStrength.h"
 #include "DrinkableDataAsset.generated.h"
 
+class UTexture2D;
+class APlayerCharacter;
+class UDrinkableDataAsset;
+class UTemporaryBuff;
 class UMissionStat;
 class ADrinkableActor;
-class UDialogDataAsset;
-class UObject;
-class UTexture2D;
-class UDrinkableDataAsset;
 class ADrinkableItem;
-class UTemporaryBuff;
+class UDialogDataAsset;
 class UDrinkEffectComponent;
 class UResourceData;
-class APlayerCharacter;
+class UObject;
 class APlayerController;
 
-UCLASS()
+UCLASS(Blueprintable)
 class UDrinkableDataAsset : public USavableDataAsset {
     GENERATED_BODY()
 public:
@@ -27,7 +27,7 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FText DrinkableDescription;
     
-    UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 DrinkablePrice;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

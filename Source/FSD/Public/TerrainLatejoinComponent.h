@@ -1,18 +1,18 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "PickaxeDigOperationData.h"
 #include "RemoveFloatingIslandOperationData.h"
+#include "Components/ActorComponent.h"
 #include "GrenadeExplodeOperationData.h"
 #include "CarveWithColliderOperationData.h"
-#include "DrillOperationData.h"
 #include "CarveWithSTLMeshOperationData.h"
+#include "DrillOperationData.h"
 #include "MeltOperationData.h"
-#include "PickaxeDigOperationData.h"
 #include "SplineSegmentCarveOperationData.h"
 #include "CSGBuildOperationData.h"
 #include "TerrainLatejoinComponent.generated.h"
 
-UCLASS(meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class FSD_API UTerrainLatejoinComponent : public UActorComponent {
     GENERATED_BODY()
 public:

@@ -6,7 +6,7 @@
 #include "InputCoreTypes.h"
 #include "InputCaptureWidget.generated.h"
 
-UCLASS(EditInlineNew)
+UCLASS(Blueprintable, EditInlineNew)
 class FSD_API UInputCaptureWidget : public UUserWidget {
     GENERATED_BODY()
 public:
@@ -20,7 +20,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bIsGamepadKey;
     
-    UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bCapturing;
     
 public:

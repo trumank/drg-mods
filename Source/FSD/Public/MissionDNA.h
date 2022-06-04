@@ -7,7 +7,7 @@
 class UMissionComplexity;
 class UMissionDuration;
 
-UCLASS(Abstract, BlueprintType)
+UCLASS(Abstract, Blueprintable)
 class UMissionDNA : public UObject {
     GENERATED_BODY()
 public:

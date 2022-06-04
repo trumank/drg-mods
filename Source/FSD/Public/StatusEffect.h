@@ -3,8 +3,8 @@
 #include "Templates/SubclassOf.h"
 #include "UObject/Object.h"
 #include "GameplayTagContainer.h"
-#include "RandRange.h"
 #include "GameplayTagContainer.h"
+#include "RandRange.h"
 #include "StatusEffect.generated.h"
 
 class UPawnAffliction;
@@ -41,6 +41,9 @@ protected:
     bool CanStack;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 MaxStack;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float Duration;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -55,10 +58,10 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FGameplayTagQuery GameplayTagQuery;
     
-    UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FGameplayTagContainer ExcludeTargetsWithTags;
     
-    UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FGameplayTagContainer TargetRequiredTags;
     
 public:

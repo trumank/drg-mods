@@ -6,8 +6,8 @@
 #include "SaveGameStateComponent.h"
 
 class UPlayerCharacterID;
-class APlayerCharacter;
 class AFSDPlayerController;
+class APlayerCharacter;
 class UPlayerResourceComponent;
 
 void AFSDPlayerState::SetSelectedCharacterID(UPlayerCharacterID* characterID) {

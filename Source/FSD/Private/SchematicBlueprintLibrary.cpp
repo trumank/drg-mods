@@ -1,9 +1,9 @@
 #include "SchematicBlueprintLibrary.h"
 
-class UItemSkinSchematicCollection;
 class USchematic;
-class UItemUpgrade;
+class UItemSkinSchematicCollection;
 class UObject;
+class UItemUpgrade;
 class UPlayerCharacterID;
 class USchematicCategory;
 

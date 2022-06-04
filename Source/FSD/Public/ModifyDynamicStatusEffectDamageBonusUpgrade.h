@@ -6,10 +6,10 @@
 #include "UpgradeValues.h"
 #include "ModifyDynamicStatusEffectDamageBonusUpgrade.generated.h"
 
-class AActor;
 class AFSDPlayerState;
+class AActor;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UModifyDynamicStatusEffectDamageBonusUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

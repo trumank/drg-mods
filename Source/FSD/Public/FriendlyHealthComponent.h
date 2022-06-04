@@ -5,7 +5,7 @@
 
 class UParticleSystem;
 
-UCLASS(meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UFriendlyHealthComponent : public UHealthComponent {
     GENERATED_BODY()
 public:
@@ -30,7 +30,7 @@ protected:
     
 public:
     UFriendlyHealthComponent();
-    /*UFUNCTION(BlueprintCallable, BlueprintPure)*/
+    // UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetMaxHealth() const;
     
 };

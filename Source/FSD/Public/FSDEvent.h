@@ -1,34 +1,34 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/DataAsset.h"
 #include "FSDEventActivateChangedDelegate.h"
 #include "ClaimableRewardView.h"
 #include "FSDEvent.generated.h"
 
-class UFSDEvent;
-class UObject;
-class UTexture2D;
 class ADebrisDataActor;
+class UTexture2D;
+class APlayerController;
 class UWorld;
 class UCampaign;
-class APlayerController;
+class UObject;
+class UFSDEvent;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class FSD_API UFSDEvent : public UDataAsset {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FFSDEventActivateChanged OnActiveChanged;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName EventName;
     
-    UPROPERTY(BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FGuid SavegameID;
     
-    UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bHasClaimableRewards;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -39,6 +39,9 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<TSoftObjectPtr<UWorld>> SpacerigSublevels;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<TSoftObjectPtr<UWorld>> UnloadSpacerigSublevels;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FClaimableRewardView ClaimableRewards;

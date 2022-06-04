@@ -5,7 +5,7 @@
 #include "SaveGameIDInterface.h"
 #include "CategoryID.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class FSD_API UCategoryID : public UDataAsset, public ISaveGameIDInterface {
     GENERATED_BODY()
 public:

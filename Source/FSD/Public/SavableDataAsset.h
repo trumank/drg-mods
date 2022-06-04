@@ -7,7 +7,7 @@
 
 class UBuildRestriction;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class USavableDataAsset : public UDataAsset, public ISaveGameIDInterface {
     GENERATED_BODY()
 public:

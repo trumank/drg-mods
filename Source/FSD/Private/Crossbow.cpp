@@ -4,12 +4,15 @@
 
 class UProjectileLauncherBaseComponent;
 class AProjectileBase;
+class UAnimMontage;
 class UStatusEffect;
 class AActor;
-class UAnimMontage;
 
 
 void ACrossbow::StartAmmoSwitch() {
+}
+
+void ACrossbow::Server_UpdateRetrievableArrows_Implementation(const int32& defaultAmmo, const int32& specialAmmo) {
 }
 
 void ACrossbow::Server_CallSwitchAmmoType_Implementation(UProjectileLauncherBaseComponent* projectileLauncher) {
@@ -66,7 +69,6 @@ ACrossbow::ACrossbow() {
     this->IsDefaultArrowEquipped = true;
     this->RecallProgress = 0.00f;
     this->AnimatedArrowSpawnable = NULL;
-    this->AmountOfExtraShots = 2;
     this->ExtraShotAngleDifference = 10.00f;
     this->HoveringRecallable = NULL;
     this->SwitchTimeCof = 1.00f;

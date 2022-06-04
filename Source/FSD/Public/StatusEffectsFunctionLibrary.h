@@ -5,10 +5,10 @@
 #include "StatusEffectsFunctionLibrary.generated.h"
 
 class UStatusEffect;
-class UDamageClass;
 class AActor;
+class UDamageClass;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UStatusEffectsFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

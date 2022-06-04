@@ -1,30 +1,22 @@
 #include "GameFunctionLibrary.h"
 
-#include "GameData.h"
-#include "FSDGameInstance.h"
-
-#include "AssetRegistry/AssetRegistryModule.h"
-#include "Modules/ModuleManager.h"
-#include "Kismet/GameplayStatics.h"
-#include "Kismet/KismetSystemLibrary.h"
-
-class UFSDGameInstance;
 class UObject;
-class APlayerCharacter;
+class UAsyncManager;
 class UAudioComponent;
 class UWindowWidget;
 class USoundBase;
-class UWindowManager;
-class UGoogleAnalyticsWrapper;
 class AFSDGameModeSpaceRig;
+class UWindowManager;
+class UDeepDiveManager;
+class APlayerCharacter;
+class UGoogleAnalyticsWrapper;
 class UFSDSaveGame;
 class AFSDGameState;
 class AFSDGameMode;
+class UFSDGameInstance;
 class UGameData;
-class UDeepDiveManager;
 class ADeepCSGWorld;
 class UCampaignManager;
-class UAsyncManager;
 
 void UGameFunctionLibrary::SpawnOrUpdateAudio2D(UObject* WorldContext, UAudioComponent*& AudioComponent, USoundBase* Sound, float VolumeMultiplier, float PitchMultiplier, FName FloatParamName, float FloatParam) {
 }
@@ -110,7 +102,7 @@ AFSDGameMode* UGameFunctionLibrary::GetFSDGameMode(UObject* WorldContextObject) 
 }
 
 UFSDGameInstance* UGameFunctionLibrary::GetFSDGameInstance(UObject* WorldContextObject) {
-    return Cast<UFSDGameInstance>(UGameplayStatics::GetGameInstance(WorldContextObject));
+    return NULL;
 }
 
 UGameData* UGameFunctionLibrary::GetFSDGameData() {

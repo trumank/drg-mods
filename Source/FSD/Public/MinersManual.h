@@ -1,22 +1,22 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "DamageTypeDescription.h"
-#include "UObject/NoExportTypes.h"
 #include "Engine/DataAsset.h"
-#include "MissionStepDescription.h"
-#include "MissionTypeDescription.h"
 #include "BiomeFeatures.h"
+#include "DamageTypeDescription.h"
+#include "MissionTypeDescription.h"
+#include "MissionStepDescription.h"
+#include "UObject/NoExportTypes.h"
 #include "EDamageType.h"
 #include "MinersManual.generated.h"
 
-class UBiome;
+class UMissionTemplate;
 class UEnemyMinersManualData;
 class ULoreScreenMasterWidget;
-class UMissionTemplate;
-class UObject;
 class UMinersManualData;
+class UBiome;
+class UObject;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UMinersManual : public UDataAsset {
     GENERATED_BODY()
 public:

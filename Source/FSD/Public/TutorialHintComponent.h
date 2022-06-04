@@ -1,12 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "TutorialComponent.h"
 #include "TutorialHint.h"
+#include "TutorialComponent.h"
 #include "TutorialHintComponent.generated.h"
 
 class UObject;
 
-UCLASS(Abstract, meta=(BlueprintSpawnableComponent))
+UCLASS(Abstract, Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UTutorialHintComponent : public UTutorialComponent {
     GENERATED_BODY()
 public:

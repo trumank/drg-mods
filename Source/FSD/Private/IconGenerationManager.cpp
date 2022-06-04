@@ -1,11 +1,11 @@
 #include "IconGenerationManager.h"
 
 class UPickaxePart;
+class UTextureRenderTarget2D;
 class UIconGenerationManager;
+class UVanityItem;
 class UItemSkin;
 class UPlayerCharacterID;
-class UTextureRenderTarget2D;
-class UVanityItem;
 
 void UIconGenerationManager::GenerateWeaponIcon_Async(UIconGenerationManager* Manager, UItemSkin* Item, bool inShowCloseUp, UPlayerCharacterID* Character, UTextureRenderTarget2D*& Icon, FLatentActionInfo LatentInfo) {
 }

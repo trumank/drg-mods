@@ -2,10 +2,10 @@
 #include "Templates/SubclassOf.h"
 
 class AFSDPlayerController;
-class UMissionDNA;
-class UMutator;
-class UGeneratedMission;
 class AProceduralSetup;
+class UMutator;
+class UMissionDNA;
+class UGeneratedMission;
 
 
 bool UGeneratedMission::IsSingleMission() const {

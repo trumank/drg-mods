@@ -1,23 +1,23 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "SpiderAnimInstance.h"
 #include "UObject/NoExportTypes.h"
+#include "SpiderAnimInstance.h"
 #include "ShootingSpiderAnimInstance.generated.h"
 
 class AActor;
 
-UCLASS(NonTransient)
+UCLASS(Blueprintable, NonTransient)
 class UShootingSpiderAnimInstance : public USpiderAnimInstance {
     GENERATED_BODY()
 public:
 protected:
-    UPROPERTY(BlueprintReadWrite, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float LookAtBlend;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool CheckCurve;
     
-    UPROPERTY(BlueprintReadWrite, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, Transient)
     TWeakObjectPtr<AActor> TargetActor;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))

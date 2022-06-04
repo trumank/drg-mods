@@ -8,7 +8,7 @@
 class ACSGBuilder;
 class UTerrainMaterialCore;
 
-UCLASS()
+UCLASS(Blueprintable)
 class UCSGPreviewScene : public UDataAsset {
     GENERATED_BODY()
 public:

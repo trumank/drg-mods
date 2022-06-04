@@ -7,7 +7,7 @@ class AShowroomStage;
 class UEnemyShowroomController;
 class UCharacterShowroomController;
 
-UCLASS()
+UCLASS(Blueprintable)
 class UShowroomSettings : public UDataAsset {
     GENERATED_BODY()
 public:

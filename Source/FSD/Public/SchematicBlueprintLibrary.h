@@ -4,13 +4,13 @@
 #include "SchematicBlueprintLibrary.generated.h"
 
 class UItemUpgrade;
-class UObject;
-class UItemSkinSchematicCollection;
-class USchematic;
 class UPlayerCharacterID;
+class USchematic;
+class UItemSkinSchematicCollection;
+class UObject;
 class USchematicCategory;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class USchematicBlueprintLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

@@ -1,12 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
 #include "IRandRange.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
 #include "UObject/NoExportTypes.h"
 #include "RandRange.h"
 #include "RandRangeFunctionLibrary.generated.h"
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class URandRangeFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

@@ -3,25 +3,25 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "GameFunctionLibrary.generated.h"
 
-class UFSDGameInstance;
-class UObject;
-class APlayerCharacter;
-class UAudioComponent;
 class UWindowWidget;
 class USoundBase;
+class UObject;
+class UAsyncManager;
+class UAudioComponent;
 class UWindowManager;
+class UDeepDiveManager;
+class APlayerCharacter;
 class UGoogleAnalyticsWrapper;
 class AFSDGameModeSpaceRig;
 class UFSDSaveGame;
 class AFSDGameState;
 class AFSDGameMode;
+class UFSDGameInstance;
 class UGameData;
-class UDeepDiveManager;
 class ADeepCSGWorld;
 class UCampaignManager;
-class UAsyncManager;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class FSD_API UGameFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

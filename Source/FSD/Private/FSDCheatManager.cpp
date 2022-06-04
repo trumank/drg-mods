@@ -2,13 +2,13 @@
 #include "Templates/SubclassOf.h"
 
 class UPlayerCharacterID;
-class APlayerCharacter;
-class UEnemyDescriptor;
-class UBaseCritterDescriptor;
-class APawn;
 class AFSDAIController;
+class UEnemyDescriptor;
+class APawn;
+class UBaseCritterDescriptor;
 class AActor;
 class UObject;
+class APlayerCharacter;
 class UResourceData;
 
 void UFSDCheatManager::SwitchCharacter(UPlayerCharacterID* characterID) {
@@ -94,6 +94,9 @@ void UFSDCheatManager::R_AddCredits(int32 Number) {
 }
 
 void UFSDCheatManager::R_AddCraftingResource(int32 Amount, int32 Type) {
+}
+
+void UFSDCheatManager::R_Add_Phazyonite(int32 Amount) {
 }
 
 void UFSDCheatManager::R_Add_BitterGem(int32 Amount) {
@@ -328,6 +331,9 @@ void UFSDCheatManager::C_SetSavedCheats() {
 void UFSDCheatManager::C_SetPlayers(int32 Number) {
 }
 
+void UFSDCheatManager::C_SetInstantUsables(bool Value) {
+}
+
 void UFSDCheatManager::C_SetHealth(float Health) {
 }
 
@@ -430,6 +436,9 @@ void UFSDCheatManager::C_Reset_WeaponSkins_Framworks() {
 void UFSDCheatManager::C_Reset_WeaponSkins() {
 }
 
+void UFSDCheatManager::C_Reset_Poses() {
+}
+
 void UFSDCheatManager::C_Reset_PickaxeParts() {
 }
 
@@ -514,6 +523,12 @@ void UFSDCheatManager::C_KillAll() {
 void UFSDCheatManager::C_JumpToNextRoom() {
 }
 
+void UFSDCheatManager::C_Intoxication_SetAll(int32 Percent) {
+}
+
+void UFSDCheatManager::C_Intoxication_Set(int32 Percent) {
+}
+
 void UFSDCheatManager::C_IncrementAllMissionStats(int32 Amount) {
 }
 
@@ -587,9 +602,6 @@ void UFSDCheatManager::C_ClearAllMissionStats() {
 }
 
 void UFSDCheatManager::C_ClearAllMilestones() {
-}
-
-void UFSDCheatManager::C_ChangeIntoxication(int32 Percent) {
 }
 
 void UFSDCheatManager::C_Campaign_ResetProgress() {

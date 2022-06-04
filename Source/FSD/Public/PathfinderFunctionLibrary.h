@@ -2,13 +2,13 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "UObject/NoExportTypes.h"
-#include "DeepPathFinderType.h"
 #include "DeepPathFinderSize.h"
+#include "DeepPathFinderType.h"
 #include "PathfinderFunctionLibrary.generated.h"
 
 class UObject;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UPathfinderFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

@@ -5,11 +5,11 @@
 #include "ESchematicType.h"
 #include "SpecialEventBlueprintLibrary.generated.h"
 
-class UObject;
-class USchematic;
 class UPlayerCharacterID;
+class USchematic;
+class UObject;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class USpecialEventBlueprintLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

@@ -9,15 +9,15 @@
 
 class APlayerCharacter;
 
-UCLASS(Abstract)
+UCLASS(Abstract, Blueprintable)
 class ACarriableItem : public AFSDPhysicsActor, public IThrowable {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FAttachChangeSig OnAttachedChangeDelegate;
     
 protected:
-    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FOnCarriableDeposited OnCarriableDeposited;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

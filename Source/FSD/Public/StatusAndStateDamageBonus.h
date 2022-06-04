@@ -8,7 +8,7 @@
 class UStatusEffect;
 class UDamageClass;
 
-UCLASS(EditInlineNew)
+UCLASS(Blueprintable, EditInlineNew)
 class UStatusAndStateDamageBonus : public UDamageBonusBase {
     GENERATED_BODY()
 public:

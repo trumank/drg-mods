@@ -9,7 +9,7 @@ class UObject;
 class UResourceData;
 class UDrinkableDataAsset;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UDrinkSettings : public UDataAsset {
     GENERATED_BODY()
 public:

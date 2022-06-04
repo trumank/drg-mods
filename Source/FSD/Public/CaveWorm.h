@@ -6,17 +6,17 @@
 #include "CaveWorm.generated.h"
 
 class USimpleHealthComponent;
-class AResourceChunk;
 class UResourceData;
 class UObject;
+class AResourceChunk;
 class UHealthComponentBase;
 
-UCLASS(MinimalAPI)
+UCLASS(Blueprintable, MinimalAPI)
 class ACaveWorm : public ADeepPathfinderCharacter {
     GENERATED_BODY()
 public:
 protected:
-    UPROPERTY(BlueprintReadWrite, Export, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
     USimpleHealthComponent* Health;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

@@ -7,7 +7,7 @@
 class USoundBase;
 class UFSDPhysicalMaterial;
 
-UCLASS(MinimalAPI, meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, MinimalAPI, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UFrozenStateComponent : public UCharacterStateComponent {
     GENERATED_BODY()
 public:

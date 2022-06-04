@@ -1,28 +1,28 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "EVeteranScaling.h"
 #include "Engine/DataAsset.h"
-#include "ECreatureSize.h"
-#include "EEnemySignificance.h"
-#include "UObject/NoExportTypes.h"
-#include "EnemyDebris.h"
-#include "DeepPathFinderType.h"
-#include "GameplayTagContainer.h"
 #include "SpawnRarityItem.h"
+#include "EnemyDebris.h"
+#include "EEnemySignificance.h"
+#include "EVeteranScaling.h"
+#include "DeepPathFinderType.h"
+#include "UObject/NoExportTypes.h"
+#include "ECreatureSize.h"
+#include "GameplayTagContainer.h"
 #include "EEnemyDescriptorCheatClass.h"
 #include "EnemyDescriptor.generated.h"
 
 class UMissionTemplate;
-class UEnemyID;
 class APawn;
-class UBiome;
+class UEnemyID;
 class UEnemyDescriptor;
+class UBiome;
+class AActor;
 class UDebrisPositioning;
 class UCaveInfluencer;
-class AActor;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class FSD_API UEnemyDescriptor : public UDataAsset {
     GENERATED_BODY()
 public:
@@ -126,7 +126,7 @@ protected:
 public:
     UEnemyDescriptor();
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    TSubclassOf<APawn> GetEnemyClass(UBiome* Biome, bool isElite) const;
+    TSubclassOf<APawn> GetEnemyClass(UBiome* Biome, bool IsElite) const;
     
     UFUNCTION(BlueprintCallable)
     static TArray<UEnemyDescriptor*> FindDescriptorsForCheatMenu(EEnemyDescriptorCheatClass NewCheatClass);

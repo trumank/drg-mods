@@ -5,40 +5,40 @@
 #include "ECharacterState.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
 #include "HeroInfo.h"
+#include "UObject/NoExportTypes.h"
 #include "GameplayTagContainer.h"
 #include "Curves/CurveFloat.h"
 #include "ActorFunctionLibrary.generated.h"
 
-class UEnemyComponent;
-class UTexture2D;
-class UObject;
-class USceneComponent;
-class USoundCue;
-class UPostProcessComponent;
+class UWindowWidget;
+class UPathfinderCollisionComponent;
 class UMaterialInstanceDynamic;
+class UPlayerCharacterID;
 class UItemID;
 class APlayerCharacter;
+class USoundCue;
+class UObject;
 class APlayerController;
-class UFXSystemAsset;
-class UWindowWidget;
 class UUserWidget;
+class UHealthComponentBase;
 class AActor;
-class UPathfinderCollisionComponent;
+class USceneComponent;
+class UFXSystemAsset;
 class UFSDPhysicalMaterial;
-class UPlayerCharacterID;
-class UMeshComponent;
+class UEnemyComponent;
 class UInventoryList;
+class AFSDGameMode;
+class UTexture2D;
 class UActorComponent;
+class UPostProcessComponent;
 class UBlendableInterface;
 class IBlendableInterface;
-class AFSDGameMode;
+class UMeshComponent;
 class UDamageClass;
-class UHealthComponentBase;
 class AFSDGameState;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class FSD_API UActorFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

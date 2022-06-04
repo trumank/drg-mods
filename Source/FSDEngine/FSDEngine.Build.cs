@@ -10,6 +10,7 @@ public class FSDEngine : ModuleRules {
             "Chaos",
             "Core",
             "CoreUObject",
+            "DeveloperSettings",
             "Engine",
             "PhysicsCore",
         });

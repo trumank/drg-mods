@@ -3,10 +3,10 @@
 #include "AmmoDrivenWeapon.h"
 #include "Revoler.generated.h"
 
-class AActor;
 class UFSDPhysicalMaterial;
+class AActor;
 
-UCLASS()
+UCLASS(Blueprintable)
 class ARevoler : public AAmmoDrivenWeapon {
     GENERATED_BODY()
 public:

@@ -2,10 +2,10 @@
 #include "Net/UnrealNetwork.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "InstantUsable.h"
-#include "NiagaraComponent.h"
 #include "Components/SphereComponent.h"
 #include "CarriableComponent.h"
 #include "DamageComponent.h"
+#include "NiagaraComponent.h"
 
 void ATether::SetIsOnGround(bool NewIsOnGround) {
 }

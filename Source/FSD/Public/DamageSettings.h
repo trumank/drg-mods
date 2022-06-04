@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "Curves/CurveFloat.h"
 #include "DecalData.h"
 #include "Engine/DataAsset.h"
+#include "Curves/CurveFloat.h"
 #include "DamageSettings.generated.h"
 
 class UStatusEffect;
@@ -13,7 +13,7 @@ class USoundCue;
 class UDamageTag;
 class UDamageImpulse;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UDamageSettings : public UDataAsset {
     GENERATED_BODY()
 public:

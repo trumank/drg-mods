@@ -7,11 +7,11 @@
 #include "SpawnActorWithDebrisPosComponent.generated.h"
 
 class UCurveFloat;
-class AProceduralSetup;
 class AActor;
+class AProceduralSetup;
 class UDebrisPositioning;
 
-UCLASS(BlueprintType, meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class FSD_API USpawnActorWithDebrisPosComponent : public UActorComponent {
     GENERATED_BODY()
 public:

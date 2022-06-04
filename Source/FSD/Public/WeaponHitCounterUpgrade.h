@@ -9,7 +9,7 @@ class UWeaponHitCounterComponent;
 class AFSDPlayerState;
 class AActor;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UWeaponHitCounterUpgrade : public UItemUpgrade {
     GENERATED_BODY()
 public:

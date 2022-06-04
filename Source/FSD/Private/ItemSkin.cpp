@@ -1,9 +1,9 @@
 #include "ItemSkin.h"
 
 class UObject;
-class UMaterialInstanceDynamic;
 class UItemID;
 class AFSDPlayerState;
+class UMaterialInstanceDynamic;
 class UPlayerCharacterID;
 
 bool UItemSkin::Unlock(UObject* WorldContext, UItemID* ItemID, bool broadcast) {
@@ -11,6 +11,9 @@ bool UItemSkin::Unlock(UObject* WorldContext, UItemID* ItemID, bool broadcast) {
 }
 
 void UItemSkin::Receive_SkinItem(UObject* Skinnable) const {
+}
+
+void UItemSkin::Lock(UObject* WorldContext, UItemID* ItemID) {
 }
 
 bool UItemSkin::IsLocked(UObject* WorldContext, UItemID* skinnableID) const {

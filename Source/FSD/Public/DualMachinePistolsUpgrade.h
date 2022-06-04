@@ -6,10 +6,10 @@
 #include "UpgradeValues.h"
 #include "DualMachinePistolsUpgrade.generated.h"
 
-class AItem;
 class AFSDPlayerState;
+class AItem;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UDualMachinePistolsUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

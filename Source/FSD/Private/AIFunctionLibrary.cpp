@@ -2,8 +2,8 @@
 
 class UAttackerPositioningComponent;
 class UObject;
-class APawn;
 class AActor;
+class APawn;
 class APlayerCharacter;
 
 void UAIFunctionLibrary::SetAICanSense(bool canSense) {

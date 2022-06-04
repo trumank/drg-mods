@@ -9,7 +9,7 @@
 class AFSDPlayerState;
 class AActor;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UGooGunProjectileUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

@@ -4,7 +4,7 @@
 #include "SDFBaseWithTransformComponent.h"
 #include "SDFSphereComponent.generated.h"
 
-UCLASS(meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class FSDENGINE_API USDFSphereComponent : public USDFBaseWithTransformComponent {
     GENERATED_BODY()
 public:

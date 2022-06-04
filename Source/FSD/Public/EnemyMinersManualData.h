@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "EnemyAttackDescription.h"
-#include "EEnemyType.h"
 #include "EEnemyFamily.h"
+#include "EEnemyType.h"
+#include "EnemyAttackDescription.h"
 #include "EArmorType.h"
 #include "EnemyMinersManualStats.h"
 #include "EDamageType.h"
@@ -14,7 +14,7 @@ class UAnimSequenceBase;
 class UTexture2D;
 class AEnemyShowroomItem;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UEnemyMinersManualData : public UDataAsset {
     GENERATED_BODY()
 public:

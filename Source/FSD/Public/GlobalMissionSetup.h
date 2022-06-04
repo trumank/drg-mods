@@ -1,18 +1,18 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "IRandRange.h"
 #include "MissionBiomeItem.h"
-#include "MissionTemplateItem.h"
 #include "RequiredMissionItem.h"
+#include "IRandRange.h"
+#include "MissionTemplateItem.h"
 #include "GlobalMissionSetup.generated.h"
 
-class UMissionWarning;
+class UPlanetZone;
 class UMissionNameBank;
 class UMissionMutator;
-class UPlanetZone;
+class UMissionWarning;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UGlobalMissionSetup : public UDataAsset {
     GENERATED_BODY()
 public:

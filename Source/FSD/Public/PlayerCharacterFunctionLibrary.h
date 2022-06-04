@@ -9,7 +9,7 @@ class AFSDPlayerState;
 class APlayerCharacter;
 class AActor;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UPlayerCharacterFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

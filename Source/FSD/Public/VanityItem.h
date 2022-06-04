@@ -9,18 +9,18 @@
 #include "VanityEventSource.h"
 #include "VanityItem.generated.h"
 
+class UItemAquisitionBase;
+class AFSDPlayerState;
 class UIconGenerationCameraKey;
 class UVanityEventSourceDataAsset;
-class UItemAquisitionBase;
 class UDLCBase;
 class UResourceData;
 class UPlayerCharacterID;
 class UObject;
-class UTexture;
-class AFSDPlayerState;
 class APlayerCharacter;
+class UTexture;
 
-UCLASS(BlueprintType, EditInlineNew)
+UCLASS(Blueprintable, EditInlineNew)
 class FSD_API UVanityItem : public USavablePrimaryDataAsset, public ICraftable, public IRefundableInterface, public IAquisitionable {
     GENERATED_BODY()
 public:
@@ -46,19 +46,19 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UIconGenerationCameraKey* IconGenerationCameraKey;
     
-    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UDLCBase* RequiredDLC;
     
-    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UDLCBase* CraftingRestrictionDLC;
     
-    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 CraftingPlayerRankRequired;
     
-    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TMap<UResourceData*, float> CraftingCost;
     
-    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 CraftingCreditsCost;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -113,6 +113,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FText GetCraftableDescription() const;
+    
+    UFUNCTION(BlueprintCallable)
+    void FixupAquisitionLogic();
     
     UFUNCTION(BlueprintCallable, BlueprintPure=false)
     void CraftItemWithFashionite(UObject* WorldContextObject, UPlayerCharacterID* characterID) const;

@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
 #include "LocalizedLanguageInfo.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
 #include "LocalizationFunctionLibrary.generated.h"
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class ULocalizationFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

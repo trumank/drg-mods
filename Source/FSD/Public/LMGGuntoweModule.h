@@ -4,27 +4,27 @@
 #include "UObject/NoExportTypes.h"
 #include "LMGGuntoweModule.generated.h"
 
-class USoundCue;
-class UParticleSystem;
-class UAudioComponent;
-class USceneComponent;
 class UHitscanComponent;
+class UParticleSystem;
+class USceneComponent;
 class UDamageComponent;
+class USoundCue;
+class UAudioComponent;
 
-UCLASS()
+UCLASS(Blueprintable)
 class ALMGGuntoweModule : public AHostileTargetingGuntowerModule {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, Export, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
     UHitscanComponent* HitScanComp;
     
-    UPROPERTY(BlueprintReadWrite, Export, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
     UDamageComponent* DamageComp;
     
-    UPROPERTY(BlueprintReadWrite, Export, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
     USceneComponent* AimAtWhenNoTarget;
     
-    UPROPERTY(BlueprintReadWrite, Export, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
     UAudioComponent* FireAudio;
     
 protected:
@@ -55,7 +55,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float AimSpeed;
     
-    UPROPERTY(BlueprintReadWrite, Transient, ReplicatedUsing=OnRep_IsFiresoundPlaying, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_IsFiresoundPlaying, meta=(AllowPrivateAccess=true))
     bool IsFiresoundPlaying;
     
 public:

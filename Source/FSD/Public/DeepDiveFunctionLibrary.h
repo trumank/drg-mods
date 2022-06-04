@@ -4,11 +4,11 @@
 #include "DeepDiveFunctionLibrary.generated.h"
 
 class UObject;
+class UDeepDiveTemplate;
 class UGeneratedMission;
 class UDeepDive;
-class UDeepDiveTemplate;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UDeepDiveFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

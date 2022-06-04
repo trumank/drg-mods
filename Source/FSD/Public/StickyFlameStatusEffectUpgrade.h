@@ -9,7 +9,7 @@ class UStatusEffect;
 class AActor;
 class AFSDPlayerState;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UStickyFlameStatusEffectUpgrade : public UItemUpgrade {
     GENERATED_BODY()
 public:

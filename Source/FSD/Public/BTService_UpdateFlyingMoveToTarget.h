@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "BehaviorTree/BTService.h"
 #include "BehaviorTree/BehaviorTreeTypes.h"
+#include "BehaviorTree/BTService.h"
 #include "BTService_UpdateFlyingMoveToTarget.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class UBTService_UpdateFlyingMoveToTarget : public UBTService {
     GENERATED_BODY()
 public:

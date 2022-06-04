@@ -3,14 +3,14 @@
 #include "Engine/DataAsset.h"
 #include "MissionWarning.generated.h"
 
-class UMutator;
-class UObjective;
-class URunningMissionBP;
 class UMissionStat;
-class UTexture2D;
+class UMutator;
+class URunningMissionBP;
+class UObjective;
 class UMissionMutator;
+class UTexture2D;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UMissionWarning : public UDataAsset {
     GENERATED_BODY()
 public:

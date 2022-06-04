@@ -1,13 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
 #include "ECommunityGoalIndex.h"
+#include "Engine/DataAsset.h"
 #include "CommunityGoalSettings.generated.h"
 
-class UCommunityGoalFaction;
 class UCommunityGoal;
+class UCommunityGoalFaction;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UCommunityGoalSettings : public UDataAsset {
     GENERATED_BODY()
 public:

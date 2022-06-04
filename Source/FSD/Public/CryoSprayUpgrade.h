@@ -6,10 +6,10 @@
 #include "UpgradeValues.h"
 #include "CryoSprayUpgrade.generated.h"
 
-class AItem;
 class AFSDPlayerState;
+class AItem;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UCryoSprayUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

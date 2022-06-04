@@ -8,7 +8,7 @@
 class UObject;
 class UFloatPerkAsset;
 
-UCLASS()
+UCLASS(Blueprintable)
 class UFloatPerkAsset : public UPerkAsset {
     GENERATED_BODY()
 public:

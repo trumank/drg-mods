@@ -4,8 +4,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "EnemyHealthComponent.h"
-#include "ArmorHealthDamageComponent.h"
 #include "WeakpointGlowComponent.h"
+#include "ArmorHealthDamageComponent.h"
 
 
 void ATowerEventModule::HideArmorPlates() {

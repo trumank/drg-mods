@@ -5,11 +5,11 @@
 #include "UObject/NoExportTypes.h"
 #include "NoiseFunctionLibrary.generated.h"
 
-class UObject;
 class USceneComponent;
+class UObject;
 class AActor;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UNoiseFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

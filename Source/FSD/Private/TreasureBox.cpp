@@ -1,7 +1,7 @@
 #include "TreasureBox.h"
 #include "Net/UnrealNetwork.h"
-#include "RepairableComponent.h"
 #include "RepairableUsable.h"
+#include "RepairableComponent.h"
 #include "SingleUsableComponent.h"
 #include "TerrainPlacementComponent.h"
 #include "Components/StaticMeshComponent.h"

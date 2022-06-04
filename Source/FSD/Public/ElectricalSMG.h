@@ -6,14 +6,14 @@
 #include "Engine/NetSerialization.h"
 #include "ElectricalSMG.generated.h"
 
-class UPrimitiveComponent;
-class UStatusEffect;
-class USoundCue;
-class UParticleSystem;
-class UHealthComponentBase;
 class UFSDPhysicalMaterial;
+class UHealthComponentBase;
+class UStatusEffect;
+class UParticleSystem;
+class USoundCue;
+class UPrimitiveComponent;
 
-UCLASS()
+UCLASS(Blueprintable)
 class AElectricalSMG : public AAmmoDrivenWeapon {
     GENERATED_BODY()
 public:

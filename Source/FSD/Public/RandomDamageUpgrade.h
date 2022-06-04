@@ -6,10 +6,10 @@
 #include "UpgradeValues.h"
 #include "RandomDamageUpgrade.generated.h"
 
-class AFSDPlayerState;
 class AActor;
+class AFSDPlayerState;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class URandomDamageUpgrade : public UItemUpgrade {
     GENERATED_BODY()
 public:

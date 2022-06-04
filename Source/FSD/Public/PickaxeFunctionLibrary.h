@@ -9,7 +9,7 @@ class UObject;
 class UPickaxePart;
 class UItemID;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UPickaxeFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

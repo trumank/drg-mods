@@ -7,7 +7,7 @@
 
 class UTerrainMaterialBase;
 
-UCLASS(EditInlineNew, meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, EditInlineNew, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UMeshCarverComponent : public UStaticMeshComponent {
     GENERATED_BODY()
 public:

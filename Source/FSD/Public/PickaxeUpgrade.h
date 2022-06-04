@@ -1,15 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "StandardItemUpgrade.h"
 #include "EPickaxeUpgradeType.h"
+#include "StandardItemUpgrade.h"
 #include "UpgradeValues.h"
 #include "PickaxeUpgrade.generated.h"
 
-class AItem;
 class AFSDPlayerState;
+class AItem;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UPickaxeUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

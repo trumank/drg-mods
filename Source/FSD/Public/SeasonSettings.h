@@ -3,11 +3,11 @@
 #include "Engine/DataAsset.h"
 #include "SeasonSettings.generated.h"
 
-class USeason;
 class USeasonChallenge;
+class USeason;
 class UCurveFloat;
 
-UCLASS(Blueprintable, BlueprintType)
+UCLASS(Blueprintable)
 class USeasonSettings : public UDataAsset {
     GENERATED_BODY()
 public:

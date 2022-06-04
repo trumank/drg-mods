@@ -5,9 +5,9 @@
 #include "Components/CapsuleComponent.h"
 
 class UHealthComponentBase;
+class AActor;
 class AFSDPlayerState;
 class UPrimitiveComponent;
-class AActor;
 class AGuntowerModule;
 
 void AGuntowerActivationPlatform::ShutDown() {

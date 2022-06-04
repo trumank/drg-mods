@@ -6,11 +6,11 @@
 
 class UAttackerPositioningComponent;
 class UObject;
+class AActor;
 class APawn;
 class APlayerCharacter;
-class AActor;
 
-UCLASS(BlueprintType)
+UCLASS(Blueprintable)
 class UAIFunctionLibrary : public UBlueprintFunctionLibrary {
     GENERATED_BODY()
 public:

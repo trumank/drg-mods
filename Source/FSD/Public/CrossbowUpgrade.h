@@ -6,11 +6,11 @@
 #include "UpgradeValues.h"
 #include "CrossbowUpgrade.generated.h"
 
-class AItem;
 class AFSDPlayerState;
+class AItem;
 class ACrossbowProjectileBase;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UCrossbowUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

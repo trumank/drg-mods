@@ -1,27 +1,27 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EEnemyHealthScaling.h"
 #include "EHealthbarType.h"
 #include "Components/ActorComponent.h"
-#include "SubHealthComponentDelegateDelegate.h"
-#include "DamageSigDelegate.h"
-#include "Health.h"
+#include "EEnemyHealthScaling.h"
 #include "HealthChangedSigDelegate.h"
+#include "Health.h"
+#include "DamageSigDelegate.h"
+#include "SubHealthComponentDelegateDelegate.h"
 #include "SubHealthComponent.generated.h"
 
 class AActor;
 
-UCLASS(Abstract, BlueprintType, meta=(BlueprintSpawnableComponent))
+UCLASS(Abstract, Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class USubHealthComponent : public UActorComponent, public IHealth {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FDamageSig OnDamageTaken;
     
-    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FHealthChangedSig OnHealthChanged;
     
-    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FSubHealthComponentDelegate OnCanTakeDamageChanged;
     
 protected:
@@ -53,7 +53,7 @@ public:
     
     
     // Fix for true pure virtual functions not being implemented
-    /*UFUNCTION(BlueprintCallable)*/
+    // UFUNCTION(BlueprintCallable)
     AActor* GetOwner() const override PURE_VIRTUAL(GetOwner, return NULL;);
     
     UFUNCTION(BlueprintCallable)

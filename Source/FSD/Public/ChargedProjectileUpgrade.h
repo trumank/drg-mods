@@ -2,15 +2,15 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "StandardItemUpgrade.h"
-#include "UpgradeValues.h"
 #include "EChargedProjectileUpgrades.h"
+#include "UpgradeValues.h"
 #include "ChargedProjectileUpgrade.generated.h"
 
+class AFSDPlayerState;
 class AActor;
 class AItem;
-class AFSDPlayerState;
 
-UCLASS(EditInlineNew, MinimalAPI)
+UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UChargedProjectileUpgrade : public UStandardItemUpgrade {
     GENERATED_BODY()
 public:

@@ -8,10 +8,10 @@
 #include "ECarveFilterType.h"
 #include "DebrisStaticCarved.generated.h"
 
-class UTerrainMaterial;
 class AActor;
+class UTerrainMaterial;
 
-UCLASS(EditInlineNew)
+UCLASS(Blueprintable, EditInlineNew)
 class UDebrisStaticCarved : public UDebrisBase {
     GENERATED_BODY()
 public:

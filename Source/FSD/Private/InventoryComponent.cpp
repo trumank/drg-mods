@@ -88,6 +88,9 @@ void UInventoryComponent::AnimationNotify1() {
 void UInventoryComponent::All_PlayThrowMontage_Implementation(AActor* Item) {
 }
 
+void UInventoryComponent::AddItemClass(TSubclassOf<AItem> itemClass) {
+}
+
 void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     

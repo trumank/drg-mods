@@ -5,11 +5,11 @@
 #include "WalkingStateComponent.generated.h"
 
 class USoundBase;
-class UTrackBuilderMovement;
-class APlayerCharacter;
 class UAudioComponent;
+class APlayerCharacter;
+class UTrackBuilderMovement;
 
-UCLASS(MinimalAPI, meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, MinimalAPI, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UWalkingStateComponent : public UCharacterStateComponent {
     GENERATED_BODY()
 public:
@@ -38,10 +38,10 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     USoundBase* IceSliding;
     
-    UPROPERTY(BlueprintReadWrite, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
     UAudioComponent* AudioComponentSliding;
     
-    UPROPERTY(BlueprintReadWrite, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
     UAudioComponent* AudioComponentIceSliding;
     
 public:

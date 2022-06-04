@@ -2,12 +2,12 @@
 #include "CoreMinimal.h"
 #include "Targetable.h"
 #include "GameFramework/Actor.h"
-#include "GameplayTagAssetInterface.h"
 #include "GameplayTagContainer.h"
+#include "GameplayTagAssetInterface.h"
 #include "GameplayTagContainer.h"
 #include "TargetDummyPawn.generated.h"
 
-UCLASS(Abstract)
+UCLASS(Abstract, Blueprintable)
 class ATargetDummyPawn : public AActor, public IGameplayTagAssetInterface, public ITargetable {
     GENERATED_BODY()
 public:

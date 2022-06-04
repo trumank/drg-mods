@@ -4,8 +4,8 @@
 #include "CharacterViewInfo.generated.h"
 
 class APlayerCharacter;
-class UVanityItem;
 class UVictoryPose;
+class UVanityItem;
 
 USTRUCT(BlueprintType)
 struct FCharacterViewInfo {

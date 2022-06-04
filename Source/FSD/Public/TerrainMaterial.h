@@ -6,16 +6,16 @@
 #include "UObject/NoExportTypes.h"
 #include "TerrainMaterial.generated.h"
 
+class USoundCue;
+class UResourceData;
+class UDialogDataAsset;
+class UFXSystemComponent;
 class UMaterialInstance;
 class UFXSystemAsset;
-class UDialogDataAsset;
-class UResourceData;
 class UTerrainType;
-class USoundCue;
-class UFXSystemComponent;
 class UObject;
 
-UCLASS()
+UCLASS(Blueprintable)
 class FSD_API UTerrainMaterial : public UTerrainMaterialCore {
     GENERATED_BODY()
 public:

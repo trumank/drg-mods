@@ -5,16 +5,16 @@
 #include "UObject/NoExportTypes.h"
 #include "ResourcePouch.generated.h"
 
-class AActor;
 class UCarriableInstantUsable;
 class USoundCue;
+class AActor;
 
-UCLASS()
+UCLASS(Blueprintable)
 class AResourcePouch : public ACarriableItem {
     GENERATED_BODY()
 public:
 protected:
-    UPROPERTY(BlueprintReadWrite, Export, VisibleAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
     UCarriableInstantUsable* Usable;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

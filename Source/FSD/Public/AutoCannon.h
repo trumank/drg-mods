@@ -8,7 +8,7 @@
 class UAnimMontage;
 class UStatusEffect;
 
-UCLASS(Abstract)
+UCLASS(Abstract, Blueprintable)
 class AAutoCannon : public AAmmoDrivenWeapon {
     GENERATED_BODY()
 public:

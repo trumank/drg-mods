@@ -1,11 +1,11 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "BehaviorTree/BTService.h"
 #include "BehaviorTree/BehaviorTreeTypes.h"
+#include "BehaviorTree/BTService.h"
 #include "GameplayTagContainer.h"
 #include "BTService_FindAttackable.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class UBTService_FindAttackable : public UBTService {
     GENERATED_BODY()
 public:

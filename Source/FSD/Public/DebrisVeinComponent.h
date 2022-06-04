@@ -7,7 +7,7 @@
 class UTerrainMaterial;
 class UVeinResourceCreator;
 
-UCLASS(meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UDebrisVeinComponent : public UDebrisActorComponent {
     GENERATED_BODY()
 public:
