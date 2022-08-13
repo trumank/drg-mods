@@ -89,7 +89,7 @@ public:
     UFUNCTION(BlueprintCallable)
     static TArray<UVanityItem*> GetVanityItems(UObject* WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, UPlayerCharacterID* characterID);
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintImplementableEvent)
     UVanityItem* GetVanityItem(const FGuid& VanityID) const;
     
     UFUNCTION(BlueprintCallable)
@@ -98,7 +98,7 @@ public:
     UFUNCTION(BlueprintCallable)
     static TArray<UVanityItem*> GetLockedVanityItems(UObject* WorldContextObject, EVanitySlot Slot, UPlayerCharacterID* characterID);
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintImplementableEvent)
     TArray<UVanityItem*> GetItems(EVanitySlot Slot, bool onlyStoreItems) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
