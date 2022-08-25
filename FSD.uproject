@@ -338,10 +338,14 @@
 		}
 	],
 	"TargetPlatforms": [
-		"Windows",
-		"Linux",
+		"Android",
+		"HoloLens",
+		"IOS",
 		"LinuxNoEditor",
 		"LinuxAArch64NoEditor",
+		"Lumin",
+		"MacNoEditor",
+		"TVOS",
 		"WindowsNoEditor"
 	]
 }
