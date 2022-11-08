@@ -4,13 +4,13 @@
 #include "AFlyingBug.h"
 #include "JellyBreeder.generated.h"
 
-class UPhysicalMaterial;
+class AActor;
 class UParticleSystem;
 class UAnimSequenceBase;
 class USoundBase;
-class AProjectile;
 class UEnemyDescriptor;
-class AActor;
+class AProjectile;
+class UPhysicalMaterial;
 
 UCLASS(Blueprintable)
 class AJellyBreeder : public AAFlyingBug {

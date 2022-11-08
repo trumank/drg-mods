@@ -4,9 +4,9 @@
 #include "GatlingGun.generated.h"
 
 class UFSDPhysicalMaterial;
-class AActor;
 class UFXSystemAsset;
 class UDamageComponent;
+class AActor;
 
 UCLASS(Blueprintable)
 class AGatlingGun : public ABeltDrivenWeapon {
@@ -46,10 +46,10 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float HotShellsTemperatureRequired;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDamageComponent* DamageComponent;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDamageComponent* BarrelProximityDamageComponent;
     
 public:
@@ -57,7 +57,7 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     
 protected:
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_SetHotShellsOn(bool hotShellsIsOn);
     
     UFUNCTION(BlueprintCallable)

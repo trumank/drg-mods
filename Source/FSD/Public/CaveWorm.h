@@ -5,10 +5,10 @@
 #include "UObject/NoExportTypes.h"
 #include "CaveWorm.generated.h"
 
-class USimpleHealthComponent;
 class UResourceData;
-class UObject;
 class AResourceChunk;
+class USimpleHealthComponent;
+class UObject;
 class UHealthComponentBase;
 
 UCLASS(Blueprintable, MinimalAPI)
@@ -16,7 +16,7 @@ class ACaveWorm : public ADeepPathfinderCharacter {
     GENERATED_BODY()
 public:
 protected:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USimpleHealthComponent* Health;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -27,7 +27,7 @@ protected:
     
 public:
     ACaveWorm();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     static AResourceChunk* SpawnResource(UObject* WorldContext, UResourceData* Data, float Size, FTransform Transform, FVector Impulse, FVector DropOffset);
     
 protected:

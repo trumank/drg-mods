@@ -1,19 +1,19 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "UObject/NoExportTypes.h"
 #include "Engine/DataAsset.h"
+#include "UObject/NoExportTypes.h"
 #include "CharacterSettings.generated.h"
 
+class APlayerCharacter;
 class UPlayerCharacterID;
-class UDialogDataAsset;
 class UInventoryList;
 class USkeletalMesh;
-class APlayerCharacter;
 class ACarriableItem;
 class UUseAnimationSetting;
 class UCampaignManager;
 class UCharacterVanityItems;
+class UDialogDataAsset;
 class UDebrisPositioning;
 class UTerrainPlacementComponent;
 class UPlayerCharacterData;
@@ -25,9 +25,6 @@ class UCharacterSettings : public UDataAsset {
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<TSoftClassPtr<APlayerCharacter>> RankedHeroClasses;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    TArray<TSubclassOf<APlayerCharacter>> LoadedClasses;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FText> PlayerRankNames;
@@ -58,6 +55,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     USkeletalMesh* DefaultHead;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    USkeletalMesh* HeadForMasks;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     USkeletalMesh* ThickNeck;

@@ -5,14 +5,14 @@
 #include "FacilityTurretController.generated.h"
 
 class AActor;
-class UHealthComponentBase;
 class UAIPerceptionComponent;
+class UHealthComponentBase;
 
 UCLASS(Blueprintable)
 class AFacilityTurretController : public AFSDAIController {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UAIPerceptionComponent* Perception;
     
 private:

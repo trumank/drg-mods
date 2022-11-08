@@ -4,8 +4,8 @@
 #include "GenerationItem.h"
 #include "SpawnActorGenerationItem.generated.h"
 
-class AActor;
 class UBoxComponent;
+class AActor;
 
 UCLASS(Blueprintable)
 class ASpawnActorGenerationItem : public AGenerationItem {
@@ -15,7 +15,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<AActor> ActorToSpawn;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UBoxComponent* Box;
     
 public:

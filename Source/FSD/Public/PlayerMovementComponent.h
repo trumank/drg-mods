@@ -3,10 +3,10 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PlayerMovementComponent.generated.h"
 
-class AActor;
-class UCharacterStateComponent;
 class USoundBase;
 class APlayerCharacter;
+class UCharacterStateComponent;
+class AActor;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UPlayerMovementComponent : public UCharacterMovementComponent {
@@ -37,7 +37,7 @@ public:
     void RemoveGravityModifier(AActor* SourceActor);
     
     UFUNCTION(BlueprintCallable)
-    void AddGravityModifier(AActor* SourceActor, float effect);
+    void AddGravityModifier(AActor* SourceActor, float Effect);
     
 };
 

@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "StandardItemUpgrade.h"
-#include "UpgradeValues.h"
 #include "ERevolerUpgrades.h"
+#include "UpgradeValues.h"
 #include "RevolverUpgrade.generated.h"
 
 class AFSDPlayerState;

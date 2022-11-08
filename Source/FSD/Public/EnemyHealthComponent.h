@@ -9,9 +9,6 @@ UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UEnemyHealthComponent : public UHealthComponent {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector KillImpactNormal;
-    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     EEnemyHealthScaling EnemyHealthScaling;
     
@@ -39,8 +36,8 @@ protected:
     
 public:
     UEnemyHealthComponent();
-    // UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetMaxHealth() const;
+    /*UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetMaxHealth() const;*/
     
 };
 

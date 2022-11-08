@@ -4,10 +4,10 @@
 #include "UObject/NoExportTypes.h"
 #include "ResourceChunk.generated.h"
 
+class APlayerCharacter;
 class USimpleObjectInfoComponent;
 class USoundCue;
 class UResourceData;
-class APlayerCharacter;
 
 UCLASS(Blueprintable)
 class FSD_API AResourceChunk : public AFSDPhysicsActor {
@@ -23,7 +23,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool CanBeCollected;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USimpleObjectInfoComponent* InfoComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))

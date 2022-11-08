@@ -5,12 +5,12 @@
 #include "EliminationTarget.h"
 #include "EliminationObjective.generated.h"
 
-class UHealthComponentBase;
-class AActor;
 class UDebrisPositioning;
+class AActor;
 class UDebrisBase;
 class UCaveInfluencer;
 class AFSDPawn;
+class UHealthComponentBase;
 class UEnemyDescriptor;
 
 UCLASS(Abstract, Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

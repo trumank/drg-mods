@@ -1,26 +1,26 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
+#include "EEnemyDescriptorCheatClass.h"
 #include "Engine/DataAsset.h"
-#include "SpawnRarityItem.h"
-#include "EnemyDebris.h"
-#include "EEnemySignificance.h"
+#include "GameplayTagContainer.h"
 #include "EVeteranScaling.h"
-#include "DeepPathFinderType.h"
+#include "EEnemySignificance.h"
 #include "UObject/NoExportTypes.h"
 #include "ECreatureSize.h"
-#include "GameplayTagContainer.h"
-#include "EEnemyDescriptorCheatClass.h"
+#include "EnemyDebris.h"
+#include "DeepPathFinderType.h"
+#include "SpawnRarityItem.h"
 #include "EnemyDescriptor.generated.h"
 
 class UMissionTemplate;
-class APawn;
-class UEnemyID;
 class UEnemyDescriptor;
+class UEnemyID;
+class APawn;
 class UBiome;
-class AActor;
 class UDebrisPositioning;
 class UCaveInfluencer;
+class AActor;
 
 UCLASS(Blueprintable)
 class FSD_API UEnemyDescriptor : public UDataAsset {
@@ -57,8 +57,8 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool UsesSpawnEffects;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    int32 CreatureSize;
+    UPROPERTY(EditAnywhere)
+    ECreatureSize CreatureSize;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDebrisPositioning* Positioning;

@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "AIController.h"
-#include "MessageBehaviorTreeDelegate.h"
 #include "DelegateDelegate.h"
+#include "MessageBehaviorTreeDelegate.h"
+#include "AIController.h"
 #include "Engine/EngineTypes.h"
 #include "FSDAIController.generated.h"
 

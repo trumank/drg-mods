@@ -9,10 +9,10 @@
 #include "ResourceDebris.h"
 #include "CarvedResourceCreator.generated.h"
 
-class UTerrainMaterial;
 class UCarvedResourceData;
-class AActor;
 class UDebrisPositioning;
+class UTerrainMaterial;
+class AActor;
 
 UCLASS(Blueprintable, EditInlineNew)
 class UCarvedResourceCreator : public UResourceCreator {

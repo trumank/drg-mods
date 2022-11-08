@@ -6,8 +6,8 @@
 #include "PushSatusEffectDamageBonusUpgrade.generated.h"
 
 class UStatusEffect;
-class AActor;
 class AFSDPlayerState;
+class AActor;
 
 UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UPushSatusEffectDamageBonusUpgrade : public UItemUpgrade {

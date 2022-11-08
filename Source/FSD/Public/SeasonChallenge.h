@@ -3,12 +3,12 @@
 #include "Templates/SubclassOf.h"
 #include "SavableDataAsset.h"
 #include "TrackedStatInfo.h"
-#include "ChallengeVariation.h"
 #include "UObject/NoExportTypes.h"
+#include "ChallengeVariation.h"
 #include "SeasonChallenge.generated.h"
 
-class UTexture2D;
 class USeasonChallenge;
+class UTexture2D;
 class UCampaign;
 
 UCLASS(Blueprintable)

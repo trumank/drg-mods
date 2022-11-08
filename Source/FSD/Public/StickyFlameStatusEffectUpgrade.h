@@ -6,8 +6,8 @@
 #include "StickyFlameStatusEffectUpgrade.generated.h"
 
 class UStatusEffect;
-class AActor;
 class AFSDPlayerState;
+class AActor;
 
 UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UStickyFlameStatusEffectUpgrade : public UItemUpgrade {

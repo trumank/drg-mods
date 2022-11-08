@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
 #include "ResourceChangedSignatureDelegate.h"
+#include "Components/ActorComponent.h"
 #include "ResourceAddedSignatureDelegate.h"
 #include "ResourceFullSignatureDelegate.h"
 #include "ResourceAddedDelegate.h"

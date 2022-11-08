@@ -6,8 +6,9 @@
 #include "ItemID.generated.h"
 
 class AActor;
-class UItemData;
+class UItemSkin;
 class UPlayerCharacterID;
+class UItemData;
 class AItem;
 
 UCLASS(Blueprintable)
@@ -40,6 +41,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     AItem* GetItem() const;
+    
+    UFUNCTION(BlueprintCallable)
+    TArray<UItemSkin*> GetAllSkins();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     TSubclassOf<AActor> GetActorClass() const;

@@ -11,9 +11,9 @@ TArray<UVanityItem*> UCharacterVanityItems::GetVanityItems(UObject* WorldContext
     return TArray<UVanityItem*>();
 }
 
-// UVanityItem* UCharacterVanityItems::GetVanityItem(const FGuid& VanityID) const {
-//     return NULL;
-// }
+UVanityItem* UCharacterVanityItems::GetVanityItem(const FGuid& VanityID) const {
+    return NULL;
+}
 
 TArray<UVanityItem*> UCharacterVanityItems::GetUnLockedVanityItems(UObject* WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, UPlayerCharacterID* characterID) {
     return TArray<UVanityItem*>();
@@ -23,9 +23,9 @@ TArray<UVanityItem*> UCharacterVanityItems::GetLockedVanityItems(UObject* WorldC
     return TArray<UVanityItem*>();
 }
 
-// TArray<UVanityItem*> UCharacterVanityItems::GetItems(EVanitySlot Slot, bool onlyStoreItems) const {
-//     return TArray<UVanityItem*>();
-// }
+TArray<UVanityItem*> UCharacterVanityItems::GetItems(EVanitySlot Slot, bool onlyStoreItems) const {
+    return TArray<UVanityItem*>();
+}
 
 UVanityItem* UCharacterVanityItems::GetDefaultVanityItem(UObject* WorldContext, EVanitySlot Slot, UPlayerCharacterID* characterID) {
     return NULL;

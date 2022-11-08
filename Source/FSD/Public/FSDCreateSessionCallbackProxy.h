@@ -4,9 +4,9 @@
 #include "Net/OnlineBlueprintCallProxyBase.h"
 #include "FSDCreateSessionCallbackProxy.generated.h"
 
-class APlayerController;
-class UFSDCreateSessionCallbackProxy;
 class UObject;
+class UFSDCreateSessionCallbackProxy;
+class APlayerController;
 
 UCLASS(Blueprintable, MinimalAPI)
 class UFSDCreateSessionCallbackProxy : public UOnlineBlueprintCallProxyBase {
@@ -19,7 +19,7 @@ public:
     FEmptyOnlineDelegate OnFailure;
     
     UFSDCreateSessionCallbackProxy();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static UFSDCreateSessionCallbackProxy* FSDCreateSession(UObject* WorldContextObject, APlayerController* PlayerController, int32 PublicConnections, bool bUseLAN, bool bFriendsOnly);
     
 };

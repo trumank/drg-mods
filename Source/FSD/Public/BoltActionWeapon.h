@@ -1,19 +1,19 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "BoltActionWeaponFullyFocusedDelegateDelegate.h"
 #include "AmmoDrivenWeapon.h"
+#include "BoltActionWeaponFullyFocusedDelegateDelegate.h"
 #include "TracerData.h"
 #include "BoltActionWeapon.generated.h"
 
-class UParticleSystem;
-class UHitscanBaseComponent;
 class UDamageComponent;
+class UHitscanBaseComponent;
 class UStatusEffect;
 class USoundCue;
-class UHealthComponentBase;
+class UParticleSystem;
 class AActor;
 class UFSDPhysicalMaterial;
+class UHealthComponentBase;
 class UPrimitiveComponent;
 
 UCLASS(Abstract, Blueprintable)
@@ -27,10 +27,10 @@ public:
     FBoltActionWeaponFullyFocusedDelegate FocusLostEvent;
     
 protected:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UDamageComponent* DamageComponent;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UHitscanBaseComponent* HitscanComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -100,6 +100,9 @@ protected:
     float AimedShotStaggerChance;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float AimedShotWeakpointDamageBonusMultiplier;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float AimedWeakspotKilLRange;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -131,13 +134,13 @@ protected:
     UFUNCTION(BlueprintCallable)
     void SetOverheated(bool isOverheated);
     
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_SetIsMovementSlowed(bool bisMovementSlowed);
     
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_SetIsLatestShotFocused(bool bisShotFocused);
     
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_SetIsChargingShot(bool bisCharging);
     
     UFUNCTION(BlueprintCallable)

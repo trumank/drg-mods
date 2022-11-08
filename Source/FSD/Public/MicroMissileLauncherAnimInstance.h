@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "CopyBoneVisibilityCompleted.h"
 #include "Animation/AnimInstance.h"
+#include "CopyBoneVisibilityCompleted.h"
 #include "MicroMissileLauncherAnimInstance.generated.h"
 
 class AMicroMissileLauncher;

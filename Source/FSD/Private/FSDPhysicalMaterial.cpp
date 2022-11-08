@@ -2,8 +2,8 @@
 
 class UObject;
 class UFXSystemComponent;
-class UFSDPhysicalMaterial;
 class UPrimitiveComponent;
+class UFSDPhysicalMaterial;
 
 UFXSystemComponent* UFSDPhysicalMaterial::SpawnImpactParticlesFromHit(UObject* WorldContextObject, const FHitResult& HitResult) {
     return NULL;
@@ -34,6 +34,7 @@ UFSDPhysicalMaterial::UFSDPhysicalMaterial() {
     this->ImpactDecals.AddDefaulted(3);
     this->FirstPersonDamageIndicatorSound = NULL;
     this->IsWeakPoint = false;
+    this->AllowFrozenBonus = true;
     this->IsSubhealthCollider = false;
     this->DamageMultiplier = 1.00f;
     this->FootstepParticle = NULL;

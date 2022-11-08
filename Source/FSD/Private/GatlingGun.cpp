@@ -2,13 +2,10 @@
 #include "Net/UnrealNetwork.h"
 #include "DamageComponent.h"
 
-class UFSDPhysicalMaterial;
 class AActor;
+class UFSDPhysicalMaterial;
 
 void AGatlingGun::Server_SetHotShellsOn_Implementation(bool hotShellsIsOn) {
-}
-bool AGatlingGun::Server_SetHotShellsOn_Validate(bool hotShellsIsOn) {
-    return true;
 }
 
 void AGatlingGun::OnRep_HotShellsTracerOn() {

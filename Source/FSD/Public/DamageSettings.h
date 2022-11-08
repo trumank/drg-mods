@@ -7,8 +7,8 @@
 #include "DamageSettings.generated.h"
 
 class UStatusEffect;
-class UDamageComponent;
 class UNiagaraSystem;
+class UDamageComponent;
 class USoundCue;
 class UDamageTag;
 class UDamageImpulse;
@@ -46,6 +46,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<UStatusEffect> TemperatureShockFromBurningStatusEffect;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float InfectionPerDamagePoint;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDamageComponent* ArmorShatterDamage;

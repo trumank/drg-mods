@@ -7,8 +7,8 @@
 #include "ProjectileUpgrade.generated.h"
 
 class AFSDPlayerState;
-class UItemUpgradeCondition;
 class AActor;
+class UItemUpgradeCondition;
 
 UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class UProjectileUpgrade : public UStandardItemUpgrade {

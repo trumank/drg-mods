@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "ExampleUpdatedDelegateDelegate.h"
 #include "GameFramework/Actor.h"
+#include "ExampleUpdatedDelegateDelegate.h"
 #include "ExampleActor.generated.h"
 
 UCLASS(Blueprintable)
@@ -17,7 +17,7 @@ protected:
     
 public:
     AExampleActor();
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_ExampleFunction();
     
     UFUNCTION(BlueprintCallable, Client, Reliable)

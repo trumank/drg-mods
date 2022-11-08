@@ -2,9 +2,9 @@
 #include "Templates/SubclassOf.h"
 
 class UStatusEffect;
-class UHealthComponentBase;
-class AActor;
 class UObject;
+class AActor;
+class UHealthComponentBase;
 
 bool UStatusEffectsComponent::TryPushActiveStatusEffect(TSubclassOf<UStatusEffect> StatusEffect, AActor* Target, AActor* Owner) {
     return false;
@@ -20,6 +20,9 @@ bool UStatusEffectsComponent::PushActiveStatusEffectInstance(UStatusEffect* Stat
 
 bool UStatusEffectsComponent::PushActiveStatusEffect(TSubclassOf<UStatusEffect> StatusEffect, AActor* Owner) {
     return false;
+}
+
+void UStatusEffectsComponent::PopAllActiveStatusEffectsOfType(TSubclassOf<UStatusEffect> StatusEffect, AActor* Owner) {
 }
 
 void UStatusEffectsComponent::PopAllActiveStatusEffects(AActor* Owner) {

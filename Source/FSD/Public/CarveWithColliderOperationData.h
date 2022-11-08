@@ -6,8 +6,8 @@
 #include "EPreciousMaterialOptions.h"
 #include "CarveWithColliderOperationData.generated.h"
 
-class UTerrainMaterial;
 class UStaticMesh;
+class UTerrainMaterial;
 
 USTRUCT(BlueprintType)
 struct FCarveWithColliderOperationData {

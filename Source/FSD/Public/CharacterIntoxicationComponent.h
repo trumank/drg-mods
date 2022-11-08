@@ -2,13 +2,13 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "EIntoxicationState.h"
-#include "EDrinkableAlcoholStrength.h"
 #include "LerpingPercent.h"
 #include "CountDownFloat.h"
+#include "EDrinkableAlcoholStrength.h"
 #include "CharacterIntoxicationComponent.generated.h"
 
-class UCurveFloat;
 class APlayerCharacter;
+class UCurveFloat;
 class UDrinkableDataAsset;
 
 UCLASS(Blueprintable, MinimalAPI, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

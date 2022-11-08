@@ -3,8 +3,8 @@
 #include "EInputKeys.h"
 #include "Components/ActorComponent.h"
 #include "DroneFinishedUsingDelegate.h"
-#include "DelegateEventDelegate.h"
 #include "DroneUseProgressDelegate.h"
+#include "DelegateEventDelegate.h"
 #include "DroneUseComponent.generated.h"
 
 class APlayerCharacter;

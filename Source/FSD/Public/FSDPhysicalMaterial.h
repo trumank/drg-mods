@@ -1,22 +1,22 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
+#include "DecalData.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/EngineTypes.h"
-#include "DecalData.h"
 #include "UObject/NoExportTypes.h"
 #include "FSDPhysicalMaterial.generated.h"
 
-class UReactiveTerrain;
-class USoundCue;
-class UMaterialInstance;
-class UFXSystemAsset;
-class UNiagaraSystem;
 class UFXSystemComponent;
+class UFXSystemAsset;
+class UMaterialInstance;
+class USoundCue;
+class UPrimitiveComponent;
+class UNiagaraSystem;
+class UReactiveTerrain;
 class UObject;
 class UFSDPhysicalMaterial;
-class UPrimitiveComponent;
 
 UCLASS(Blueprintable, CollapseCategories)
 class UFSDPhysicalMaterial : public UPhysicalMaterial {
@@ -75,6 +75,9 @@ protected:
     bool IsWeakPoint;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool AllowFrozenBonus;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool IsSubhealthCollider;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -112,10 +115,10 @@ protected:
     
 public:
     UFSDPhysicalMaterial();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static UFXSystemComponent* SpawnImpactParticlesFromHit(UObject* WorldContextObject, const FHitResult& HitResult);
     
-    UFUNCTION(BlueprintCallable, BlueprintPure=false)
+    UFUNCTION(BlueprintCallable, BlueprintPure=false, meta=(WorldContext="WorldContextObject"))
     UFXSystemComponent* SpawnImpactParticles(UObject* WorldContextObject, FVector Location, FVector Normal) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)

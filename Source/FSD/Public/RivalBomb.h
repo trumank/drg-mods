@@ -5,10 +5,10 @@
 #include "UObject/NoExportTypes.h"
 #include "RivalBomb.generated.h"
 
-class UDebrisPositioning;
 class UCurveFloat;
 class ARivalBombNode;
 class AGem;
+class UDebrisPositioning;
 
 UCLASS(Blueprintable)
 class ARivalBomb : public AGameEvent {

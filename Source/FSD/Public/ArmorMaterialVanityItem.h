@@ -4,12 +4,12 @@
 #include "ArmorMaterialVanityItem.generated.h"
 
 class UMaterialInterface;
+class UMaterialInstanceDynamic;
 class UDynamicIcon;
 class UMaterialInstanceConstant;
 class UArmorVanityItem;
-class UMaterialInstance;
-class UMaterialInstanceDynamic;
 class UObject;
+class UMaterialInstance;
 class UArmorMaterialVanityItem;
 
 UCLASS(Blueprintable, EditInlineNew)

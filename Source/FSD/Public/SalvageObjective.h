@@ -8,14 +8,14 @@
 #include "SalvageObjective.generated.h"
 
 class UDebrisPositioning;
-class UGemResourceData;
-class UDebrisBase;
 class AMiningPod;
+class UDebrisBase;
+class UGemResourceData;
 class AMiniMule;
+class AActor;
 class URepairableComponent;
 class AProceduralSetup;
 class UCurveFloat;
-class AActor;
 
 UCLASS(Abstract, Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class FSD_API USalvageObjective : public UObjective {

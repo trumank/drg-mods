@@ -1,10 +1,10 @@
 #include "EnemySpawnManager.h"
 #include "Templates/SubclassOf.h"
 
-class APawn;
-class UStatusEffect;
-class UEnemyDescriptor;
 class UHealthComponentBase;
+class APawn;
+class UEnemyDescriptor;
+class UStatusEffect;
 class AActor;
 
 void UEnemySpawnManager::SpawnerDestroyed(APawn* Actor) {
@@ -37,6 +37,14 @@ void UEnemySpawnManager::OnMatchEnded() {
 
 bool UEnemySpawnManager::GetSpawningEnabled() const {
     return false;
+}
+
+APawn* UEnemySpawnManager::FindEnemyByClass(TSubclassOf<APawn> PawnClass, bool isSwarmerEnemy) const {
+    return NULL;
+}
+
+TArray<APawn*> UEnemySpawnManager::FindEnemiesByClass(TSubclassOf<APawn> PawnClass, bool isSwarmerEnemy) const {
+    return TArray<APawn*>();
 }
 
 void UEnemySpawnManager::EnemyDestroyed(AActor* Actor) {

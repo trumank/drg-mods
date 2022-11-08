@@ -1,13 +1,11 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "UObject/NoExportTypes.h"
 #include "LaserPointerTarget.h"
 #include "DroneControllerBase.generated.h"
 
 class APlayerCharacter;
 class ADroneBase;
-class AActor;
 
 UCLASS(Blueprintable)
 class ADroneControllerBase : public AAIController {
@@ -24,7 +22,7 @@ public:
     void OnShout(APlayerCharacter* ShoutingPlayer);
     
     UFUNCTION(BlueprintCallable)
-    void OnSecondaryLaserPointer(AActor* aTarget, const FVector& aLocation);
+    void OnSecondaryLaserPointer(const FLaserPointerTarget& HitInfo);
     
     UFUNCTION(BlueprintCallable)
     void OnSalute(APlayerCharacter* aCharacater);

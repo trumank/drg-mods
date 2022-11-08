@@ -1,14 +1,14 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "RequiredMissionItem.h"
-#include "Engine/DataAsset.h"
 #include "ECampaignMutators.h"
+#include "Engine/DataAsset.h"
+#include "RequiredMissionItem.h"
 #include "CampaignMission.generated.h"
 
-class UDialogDataAsset;
+class UMissionTemplate;
 class UPlanetZone;
 class UReward;
-class UMissionTemplate;
+class UDialogDataAsset;
 class UMissionWarning;
 
 UCLASS(Blueprintable, EditInlineNew)
@@ -22,7 +22,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FRequiredMissionItem mission;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     TArray<UReward*> Rewards;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

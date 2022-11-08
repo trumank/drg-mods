@@ -1,18 +1,18 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EVanitySlot.h"
-#include "UObject/NoExportTypes.h"
 #include "Engine/DataAsset.h"
+#include "UObject/NoExportTypes.h"
+#include "ResourceSpawner.h"
 #include "VanitySlotCharacter.h"
 #include "VanityMasterySettings.h"
-#include "ResourceSpawner.h"
+#include "EVanitySlot.h"
 #include "VanitySettings.generated.h"
 
-class UPlayerCharacterID;
 class UTexture2D;
 class UVanityItem;
 class UDLCBase;
 class UObject;
+class UPlayerCharacterID;
 
 UCLASS(Blueprintable)
 class FSD_API UVanitySettings : public UDataAsset {
@@ -54,13 +54,13 @@ protected:
     
 public:
     UVanitySettings();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static bool HasNewVanityNotification(UObject* WorldContextObject, EVanitySlot Slot, UPlayerCharacterID* characterID);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UTexture2D* GetVanityCategoryIcon(EVanitySlot Slot) const;
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static void GetUnlockedStoreVanityCount(UObject* WorldContextObject, EVanitySlot Slot, UPlayerCharacterID* characterID, int32& owned, int32& Total);
     
 };

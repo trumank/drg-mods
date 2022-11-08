@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "BaseArmorDamageComponent.h"
 #include "ArmorPrimitiveDestroyedDelegate.h"
-#include "ArmorPrimitiveDamagedDelegateDelegate.h"
 #include "CompositeArmorItem.h"
+#include "ArmorPrimitiveDamagedDelegateDelegate.h"
 #include "ArmorDamageInfo.h"
 #include "CompositeArmorComponent.generated.h"
 

@@ -2,11 +2,11 @@
 #include "Net/UnrealNetwork.h"
 #include "Templates/SubclassOf.h"
 
+class UStatusEffect;
 class UProjectileLauncherBaseComponent;
 class AProjectileBase;
-class UAnimMontage;
-class UStatusEffect;
 class AActor;
+class UAnimMontage;
 
 
 void ACrossbow::StartAmmoSwitch() {
@@ -25,7 +25,7 @@ int32 ACrossbow::GetTotalArrowCount(bool InDefaultArrowCount) const {
     return 0;
 }
 
-float ACrossbow::GetSpecialArrowEffectDuration(const TSubclassOf<UStatusEffect>& effect) const {
+float ACrossbow::GetSpecialArrowEffectDuration(const TSubclassOf<UStatusEffect>& Effect) const {
     return 0.0f;
 }
 

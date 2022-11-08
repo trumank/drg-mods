@@ -4,17 +4,23 @@
 #include "UObject/NoExportTypes.h"
 #include "ObjectInfoComponent.generated.h"
 
-class UDialogDataAsset;
-class UPrimitiveComponent;
-class UActorContextWidget;
-class APlayerController;
 class UTexture2D;
+class UPrimitiveComponent;
+class UDialogDataAsset;
+class APlayerController;
+class UActorContextWidget;
 
 UCLASS(Abstract, Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UObjectInfoComponent : public UActorComponent {
     GENERATED_BODY()
 public:
     UObjectInfoComponent();
+    UFUNCTION(BlueprintCallable)
+    bool HasMissionControlLookAtShout(const UPrimitiveComponent* TargetComponent) const;
+    
+    UFUNCTION(BlueprintCallable)
+    UDialogDataAsset* GetMissionControlLookAtShout(const UPrimitiveComponent* TargetComponent) const;
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UDialogDataAsset* GetLookAtShout(const UPrimitiveComponent* TargetComponent) const;
     

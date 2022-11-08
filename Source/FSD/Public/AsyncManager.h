@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "EAsyncLoadPriority.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "EAsyncPersistence.h"
 #include "AsyncLoadCompleteDelegateDelegate.h"
+#include "EAsyncPersistence.h"
 #include "UObject/NoExportTypes.h"
 #include "AsyncManager.generated.h"
 
@@ -20,13 +20,13 @@ protected:
 public:
     UAsyncManager();
     UFUNCTION(BlueprintCallable)
-    UClass* SyncLoadClass(const TSoftClassPtr<UObject>& Asset);
-    
-    UFUNCTION(BlueprintCallable)
     UObject* SyncLoadAsset(const TSoftObjectPtr<UObject>& Asset);
     
     UFUNCTION(BlueprintCallable)
     void ReleaseAllHandles();
+    
+    UFUNCTION(BlueprintCallable)
+    UClass* Receive_SyncLoadClass(TSoftClassPtr<UObject> Asset);
     
     UFUNCTION(BlueprintCallable)
     void AsyncLoadSoftObjects(const TArray<TSoftObjectPtr<UObject>>& Items, EAsyncPersistence persistence, const FAsyncLoadCompleteDelegate& OnLoadComplete, EAsyncLoadPriority Priority);

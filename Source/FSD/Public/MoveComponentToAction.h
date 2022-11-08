@@ -1,13 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
 #include "TickableActionBase.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "UObject/NoExportTypes.h"
 #include "MoveComponentToAction.generated.h"
 
-class UObject;
-class USceneComponent;
 class UMoveComponentToAction;
+class USceneComponent;
+class UObject;
 
 UCLASS(Blueprintable)
 class UMoveComponentToAction : public UTickableActionBase {
@@ -25,7 +25,7 @@ protected:
 public:
     UMoveComponentToAction();
 protected:
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     static UMoveComponentToAction* EaseComponentTo(UObject* WorldContext, USceneComponent* InComponent, FTransform InEndTransform, TEnumAsByte<EEasingFunc::Type> InEasingMode, bool InWorldSpace, float InDuration);
     
 };

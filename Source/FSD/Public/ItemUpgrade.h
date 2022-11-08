@@ -10,10 +10,10 @@
 #include "CraftingCost.h"
 #include "ItemUpgrade.generated.h"
 
-class UItemUpgradeElement;
-class UItemUpgrade;
-class UItemUpgradeCategory;
 class UResourceData;
+class UItemUpgradeCategory;
+class UItemUpgrade;
+class UItemUpgradeElement;
 class AActor;
 class AFSDPlayerState;
 
@@ -60,7 +60,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<UResourceData*> ResourceCost;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     TArray<UItemUpgradeElement*> Elements;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

@@ -1,17 +1,17 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "TerminatorShoutState.h"
-#include "ETerminatorShoutState.h"
 #include "DelegateDelegate.h"
+#include "TerminatorShoutState.h"
 #include "TerminatorTalkMaterial.h"
+#include "ETerminatorShoutState.h"
 #include "Components/AudioComponent.h"
 #include "TerminatorShoutComponent.generated.h"
 
-class UAudioComponent;
-class USoundCue;
-class UPointLightComponent;
 class UMeshComponent;
+class UAudioComponent;
+class UPointLightComponent;
+class USoundCue;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UTerminatorShoutComponent : public UActorComponent {
@@ -30,7 +30,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TArray<FTerminatorTalkMaterial> TalkMaterials;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UPointLightComponent* TalkLight;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -42,10 +42,10 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName SoundOriginSocket;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UMeshComponent* OwnerMesh;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UAudioComponent* ShoutInstance;
     
 public:

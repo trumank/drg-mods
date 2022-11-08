@@ -5,10 +5,10 @@
 #include "MultiTextCounterAction.generated.h"
 
 class UAudioComponent;
-class USoundCue;
-class UObject;
 class UTextBlock;
 class UMultiTextCounterAction;
+class UObject;
+class USoundCue;
 
 UCLASS(Blueprintable)
 class UMultiTextCounterAction : public UTickableActionBase {
@@ -23,7 +23,7 @@ public:
     FTickDelegate OnTick;
     
 protected:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UTextBlock* TotalBlock;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
@@ -38,7 +38,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     USoundCue* CountingSound;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UAudioComponent* AudioComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
@@ -46,7 +46,7 @@ protected:
     
 public:
     UMultiTextCounterAction();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="InWorldContext"))
     static UMultiTextCounterAction* StartMultiTextCounter(UObject* InWorldContext, UTextBlock* InTotalBlock, const FText InTotalFormat, float InCountSpeed, USoundCue* InCountingSound, const TArray<FTextCounterEntry> InEntries);
     
 };

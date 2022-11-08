@@ -2,18 +2,18 @@
 #include "CoreMinimal.h"
 #include "TentacleBase.h"
 #include "TriggerAI.h"
-#include "DelegateDelegate.h"
 #include "AttackingPointInterface.h"
+#include "DelegateDelegate.h"
 #include "ETerminatorTentacleState.h"
 #include "TerminatorTarget.h"
 #include "TerminatorTentacle.generated.h"
 
+class USkeletalMeshComponent;
 class UAnimMontage;
 class UAnimSequenceBase;
-class USkeletalMeshComponent;
 class UGrabberComponent;
-class UHealthComponentBase;
 class AActor;
+class UHealthComponentBase;
 
 UCLASS(Blueprintable)
 class FSD_API ATerminatorTentacle : public ATentacleBase, public ITriggerAI, public IAttackingPointInterface {
@@ -44,10 +44,10 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_TentacleState, meta=(AllowPrivateAccess=true))
     ETerminatorTentacleState TentacleState;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     USkeletalMeshComponent* HeadMesh;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UGrabberComponent* GrabberComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_DesiredTarget, meta=(AllowPrivateAccess=true))

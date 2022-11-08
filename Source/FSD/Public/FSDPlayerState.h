@@ -1,27 +1,27 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "SupplyStatusChangedDelegateDelegate.h"
 #include "GameFramework/PlayerState.h"
-#include "SelectedCharacterChangedDelegateDelegate.h"
 #include "PlayerSpawnedSignatureDelegate.h"
 #include "PlayerVoiceSignatureDelegate.h"
+#include "SupplyStatusChangedDelegateDelegate.h"
+#include "SelectedCharacterChangedDelegateDelegate.h"
 #include "EnemyKilledSignatureDelegate.h"
+#include "CharacterProgress.h"
 #include "PlayerNameChangedSignatureDelegate.h"
 #include "FractionLevelGeneratedDelegateDelegate.h"
 #include "LevelGenerationStateSignatureDelegate.h"
 #include "RewardTexts.h"
 #include "XPReward.h"
-#include "CharacterProgress.h"
 #include "EGameOwnerStatus.h"
 #include "CreditsReward.h"
 #include "EChatSenderType.h"
 #include "FSDPlayerState.generated.h"
 
+class UPlayerRejoinState;
 class APlayerCharacter;
 class UVanityItem;
 class UPlayerStatsComponent;
-class UPlayerRejoinState;
 class USaveGameStateComponent;
 class UPlayerResourceComponent;
 class UPlayerCharacterID;
@@ -71,13 +71,13 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool IsOnSpaceRig;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UPlayerStatsComponent* PlayerStatsComponent;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UPlayerRejoinState* RejoinState;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USaveGameStateComponent* SaveGameStateComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_PlayerCharacter, meta=(AllowPrivateAccess=true))
@@ -107,7 +107,7 @@ protected:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FLevelGenerationStateSignature OnLevelGenerationStateChanged;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UPlayerResourceComponent* PlayerResources;
     
     UPROPERTY(EditAnywhere, Transient, ReplicatedUsing=OnRep_SupplyAmmoStatus)

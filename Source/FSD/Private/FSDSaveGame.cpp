@@ -1,8 +1,8 @@
 #include "FSDSaveGame.h"
 #include "Templates/SubclassOf.h"
 
-class UObject;
 class UResourceData;
+class UObject;
 class UPlayerCharacterID;
 class UItemID;
 class AActor;

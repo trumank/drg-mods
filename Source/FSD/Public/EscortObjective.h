@@ -1,25 +1,25 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "Objective.h"
-#include "ShellBreakPauseChangeSignatureDelegate.h"
-#include "EEscortMissionState.h"
 #include "ShellBreakTimerSignatureDelegate.h"
+#include "UObject/NoExportTypes.h"
+#include "ShellBreakPauseChangeSignatureDelegate.h"
 #include "MuleRefueledDelegate.h"
+#include "EEscortMissionState.h"
 #include "CannisterRegisteredDelegate.h"
 #include "EscortObjective.generated.h"
 
-class UHealthComponentBase;
-class UCarvedResourceData;
-class AActor;
-class UCurveFloat;
 class UDebrisPositioning;
+class UCurveFloat;
 class UDebrisBase;
+class AActor;
 class AEscortDestination;
+class UCarvedResourceData;
 class UResourceData;
-class UCappedResource;
 class AEscortMule;
 class AExtractorItem;
+class UCappedResource;
+class UHealthComponentBase;
 
 UCLASS(Abstract, Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class FSD_API UEscortObjective : public UObjective {
@@ -59,7 +59,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float DebrisRadius;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     TArray<UDebrisBase*> ObjectDebris;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

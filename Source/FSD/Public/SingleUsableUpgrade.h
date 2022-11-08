@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "StandardItemUpgrade.h"
-#include "ESingleUsableUpgradeType.h"
 #include "UpgradeValues.h"
+#include "ESingleUsableUpgradeType.h"
 #include "SingleUsableUpgrade.generated.h"
 
 class AFSDPlayerState;

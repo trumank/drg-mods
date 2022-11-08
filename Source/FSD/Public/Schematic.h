@@ -5,11 +5,11 @@
 #include "UObject/NoExportTypes.h"
 #include "Schematic.generated.h"
 
-class USchematicRarity;
-class USchematic;
 class UPlayerCharacterID;
-class USchematicPricingTier;
+class USchematic;
+class USchematicRarity;
 class USchematicCategory;
+class USchematicPricingTier;
 class USchematicItem;
 class UResourceData;
 class UFSDSaveGame;
@@ -64,7 +64,7 @@ public:
     UFUNCTION(BlueprintCallable)
     void ResetGivenReward(UFSDSaveGame* SaveGame);
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     void RemoveSchematicFromPlayerInventory(UObject* WorldContext);
     
     UFUNCTION(BlueprintCallable)
@@ -73,7 +73,7 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FText GetTitle() const;
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContext"))
     ESchematicState GetSchematicState(UObject* WorldContext) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -85,19 +85,19 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FColor GetIconTint() const;
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
     UTexture* GetIcon(UObject* WorldContextObject) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FText GetDescription() const;
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContext"))
     bool CanAffordSchematic(UObject* WorldContext) const;
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     void BuildSchematic(UObject* WorldContext);
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     void AddSchematicToPlayerInventory(UObject* WorldContext);
     
 };

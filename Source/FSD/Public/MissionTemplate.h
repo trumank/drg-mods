@@ -8,19 +8,19 @@
 #include "ObjectiveMissionIcon.h"
 #include "MissionTemplate.generated.h"
 
-class UMissionComplexity;
-class AProceduralSetup;
-class UObjective;
-class UFSDSaveGame;
-class UMutator;
-class UTexture2D;
-class AFSDGameMode;
 class UWorld;
-class UMissionDuration;
-class UMissionDNA;
-class UGeneratedMission;
 class UDebrisActorComponent;
+class UObjective;
+class UMutator;
+class AProceduralSetup;
+class AFSDGameMode;
+class UMissionComplexity;
+class UMissionDuration;
+class UTexture2D;
+class UMissionDNA;
 class UTutorialComponent;
+class UGeneratedMission;
+class UFSDSaveGame;
 class UMissionTemplate;
 class UObject;
 class UBiome;
@@ -141,7 +141,7 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UTexture2D* GetMissionButtonImage() const;
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     UGeneratedMission* GenerateMission(const UObject* WorldContextObject, UBiome* Biome, int32 Seed, int32 GlobalSeed, int32 missionIndex, UMissionComplexity* limitComplexity, UMissionDuration* limitDuration, UMissionMutator* Mutator, TArray<UMissionWarning*> Warnings, TSubclassOf<UObjective> forceSecondary);
     
 };

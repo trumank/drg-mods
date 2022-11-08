@@ -3,11 +3,11 @@
 #include "Blueprint/UserWidget.h"
 #include "LookingAtWidget.generated.h"
 
-class UPawnAfflictionComponent;
-class APlayerCharacter;
-class UHealthComponentBase;
-class AActor;
 class UCharacterSightComponent;
+class UHealthComponentBase;
+class APlayerCharacter;
+class AActor;
+class UPawnAfflictionComponent;
 class UHealth;
 class IHealth;
 

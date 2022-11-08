@@ -7,13 +7,13 @@
 #include "SchematicSettings.generated.h"
 
 class UDataTable;
-class USchematicBank;
 class UOverclockBank;
 class USchematic;
+class USchematicBank;
 class UItemSkinSchematicCollection;
 class USchematicBankBase;
-class USchematicCategory;
 class USchematicPricingTier;
+class USchematicCategory;
 class USchematicRarity;
 class UItemID;
 

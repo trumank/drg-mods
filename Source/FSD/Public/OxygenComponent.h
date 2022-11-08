@@ -4,8 +4,8 @@
 #include "Components/ActorComponent.h"
 #include "OxygenDelegateDelegate.h"
 #include "OxygenActiveDelegateDelegate.h"
-#include "OxygenCallback.h"
 #include "OxygenTriggerDelegateDelegate.h"
+#include "OxygenCallback.h"
 #include "OxygenComponent.generated.h"
 
 class UHealthComponentBase;

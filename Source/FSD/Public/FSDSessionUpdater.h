@@ -1,11 +1,11 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "NewFSDSessionIDDelegate.h"
 #include "UObject/Object.h"
+#include "NewFSDSessionIDDelegate.h"
 #include "FSDSessionUpdater.generated.h"
 
-class UFSDSessionHandler;
 class UFSDLobbyHandler;
+class UFSDSessionHandler;
 
 UCLASS(Blueprintable)
 class UFSDSessionUpdater : public UObject {

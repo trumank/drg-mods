@@ -1,8 +1,8 @@
 #include "GooGunPuddle.h"
 #include "Net/UnrealNetwork.h"
 #include "Templates/SubclassOf.h"
-#include "SimpleHealthComponent.h"
 #include "Components/SphereComponent.h"
+#include "SimpleHealthComponent.h"
 
 class UStatusEffect;
 class UPrimitiveComponent;
@@ -44,5 +44,6 @@ AGooGunPuddle::AGooGunPuddle() {
     this->SpawnSound = NULL;
     this->ActiveStatusEffectTriggersMask = 0;
     this->LifeTime = 0.00f;
+    this->CollisionOnClients = false;
 }
 

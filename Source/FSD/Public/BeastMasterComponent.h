@@ -4,9 +4,9 @@
 #include "FloatPerkComponent.h"
 #include "BeastMasterComponent.generated.h"
 
+class APlayerCharacter;
 class UDamageComponent;
 class UActorComponent;
-class APlayerCharacter;
 class AFSDPawn;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

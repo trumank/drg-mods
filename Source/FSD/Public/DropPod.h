@@ -1,13 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "UObject/NoExportTypes.h"
 #include "GameFramework/Actor.h"
+#include "UObject/NoExportTypes.h"
 #include "EDropPodState.h"
 #include "DropPod.generated.h"
 
-class UCurveFloat;
 class UObject;
+class UCurveFloat;
 class UAutoCarverComponent;
 class ADropPod;
 
@@ -22,7 +22,7 @@ public:
     FVector TargetLocation;
     
 protected:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UAutoCarverComponent* AutoCarver;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -79,7 +79,7 @@ protected:
     void OnDeparting();
     
 public:
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static ADropPod* DropToMission(UObject* WorldContextObject, TSubclassOf<ADropPod> podClass, const FVector& Location);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)

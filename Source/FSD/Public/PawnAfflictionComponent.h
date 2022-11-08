@@ -8,10 +8,10 @@
 #include "EFrozenBitsSize.h"
 #include "PawnAfflictionComponent.generated.h"
 
-class UHealthComponentBase;
-class UFrozenAfflictionEffect;
-class UBurningAfflictionEffect;
 class UPawnAffliction;
+class UScalingMeshAfflictionEffect;
+class UBurningAfflictionEffect;
+class UHealthComponentBase;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UPawnAfflictionComponent : public UActorComponent {
@@ -31,7 +31,7 @@ protected:
     FAfflictionEntriesArray NetworkedAfflictions;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TSubclassOf<UFrozenAfflictionEffect> FrozenEffect;
+    TSubclassOf<UScalingMeshAfflictionEffect> FrozenEffect;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<UBurningAfflictionEffect> BurningEffect;

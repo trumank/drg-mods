@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "MultiHitScanHits.h"
 #include "HitscanBaseComponent.h"
 #include "HitDelegateDelegate.h"
+#include "MultiHitScanHits.h"
 #include "MultiHitscanComponent.generated.h"
 
 class AActor;
@@ -37,7 +37,7 @@ protected:
 public:
     UMultiHitscanComponent();
 protected:
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_RegisterHit(const FMultiHitScanHits& hitResults);
     
     UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)

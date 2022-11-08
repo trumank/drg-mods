@@ -5,9 +5,9 @@
 #include "EnemyComponent.generated.h"
 
 class UTexture2D;
-class UEnemyID;
-class UDialogDataAsset;
 class UEnemyFamily;
+class UDialogDataAsset;
+class UEnemyID;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UEnemyComponent : public USimpleObjectInfoComponent {

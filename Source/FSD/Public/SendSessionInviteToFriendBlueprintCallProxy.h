@@ -4,8 +4,8 @@
 #include "Net/OnlineBlueprintCallProxyBase.h"
 #include "SendSessionInviteToFriendBlueprintCallProxy.generated.h"
 
-class USendSessionInviteToFriendBlueprintCallProxy;
 class UObject;
+class USendSessionInviteToFriendBlueprintCallProxy;
 
 UCLASS(Blueprintable)
 class USendSessionInviteToFriendBlueprintCallProxy : public UOnlineBlueprintCallProxyBase {
@@ -21,7 +21,7 @@ public:
     UObject* WorldContextObject;
     
     USendSessionInviteToFriendBlueprintCallProxy();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static USendSessionInviteToFriendBlueprintCallProxy* SendSessionInviteToFriend(UObject* NewWorldContextObject, const FString& FriendId);
     
 };

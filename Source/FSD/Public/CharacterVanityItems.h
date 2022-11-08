@@ -1,22 +1,22 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "Engine/DataAsset.h"
 #include "EVanitySlot.h"
+#include "UObject/NoExportTypes.h"
 #include "CharacterVanityItems.generated.h"
 
-class UVanitySchematicBank;
+class UMoustacheVanityItem;
+class UArmorVanityItem;
 class UHeadVanityItem;
 class UBeardVanityItem;
-class UMoustacheVanityItem;
-class UEyeBrowsVanityItem;
-class UArmorVanityItem;
+class UVanitySchematicBank;
 class UArmorMaterialVanityItem;
+class UEyeBrowsVanityItem;
 class USideburnsVanityItem;
+class UVanityItem;
 class UBeardColorVanityItem;
 class USkinColorVanityItem;
 class UPlayerCharacterID;
-class UVanityItem;
 class UObject;
 
 UCLASS(Blueprintable)
@@ -83,25 +83,25 @@ protected:
     
 public:
     UCharacterVanityItems();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static void SortVanityItems(UObject* WorldContextObject, UPlayerCharacterID* characterID, UPARAM(Ref) TArray<UVanityItem*>& VanityItems);
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static TArray<UVanityItem*> GetVanityItems(UObject* WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, UPlayerCharacterID* characterID);
     
-    UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintImplementableEvent)
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     UVanityItem* GetVanityItem(const FGuid& VanityID) const;
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static TArray<UVanityItem*> GetUnLockedVanityItems(UObject* WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, UPlayerCharacterID* characterID);
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static TArray<UVanityItem*> GetLockedVanityItems(UObject* WorldContextObject, EVanitySlot Slot, UPlayerCharacterID* characterID);
     
-    UFUNCTION(BlueprintCallable, BlueprintPure, BlueprintImplementableEvent)
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     TArray<UVanityItem*> GetItems(EVanitySlot Slot, bool onlyStoreItems) const;
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContext"))
     static UVanityItem* GetDefaultVanityItem(UObject* WorldContext, EVanitySlot Slot, UPlayerCharacterID* characterID);
     
 };

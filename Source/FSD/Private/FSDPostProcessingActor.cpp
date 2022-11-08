@@ -1,9 +1,9 @@
 #include "FSDPostProcessingActor.h"
 
+class APostProcessingManager;
 class UObject;
 class UBlendableInterface;
 class IBlendableInterface;
-class APostProcessingManager;
 class UMaterialInterface;
 class UMaterialInstanceDynamic;
 

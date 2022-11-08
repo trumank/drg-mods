@@ -1,12 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
-#include "CraftingCost.h"
 #include "Engine/DataAsset.h"
+#include "CraftingCost.h"
 #include "ItemData.generated.h"
 
-class UItemID;
 class UTexture2D;
+class UItemID;
 class AActor;
 class UResourceData;
 

@@ -1,13 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "FactionsDataDelegateDelegate.h"
+#include "UICheckDelegateDelegate.h"
 #include "UObject/Object.h"
-#include "CommunityRewardNotification.h"
 #include "CommunityGoalStateData.h"
 #include "CommunityFactionData.h"
-#include "GoalStateDelegateDelegate.h"
 #include "OnFreeBeersChangedDelegateDelegate.h"
-#include "UICheckDelegateDelegate.h"
+#include "FactionsDataDelegateDelegate.h"
+#include "GoalStateDelegateDelegate.h"
+#include "CommunityRewardNotification.h"
 #include "CommunityGoalWrapper.generated.h"
 
 class UCommunityGoal;
@@ -77,10 +77,10 @@ public:
     UFUNCTION(BlueprintCallable)
     void InitializeGoalTierTargetValues(UCommunityGoal* goalToInitialize);
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContext"))
     UCommunityGoalFaction* GetPlayerCurrentFaction(UObject* WorldContext);
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     void ClaimRewardMessage(UObject* WorldContext, FCommunityRewardNotification rewardNotification);
     
     UFUNCTION(BlueprintCallable)

@@ -4,11 +4,11 @@
 #include "EItemCategory.h"
 #include "CharacterShowroomController.generated.h"
 
-class UPlayerCharacterID;
 class APlayerCharacter;
-class UShowroomCameraKey;
 class UCharacterShowroomController;
 class UObject;
+class UPlayerCharacterID;
+class UShowroomCameraKey;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UCharacterShowroomController : public UShowroomController {
@@ -28,7 +28,7 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
     void EquipWeapon(EItemCategory Category);
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static UCharacterShowroomController* DisplayCharacter(UObject* WorldContextObject, UPlayerCharacterID* characterID, UShowroomCameraKey* Key);
     
 };

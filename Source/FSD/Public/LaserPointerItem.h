@@ -4,22 +4,22 @@
 #include "AnimatedItem.h"
 #include "MarkerPlacedDelegateDelegate.h"
 #include "Engine/EngineTypes.h"
-#include "ELaserPointerMarkerType.h"
+#include "UObject/NoExportTypes.h"
 #include "LaserPointerData.h"
 #include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
+#include "ELaserPointerMarkerType.h"
 #include "UObject/NoExportTypes.h"
 #include "LaserPointerItem.generated.h"
 
-class ALaserPointerMarker;
 class USceneComponent;
+class AActor;
+class ALaserPointerMarker;
 class ALaserPointerWaypoint;
 class UDialogDataAsset;
 class UObjectInfoComponent;
 class UTerrainMaterial;
-class UObject;
 class AFSDGameState;
-class AActor;
+class UObject;
 class UPrimitiveComponent;
 class UTexture2D;
 
@@ -61,7 +61,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UDialogDataAsset* DefaultEnemyShout;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USceneComponent* PointerComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
@@ -83,12 +83,15 @@ protected:
     UDialogDataAsset* LookAtShout;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UDialogDataAsset* MissionControlLookAtShout;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     AFSDGameState* GameState;
     
 public:
     ALaserPointerItem();
 protected:
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     void UnlockToMinersManual(UObject* WorldContextObject, FGuid ObjectID);
     
 public:
@@ -96,10 +99,10 @@ public:
     void ToggleLaserVisible(bool aVisible);
     
 protected:
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerPlaceMarker(FVector Location, AActor* Actor, UPrimitiveComponent* Cmponent, UTerrainMaterial* TerrainMaterial, ELaserPointerMarkerType eMarkerType);
     
-    UFUNCTION(BlueprintCallable, Reliable, Server, WithValidation)
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_SecondaryUse();
     
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)

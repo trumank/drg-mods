@@ -3,9 +3,9 @@
 #include "DamageDataBase.h"
 #include "DamageData.generated.h"
 
-class AActor;
-class UDamageClass;
 class AController;
+class UDamageClass;
+class AActor;
 
 USTRUCT(BlueprintType)
 struct FDamageData : public FDamageDataBase {
@@ -14,14 +14,17 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     UDamageClass* DamageClass;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient)
+    UPROPERTY(EditAnywhere, Transient)
     TWeakObjectPtr<AController> Instigator;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient)
+    UPROPERTY(EditAnywhere, Transient)
     TWeakObjectPtr<AActor> DamageCauser;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float DamageModifier;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float ArmorPenetration;
     
     FSD_API FDamageData();
 };

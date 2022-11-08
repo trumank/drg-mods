@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/NetSerialization.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Engine/NetSerialization.h"
 #include "Engine/NetSerialization.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"

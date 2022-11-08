@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "StandardItemUpgrade.h"
-#include "UpgradeValues.h"
 #include "ESentryGunUpgradeType.h"
+#include "UpgradeValues.h"
 #include "SentryGunUpgrade.generated.h"
 
 class AFSDPlayerState;

@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "StandardItemUpgrade.h"
-#include "EModifyStatusEffectDamageUpgrade.h"
 #include "UpgradeValues.h"
+#include "EModifyStatusEffectDamageUpgrade.h"
 #include "ModifyDynamicStatusEffectDamageBonusUpgrade.generated.h"
 
 class AFSDPlayerState;

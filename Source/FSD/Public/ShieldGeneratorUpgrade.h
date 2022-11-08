@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
+#include "EShieldGeneratorUpgrades.h"
 #include "StandardItemUpgrade.h"
 #include "UpgradeValues.h"
-#include "EShieldGeneratorUpgrades.h"
 #include "ShieldGeneratorUpgrade.generated.h"
 
 class AFSDPlayerState;

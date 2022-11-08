@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
+#include "DamageModifierItem.h"
 #include "ItemUpgrade.h"
 #include "UpgradeValues.h"
-#include "DamageModifierItem.h"
 #include "ConditionalDamageModifierUpgrade.generated.h"
 
 class UDamageCondition;

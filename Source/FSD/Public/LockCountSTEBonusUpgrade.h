@@ -6,8 +6,8 @@
 #include "LockCountSTEBonusUpgrade.generated.h"
 
 class UStatusEffect;
-class AActor;
 class AFSDPlayerState;
+class AActor;
 
 UCLASS(Blueprintable, EditInlineNew, MinimalAPI)
 class ULockCountSTEBonusUpgrade : public UItemUpgrade {

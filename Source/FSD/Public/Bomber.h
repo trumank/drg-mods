@@ -2,29 +2,29 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "AFlyingBug.h"
-#include "Engine/EngineTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/EngineTypes.h"
 #include "Bomber.generated.h"
 
-class UParticleSystem;
-class UAudioComponent;
-class USoundBase;
-class UParticleSystemComponent;
-class AProjectile;
-class UPrimitiveComponent;
 class AActor;
+class UAudioComponent;
+class AProjectile;
+class UParticleSystemComponent;
+class UParticleSystem;
+class USoundBase;
+class UPrimitiveComponent;
 
 UCLASS(Blueprintable)
 class ABomber : public AAFlyingBug {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UAudioComponent* GooSoundComponent;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UParticleSystemComponent* AcidEmitterLeft;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UParticleSystemComponent* AcidEmitterRight;
     
 protected:

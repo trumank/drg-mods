@@ -1,23 +1,23 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "EnemyPawn.h"
-#include "Curves/CurveFloat.h"
 #include "UObject/NoExportTypes.h"
+#include "Curves/CurveFloat.h"
 #include "FacilityTurret.generated.h"
 
 class USceneComponent;
 class USkeletalMeshComponent;
-class USoundCue;
 class AActor;
+class USoundCue;
 
 UCLASS(Blueprintable)
 class FSD_API AFacilityTurret : public AEnemyPawn {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USceneComponent* Root;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USkeletalMeshComponent* Mesh;
     
 protected:

@@ -5,9 +5,9 @@
 #include "YesNoPromptSettings.h"
 #include "YesNoPromptAction.generated.h"
 
+class UResourceData;
 class UYesNoPromptWidget;
 class UYesNoPromptAction;
-class UResourceData;
 class UObject;
 
 UCLASS(Blueprintable)
@@ -31,10 +31,10 @@ protected:
     
 public:
     UYesNoPromptAction();
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     static UYesNoPromptAction* PromptYesNo(UObject* WorldContext, FYesNoPromptSettings Prompt);
     
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
     static UYesNoPromptAction* PromptPurchase(UObject* WorldContext, FYesNoPromptSettings Prompt, const TMap<UResourceData*, int32>& Resources);
     
 protected:

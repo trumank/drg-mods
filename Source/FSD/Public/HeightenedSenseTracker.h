@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "HeightenedSenseTracker.generated.h"
 
-class UHealthComponentBase;
 class AActor;
+class UHealthComponentBase;
 class UAttackingPointInterface;
 class IAttackingPointInterface;
 

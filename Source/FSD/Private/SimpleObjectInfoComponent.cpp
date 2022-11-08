@@ -35,6 +35,8 @@ void USimpleObjectInfoComponent::AddComponentObjectInfo(USceneComponent* TargetC
 
 USimpleObjectInfoComponent::USimpleObjectInfoComponent() {
     this->LookAtShout = NULL;
+    this->bHasMissionControlLookAtShout = false;
+    this->MissionControlLookAtShout = NULL;
     this->LookAtShoutOverride = NULL;
     this->Icon = NULL;
     this->IconOverride = NULL;

@@ -335,6 +335,10 @@
 		{
 			"Name": "AssemblyStorm",
 			"Enabled": false
+		},
+		{
+			"Name": "DSTelemetry",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [

@@ -2,9 +2,9 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "StandardItemUpgrade.h"
-#include "UpgradeValues.h"
-#include "EDamageComponentType.h"
 #include "EDamageUpgrade.h"
+#include "EDamageComponentType.h"
+#include "UpgradeValues.h"
 #include "DamageUpgrade.generated.h"
 
 class AFSDPlayerState;

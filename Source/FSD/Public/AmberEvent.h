@@ -3,17 +3,17 @@
 #include "GameEvent.h"
 #include "AmberEvent.generated.h"
 
-class UDamageComponent;
-class UAmberEventEnemyPool;
-class AFSDPawn;
-class UHealthComponentBase;
 class APawn;
+class UHealthComponentBase;
+class UAmberEventEnemyPool;
+class UDamageComponent;
+class AFSDPawn;
 
 UCLASS(Blueprintable)
 class AAmberEvent : public AGameEvent {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDamageComponent* EndExplosionDamage;
     
 protected:

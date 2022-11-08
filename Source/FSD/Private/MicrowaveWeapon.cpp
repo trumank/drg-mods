@@ -3,9 +3,9 @@
 #include "CapsuleHitscanComponent.h"
 
 class UPrimitiveComponent;
-class UHealthComponentBase;
 class AActor;
 class UFSDPhysicalMaterial;
+class UHealthComponentBase;
 
 void AMicrowaveWeapon::UpdateMuzzleAnim(bool InIsFiring) {
 }
@@ -20,9 +20,6 @@ void AMicrowaveWeapon::ShowBoilerRayExplosion_Implementation(FVector_NetQuantize
 }
 
 void AMicrowaveWeapon::Server_SetLensePower_Implementation(float lensepower) {
-}
-bool AMicrowaveWeapon::Server_SetLensePower_Validate(float lensepower) {
-    return true;
 }
 
 void AMicrowaveWeapon::OnTargetKilled(AActor* Target, UFSDPhysicalMaterial* PhysMat, bool wasDirectHit) {
@@ -82,14 +79,11 @@ AMicrowaveWeapon::AMicrowaveWeapon() {
     this->RadiantSuperheaterActive = false;
     this->RadiantSuperheaterFrostShockChance = 0.50f;
     this->RadiantSuperheaterHeatShockChance = 0.50f;
-    this->ShotCountToProcFrostShock = 4;
-    this->ShotCountToProcHeatShock = 8;
-    this->ShotCountToStartColdTempAmplifier = 4;
-    this->ShotCountToStartHeatTempAmplifier = 4;
     this->RadiantSuperheaterMinColdDamage = 50.00f;
     this->RadiantSuperheaterMinHeatDamage = 50.00f;
     this->RadiantSuperheaterFrostTransferFactor = 0.50f;
     this->RadiantSuperheaterHeatTransferFactor = 0.50f;
+    this->ColdTempAmpMultiplier = 1.50f;
     this->SlowOnHit = false;
     this->HeatSink = NULL;
 }
