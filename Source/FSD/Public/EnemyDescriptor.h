@@ -7,7 +7,6 @@
 #include "EVeteranScaling.h"
 #include "EEnemySignificance.h"
 #include "UObject/NoExportTypes.h"
-#include "ECreatureSize.h"
 #include "EnemyDebris.h"
 #include "DeepPathFinderType.h"
 #include "SpawnRarityItem.h"
@@ -57,8 +56,8 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool UsesSpawnEffects;
     
-    UPROPERTY(EditAnywhere)
-    ECreatureSize CreatureSize;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 CreatureSize;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDebrisPositioning* Positioning;
