@@ -18,7 +18,7 @@ class UEnemyWaveManager : public UActorComponent {
 public:
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TSoftClassPtr<UEnemyWaveController> AlwaysRunningWave;
+    TSoftClassPtr<UObject> AlwaysRunningWave;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FWaveEntry> ScriptedWaves;
