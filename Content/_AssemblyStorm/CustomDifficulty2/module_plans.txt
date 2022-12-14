@@ -1,0 +1,55 @@
+[x] Name
+[x] Description
+[x] SpawnCaps
+        MaxActiveCritters
+        MaxActiveSwarmers
+        MaxActiveEnemies
+[-] DifficultySettings: DifficultySettings
+        Array - ExtraLargeEnemyDamageResistance
+        Array - ExtraLargeEnemyDamageResistanceB
+        Array - ExtraLargeEnemyDamageResistanceC
+        Array - ExtraLargeEnemyDamageResistanceD
+        Array - EnemyDamageResistance
+        Array - SmallEnemyDamageResistance
+        Array - EnemyCountModifier
+        RandInterval - EncounterDifficulty
+        RandInterval - StationaryDifficulty
+        RandInterval - EnemyWaveInterval
+        RandInterval - EnemyNormalWaveInterval
+        RandInterval - EnemyNormalWaveDifficulty
+        RandInterval - EnemyDiversity
+        RandInterval - StationaryEnemyDiversity
+        RandInterval - VeteranNormal
+        RandInterval - VeteranLarge
+        Float - EnemyDamageModifier
+        Float - EnvironmentalDamageModifier
+        Float - PointExtractionScalar
+        Float - FriendlyFireModifier
+        Float - WaveStartDelayScale
+        Float - SpeedModifier
+        Float - AttackCooldownModifier
+        Float - ProjectileSpeedModifier
+        Float - HealthRegenerationMax
+        Float - ReviveHealthRatio
+        Needs to be added - HazardBonus
+[ ] Enemies: EnemyDescriptors/EncounterSettings (spawn pools)
+        DisruptiveEnemyPoolCount [?]
+        MinPoolSize [?]
+        EnemyDescriptors
+        CommonEnemies
+        SpecialEnemies
+        DisruptiveEnemies
+        StationaryEnemies
+[-] Resupply: Resupply cost
+        StartingNitra:
+        Cost:
+        HealAmount:
+        Callable:
+[x] SeasonEvents: Season events
+[ ] RegularEvents: Regular events 
+[-] EscortMule: Escort Mule Settings
+        [x] FriendlyFireModifier
+        [x] BigHitDamageModifier
+        [x] BigHitDamageReductionThreshold
+        [x] NeutralDamageModifier
+        ?? Additional properties. Speed? HP? 

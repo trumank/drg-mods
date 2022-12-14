@@ -1,0 +1,23 @@
+Value Replicaton:
+
+Value Construction with replication option:
+Built Root Mutator.
+If the mutator does not require authority continue as normal.
+Else:
+    If host:
+        Create a ValueReplicatorComponent, Bind OnChange/OnReady to the replicator.
+            The mutator manager notifies a valuereplicator was created by multicast
+        This value calls the OnChange and OnReady delegates on the valuereplicator
+    If client:
+        Doesn't attach the root mutator
+        Instead it checks with the mutator manager to see if the correct valuereplicator is available.
+        If it isnt, it binds to an event on the MutatorManager to wait for the valuereplicator to replicate
+        When the replicated value is available:
+            If the valuereplicator is ready+has a cached value:
+                Call OnChange and OnReady
+                Bind to OnChange
+            Else:
+                Bind to OnChange and OnReady
+
+
+When mutators are torn down, replicatorvalues are also torn down.

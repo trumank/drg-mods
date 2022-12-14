@@ -1,0 +1,148 @@
+SelectionMutators, Is there a way to keep the type of selection based mutators generic?
+    One option would be to have a base selection mutator that makes sure all options have the same mutator value type and provide that base type on creation for validation
+    
+
+
+Unsorted Mutators:
+    SwarmState or MissionState
+        Default:
+        DuringSwarm: (complex to add for PE...)
+        DuringExtraction: 
+        DuringPipeRepair
+        DuringEscortTunnel
+        DuringHeartStone
+    Team depository (nitra/gold/etc.)
+    Resupplies Called
+    Resupplies Slots Left
+    Team Average Ammo
+    ObjectiveType
+    ObjectiveProgress
+    Faster (sets the desired interval to be even lower for the mutator chain.)
+    EnemyCount
+    Enemies killed recently (bloodlust)
+    Derivative Mutator
+    Averaging Mutator
+    Delay Mutator (lag)
+    Send/Recieve Mutator (Send "A", Recieve "A" to duplicate a mutator)
+    RandInterval
+
+
+Selection Mutators:
+  [x] ByPlayerCount (Max value in array is used if count goes above the max value)
+  [x] ByMissionType
+  [ ] ByBiome
+  ByMissionLength
+  ByMissionComplexity
+  RandomChoicePerMission (Seeded)
+  RandomChoice (Continuous, Seeded by timestamp)
+
+
+Boolean Mutators:
+
+
+Time Series Mutators:
+    RandomFloatPerMission (Seeded)
+    RandomFloat (Continuous, Seeded by timestamp)
+    OnAndOff (name? Boolean)
+        PercentTimeOn (out of 1.0?)
+        CycleLength (seconds)
+        Phase (out of 1.0?)
+SquareWave
+SineWave
+TimeDelta
+
+
+Float Operations
+  Add
+  Subtract
+  Multiply
+  Divide
+  Clamp
+
+
+{"Mutator": "Compare",
+  "A": {"Mutator":"TeamNitra"},
+  "IsGreaterThan": 40,
+  "IfTrue": Value,
+  "Else": Value2
+  }
+
+
+{
+   "TM2":{
+      "Value1":{
+         "Mutator":"TimeDelta",
+         "InitialValue":{
+            "Mutator":"Clamp",
+            "Value":{
+               "Mutator":"TimeDelta",
+               "InitialValue":0,
+               "RateOfChange":4,
+               "StartDelay":0
+            },
+            "Min":0.0,
+            "Max":100.0
+         },
+         "RateOfChange":-1,
+         "StartDelay":30
+      }
+   }
+}
+
+{"TM2":{"Value1":45.0}}
+{"TM2":{"Value1":{"Mutator":"TimeDelta", "RateOfChange":1}}}
+
+
+Audit Mutator Creation and make sure addition happens upon creation
+{"TM3":{"Value1":[1]}}
+
+
+
+Mutator Simplification:
+All Mutators Always Fire a PLSReady call exactly once after Valid is called.
+All 
+Configuring:
+   ConfigureKey is called per key in the Mutator map (excludes mutator key)
+   Validate is called after all keys are called
+      Return IsValid, IsReady, RequiresPLS 
+   Ready(): always respects children, always respects requires pls, 
+Configure Key:
+
+
+
+
+{"TM3": {"Value1":{"Mutator":"Accumulate", "Value":1, "Min":10, "Max":20}}}
+{"TM3": {"Value1":{"Mutator":"Accumulate", "Value":-1, "Initial":15, "Min":10, "Max":20}}}
+{"TM3": {"Value1":{"Mutator":"Accumulate", "Value":
+   {"Mutator":"RandomChoice",
+      "Choices": [-1,1]},
+   "Initial":15, "Min":10, "Max":20}}}
+
+
+
+
+I'm thinking about stripping down the base mutator and special mutators are based on this pared down mutator.
+Then I'd provide a subclass that was easier to subclass.
+
+To make the simpler version, you'd need to have a HandleOption, which is called with each json key and json value in the mutator object (sans the "mutator"). You'd generally create a child mutator here for the options.
+You'd only have access to making children mutators in a way that means that everything related to the children being ready etc etc is handled invisibly. 
+After all keys/values go through, Validate() is called which gives an opportunity for the mutator to report if it is valid and to say if it is ready
+
+Waiting for children to be ready is automatically handled. 
+
+All Mutators subclassing this automatically wait for the PLS and have a HandlePLSReady function that is called exactly once some time after Validate() has been called. (Immediately if the PLS is available)
+
+If the mutator wasn't ready on Validate, it must eventually fire a ready event.
+
+Now, the mutator must either implement an Evaluate or Select to compute its value depending on its type.
+
+
+
+
+
+Example: IfFloat
+Implements MutatorProperties(), returns RequiresPLS=False, RequiresAuthority=False
+Implements HandleOption(Key, Value), switch on key makes the appropriate child mutators
+Implements Validate() which makes sure the correct keys are set (won't be called if a HandleOption failed). Returns IsValid, IsReady. 
+   IfFloat is automatically ready when its children are ready so it returns true for IsReady
+Implements Select() which evaluates the two float mutators to return one of the two option mutators.
