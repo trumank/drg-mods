@@ -1,0 +1,9 @@
+A monitor is a standalone actor that is responsible for monitoring specific values or events from the game which can be retrieved and used by consumer mutators. A monitor will be instantiated when a mutator that consumes it is first built. 
+
+Monitors do not need to handle replication. Monitors that require authority should only be instantiated on the listen server and mutators that consume from it should properly flag requires authority.
+
+Unlike mutators, at most one monitor of each type will exist. As such, performance is less of a concern and active evaluation/monitoring is unlikely to negatively impact performance. Monitors can be influenced by mutators, but monitors should not maintain a list of mutator consumers them or otherwise initiate interaction with consumers. 
+
+While mutators have a lifecycle controlled by CD2 core. Monitors once started will run through the remainder of the mission whether they are used or not.
+
+Monitors should not make any changes to the game that would need to be reverted to return to a vanilla game experience.

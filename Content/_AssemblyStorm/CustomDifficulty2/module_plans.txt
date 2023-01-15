@@ -45,7 +45,7 @@
         Cost:
         HealAmount:
         Callable:
-[x] SeasonEvents: Season events
+[ ] SeasonEvents: Season events
 [ ] RegularEvents: Regular events 
 [-] EscortMule: Escort Mule Settings
         [x] FriendlyFireModifier
@@ -53,3 +53,17 @@
         [x] BigHitDamageReductionThreshold
         [x] NeutralDamageModifier
         ?? Additional properties. Speed? HP? 
+Mule
+
+Future Modules:
+Droppod
+Zipline control, speed, damage before falling,
+Weakpoint Health
+
+{"Mutator": "Multiply",
+        "A": {"Mutator": "ByPlayerCount","Values": [1.9, 2.1, 2.7, 3.3]},
+        "B": {"Mutator": "ByMissionType",
+              "Default": 1,
+              "PE": {"Mutator": "ByTime", "Initial": 1, "RateOfChange": 0.002}
+        }
+}
