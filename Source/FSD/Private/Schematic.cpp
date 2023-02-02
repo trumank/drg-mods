@@ -2,9 +2,9 @@
 
 class UFSDSaveGame;
 class UObject;
-class UTexture;
-class USchematicItem;
 class UResourceData;
+class USchematicItem;
+class UTexture;
 
 void USchematic::SetCraftingMaterialCost() {
 }

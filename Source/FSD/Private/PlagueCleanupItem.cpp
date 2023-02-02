@@ -1,8 +1,8 @@
 #include "PlagueCleanupItem.h"
+#include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
 #include "CrosshairAggregator.h"
 #include "InstantUsable.h"
-#include "Components/BoxComponent.h"
-#include "Components/SphereComponent.h"
 #include "KeepInsideWorld.h"
 
 class APlayerCharacter;

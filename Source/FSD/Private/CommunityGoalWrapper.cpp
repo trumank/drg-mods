@@ -1,8 +1,8 @@
 #include "CommunityGoalWrapper.h"
 
 class UCommunityGoal;
-class UObject;
 class UCommunityGoalFaction;
+class UObject;
 
 void UCommunityGoalWrapper::UpdateAllGoalsInitialized() {
 }

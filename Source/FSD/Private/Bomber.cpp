@@ -1,10 +1,10 @@
 #include "Bomber.h"
-#include "Net/UnrealNetwork.h"
 #include "Components/AudioComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Net/UnrealNetwork.h"
 
-class UPrimitiveComponent;
 class AActor;
+class UPrimitiveComponent;
 
 void ABomber::StopSpinAndDie() {
 }

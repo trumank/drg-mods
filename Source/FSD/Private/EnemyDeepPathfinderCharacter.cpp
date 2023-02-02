@@ -1,6 +1,6 @@
 #include "EnemyDeepPathfinderCharacter.h"
-#include "Net/UnrealNetwork.h"
 #include "EnemyHealthComponent.h"
+#include "Net/UnrealNetwork.h"
 
 class UMaterialInterface;
 class UMeshComponent;

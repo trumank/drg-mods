@@ -1,26 +1,26 @@
 #include "FSDGameInstance.h"
-#include "Templates/SubclassOf.h"
-#include "FSDSessionUpdater.h"
-#include "FSDSendToURL.h"
 #include "FSDCloudLoadSave.h"
+#include "FSDSendToURL.h"
+#include "FSDSessionUpdater.h"
+#include "Templates/SubclassOf.h"
 
-class AProceduralSetup;
 class AActor;
-class AFSDPlayerController;
-class UGeneratedMission;
-class UIconGenerationManager;
-class UObject;
 class ACharacterSelectionSwitcher;
-class UWorld;
-class UNetDriver;
-class UFSDSaveGame;
-class UMutator;
-class UTemporaryBuff;
+class AFSDPlayerController;
 class APlayerCharacter;
-class UItemSkin;
+class AProceduralSetup;
+class UFSDSaveGame;
+class UGeneratedMission;
 class UHUDWarningWidget;
-class UTexture2D;
+class UIconGenerationManager;
+class UItemSkin;
+class UMutator;
+class UNetDriver;
+class UObject;
 class USoundBase;
+class UTemporaryBuff;
+class UTexture2D;
+class UWorld;
 
 void UFSDGameInstance::UpdateGlobelMissionSeed() {
 }
@@ -63,6 +63,9 @@ void UFSDGameInstance::SetProceduralMap(TSubclassOf<AProceduralSetup> procedural
 }
 
 void UFSDGameInstance::SetPendingInviteJoinModding(const FBlueprintSessionResult& Result) {
+}
+
+void UFSDGameInstance::SetOverrideMaxPlayerCount(int32 Count) {
 }
 
 void UFSDGameInstance::SetMinersManualNotification(EMinersManualSection Section, UObject* IdentifyingObject, FText Text) {
@@ -202,6 +205,10 @@ TArray<FBlueprintSessionResult> UFSDGameInstance::GetServersFriendsArePlaying(TA
     return TArray<FBlueprintSessionResult>();
 }
 
+int32 UFSDGameInstance::GetOverrideMaxPlayerCount() const {
+    return 0;
+}
+
 TArray<UMutator*> UFSDGameInstance::GetMutators(TSubclassOf<UMutator> mutatorClass) const {
     return TArray<UMutator*>();
 }
@@ -265,6 +272,9 @@ void UFSDGameInstance::ChangeSkinPreview(UItemSkin* PreviewSkin) {
 void UFSDGameInstance::CancelJoin() {
 }
 
+void UFSDGameInstance::CachePSOsOnCommand() {
+}
+
 
 UHUDWarningWidget* UFSDGameInstance::AddWarningToHUD(TSubclassOf<UHUDWarningWidget> WidgetClass, UTexture2D* Texture, USoundBase* PingSound) {
     return NULL;
@@ -315,7 +325,6 @@ UFSDGameInstance::UFSDGameInstance() {
     this->IconGenerationManagerClass = NULL;
     this->IconGenerationManager = NULL;
     this->CampaignManager = NULL;
-    this->DeepDiveManager = NULL;
     this->GeneratedMission = NULL;
     this->DesiredDifficulty = NULL;
     this->SaveGame = NULL;

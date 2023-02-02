@@ -1,15 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Templates/SubclassOf.h"
 #include "GameFramework/Actor.h"
 #include "Engine/EngineTypes.h"
+#include "Templates/SubclassOf.h"
 #include "CoilgunWeaponTrail.generated.h"
 
-class USceneComponent;
 class UCapsuleComponent;
 class UNiagaraComponent;
-class UStatusEffect;
 class UPrimitiveComponent;
+class USceneComponent;
+class UStatusEffect;
 
 UCLASS(Blueprintable)
 class ACoilgunWeaponTrail : public AActor {
@@ -25,13 +25,13 @@ public:
     UNiagaraComponent* Trail;
     
 protected:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true, ExposeOnSpawn=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float ParticleTrailOffset;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_TrailHalfLength, meta=(AllowPrivateAccess=true, ExposeOnSpawn=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_TrailHalfLength, meta=(AllowPrivateAccess=true))
     float TrailHalgLength;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_SpawnFireTrail, meta=(AllowPrivateAccess=true, ExposeOnSpawn=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_SpawnFireTrail, meta=(AllowPrivateAccess=true))
     bool SpawnFireTrail;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

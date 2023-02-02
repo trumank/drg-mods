@@ -1,16 +1,16 @@
 #include "TreasureBox.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "RepairableComponent.h"
 #include "RepairableUsable.h"
 #include "SingleUsableComponent.h"
 #include "TerrainPlacementComponent.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/SkeletalMeshComponent.h"
 
-class AProceduralSetup;
-class UDebrisPositioning;
 class APlayerCharacter;
+class AProceduralSetup;
 class UCurveFloat;
+class UDebrisPositioning;
 
 void ATreasureBox::PlaceResources(AProceduralSetup* setup, float Radius, UDebrisPositioning* DebrisPositioning, const TArray<FVector>& locationsToAvoid, UCurveFloat* AvoidCostCurve) {
 }

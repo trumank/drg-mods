@@ -5,9 +5,9 @@
 #include "CarveOptionsCellSize.h"
 #include "LevelGenerationCarverComponent.generated.h"
 
-class UStaticMeshCarver;
 class USTLMeshCarver;
 class UStaticMesh;
+class UStaticMeshCarver;
 class UTerrainMaterialBase;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

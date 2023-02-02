@@ -1,10 +1,10 @@
 #include "CharacterVanityComponent.h"
 #include "Net/UnrealNetwork.h"
 
-class UVanityItem;
 class UCharacterVanityItems;
 class UObject;
 class UPlayerCharacterID;
+class UVanityItem;
 
 void UCharacterVanityComponent::UpdateMeshes() {
 }
@@ -32,7 +32,7 @@ bool UCharacterVanityComponent::HasSpawnedInMedbay() const {
     return false;
 }
 
-UVanityItem* UCharacterVanityComponent::GetEquippedVanityItem(EVanitySlot Slot) const {
+UVanityItem* UCharacterVanityComponent::GetEquippedVanityItem(EVanitySlot Slot, bool ignorePreviewItems) const {
     return NULL;
 }
 

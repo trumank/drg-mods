@@ -5,9 +5,9 @@
 #include "UObject/NoExportTypes.h"
 #include "FadeVisibilitySubSystem.generated.h"
 
-class UPrimitiveComponent;
-class UMeshComponent;
 class ULightComponent;
+class UMeshComponent;
+class UPrimitiveComponent;
 
 UCLASS(Blueprintable)
 class UFadeVisibilitySubSystem : public UWorldSubsystem {

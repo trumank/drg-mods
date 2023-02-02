@@ -1,10 +1,10 @@
 #include "FoamPuddle.h"
-#include "Net/UnrealNetwork.h"
 #include "Components/SceneComponent.h"
 #include "NiagaraComponent.h"
+#include "Net/UnrealNetwork.h"
 
-class UPrimitiveComponent;
 class AActor;
+class UPrimitiveComponent;
 
 
 

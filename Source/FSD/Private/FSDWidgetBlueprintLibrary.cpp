@@ -1,31 +1,31 @@
 #include "FSDWidgetBlueprintLibrary.h"
 #include "Templates/SubclassOf.h"
 
-class UObject;
-class UWidgetAnimation;
-class UWidget;
-class UTexture2D;
-class UOverlaySlot;
-class UUniformGridPanel;
-class USizeBox;
-class UProgressBar;
-class UUserWidget;
-class UPanelWidget;
-class UCanvasPanelSlot;
-class UOverlay;
-class UTextBlock;
-class UImage;
-class UWindowWidget;
 class AFSDPlayerState;
 class APlayerController;
-class UHorizontalBoxSlot;
-class UFSDCheatManager;
-class UVerticalBox;
-class USpacer;
-class UVerticalBoxSlot;
-class UHorizontalBox;
-class UUniformGridSlot;
 class UCanvasPanel;
+class UCanvasPanelSlot;
+class UFSDCheatManager;
+class UHorizontalBox;
+class UHorizontalBoxSlot;
+class UImage;
+class UObject;
+class UOverlay;
+class UOverlaySlot;
+class UPanelWidget;
+class UProgressBar;
+class USizeBox;
+class USpacer;
+class UTextBlock;
+class UTexture2D;
+class UUniformGridPanel;
+class UUniformGridSlot;
+class UUserWidget;
+class UVerticalBox;
+class UVerticalBoxSlot;
+class UWidget;
+class UWidgetAnimation;
+class UWindowWidget;
 
 void UFSDWidgetBlueprintLibrary::ToggleAnimationLooping(UObject* WorldContext, UWidgetAnimation* InAnimation, FWidgetAnimationSettings InSettings, bool InLoop, bool& OutPlayingChanged, bool& OutIsPlaying) {
 }

@@ -4,8 +4,8 @@
 #include "UObject/NoExportTypes.h"
 #include "OptionalUICategory.generated.h"
 
-class UOptionalUICategory;
 class UObject;
+class UOptionalUICategory;
 
 UCLASS(Blueprintable)
 class UOptionalUICategory : public UDataAsset {

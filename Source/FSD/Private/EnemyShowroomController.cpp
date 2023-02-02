@@ -1,9 +1,9 @@
 #include "EnemyShowroomController.h"
 
-class UEnemyShowroomController;
-class UAnimSequenceBase;
-class UObject;
 class AEnemyShowroomItem;
+class UAnimSequenceBase;
+class UEnemyShowroomController;
+class UObject;
 
 
 void UEnemyShowroomController::PlayAttack(UAnimSequenceBase* Animation) {

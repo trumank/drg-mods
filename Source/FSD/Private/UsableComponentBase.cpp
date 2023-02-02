@@ -1,13 +1,17 @@
 #include "UsableComponentBase.h"
 
-class UUseConditionSet;
-class UTexture2D;
 class APlayerCharacter;
+class UTexture2D;
+class UUseAnimationSetting;
+class UUseConditionSet;
 
 void UUsableComponentBase::SetUseRestrictions(UUseConditionSet* set) {
 }
 
 void UUsableComponentBase::SetRayTraceTriggered(bool rayTraceTriggered) {
+}
+
+void UUsableComponentBase::SetAnimationSettings(UUseAnimationSetting* Settings) {
 }
 
 FText UUsableComponentBase::GetUseText_Implementation(APlayerCharacter* User) {

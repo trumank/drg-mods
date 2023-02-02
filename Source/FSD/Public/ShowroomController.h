@@ -4,8 +4,8 @@
 #include "UObject/NoExportTypes.h"
 #include "ShowroomController.generated.h"
 
-class AShowroomStage;
 class AActor;
+class AShowroomStage;
 
 UCLASS(Abstract, Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UShowroomController : public UActorComponent {

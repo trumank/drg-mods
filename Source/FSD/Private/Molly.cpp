@@ -1,7 +1,7 @@
 #include "Molly.h"
 #include "Net/UnrealNetwork.h"
-#include "ResourceBank.h"
 #include "OutlineComponent.h"
+#include "ResourceBank.h"
 
 class APlayerCharacter;
 class UDialogDataAsset;

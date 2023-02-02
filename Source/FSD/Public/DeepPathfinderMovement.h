@@ -1,31 +1,31 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "Engine/EngineTypes.h"
 #include "GameFramework/PawnMovementComponent.h"
-#include "PauseMovementElapsedDelegate.h"
+#include "DeepPathFinderType.h"
 #include "DeepPathFinderPreference.h"
 #include "DeepPathFinderSize.h"
-#include "PathBeginDelegate.h"
-#include "AsyncPathRequestsInterface.h"
-#include "DeepPathFinderType.h"
-#include "Engine/EngineTypes.h"
-#include "PathFinishedDelegate.h"
-#include "RefreshDestinationDelegate.h"
-#include "EDeepMovementState.h"
-#include "UObject/NoExportTypes.h"
-#include "PathStateChangedDelegateDelegate.h"
-#include "DeepRepPath.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "EOffsetFrom.h"
-#include "EDeepMovementMode.h"
-#include "HandleRotationOptions.h"
-#include "FakeMoverState.h"
 #include "Engine/LatentActionManager.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "AsyncPathRequestsInterface.h"
+#include "DeepRepPath.h"
+#include "EDeepMovementMode.h"
+#include "EDeepMovementState.h"
+#include "EOffsetFrom.h"
+#include "FakeMoverState.h"
+#include "HandleRotationOptions.h"
+#include "PathBeginDelegate.h"
+#include "PathFinishedDelegate.h"
+#include "PathStateChangedDelegateDelegate.h"
+#include "PauseMovementElapsedDelegate.h"
+#include "RefreshDestinationDelegate.h"
 #include "DeepPathfinderMovement.generated.h"
 
+class AActor;
 class ADeepCSGWorld;
 class UFakeMoverSettings;
-class AActor;
 class UPawnStatsComponent;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
@@ -114,10 +114,10 @@ private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     ADeepCSGWorld* CSGWorld;
     
-    UPROPERTY(EditAnywhere, Transient, ReplicatedUsing=OnRep_PathMovedDist)
+    UPROPERTY(EditAnywhere, Transient, ReplicatedUsing=OnRep_PathMovedDist, meta=(AllowPrivateAccess=true))
     uint32 PathMovedDist;
     
-    UPROPERTY(EditAnywhere, Transient)
+    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     uint32 LocalPathMovedDist;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_Path, meta=(AllowPrivateAccess=true))
@@ -328,6 +328,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     float GetHorizontalAngleSpeed();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FVector GetCurrentMovePos() const;
     
     UFUNCTION(BlueprintCallable)
     UFakeMoverSettings* GetCurrentFakePhysicsMoveSet();

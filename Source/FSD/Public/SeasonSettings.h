@@ -4,10 +4,10 @@
 #include "UObject/NoExportTypes.h"
 #include "SeasonSettings.generated.h"
 
+class UCurveFloat;
 class UMissionStat;
 class USeason;
 class USeasonChallenge;
-class UCurveFloat;
 
 UCLASS(Blueprintable)
 class USeasonSettings : public UDataAsset {

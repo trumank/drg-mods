@@ -1,14 +1,14 @@
 #include "Projectile.h"
+#include "FSDProjectileMovementComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Templates/SubclassOf.h"
-#include "FSDProjectileMovementComponent.h"
 
-class UObject;
 class APawn;
-class AProjectileBase;
 class AProjectile;
-class USceneComponent;
+class AProjectileBase;
 class UFSDPhysicalMaterial;
+class UObject;
+class USceneComponent;
 
 AProjectileBase* AProjectile::SpawnProjectileFromSelf(UObject* WorldContextObject, TSubclassOf<AProjectileBase> ProjectileClass, FVector Origin, FRotator velocityDirection) {
     return NULL;

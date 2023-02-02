@@ -6,8 +6,8 @@
 
 class AActor;
 class AFSDPlayerState;
-class UObject;
 class APlayerCharacter;
+class UObject;
 
 UCLASS(Blueprintable)
 class UPlayerCharacterFunctionLibrary : public UBlueprintFunctionLibrary {

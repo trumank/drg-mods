@@ -1,8 +1,8 @@
 #include "LookingAtWidget.h"
 
 class AActor;
-class UHealth;
 class IHealth;
+class UHealth;
 class UHealthComponentBase;
 
 void ULookingAtWidget::SetCurrentTarget(AActor* NewActor, const TScriptInterface<IHealth>& HealthComponent, float OverrideTargetLostTime) {

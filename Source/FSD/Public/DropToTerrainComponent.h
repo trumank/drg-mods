@@ -5,8 +5,8 @@
 #include "OnIsFallingToTerrainChangedDelegate.h"
 #include "DropToTerrainComponent.generated.h"
 
-class UTerrainDetectComponent;
 class USceneComponent;
+class UTerrainDetectComponent;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UDropToTerrainComponent : public UActorComponent {

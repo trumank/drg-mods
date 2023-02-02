@@ -6,9 +6,9 @@
 #include "ECommunityGoalType.h"
 #include "CommunityGoal.generated.h"
 
+class UCommnuityRewardSetup;
 class UCommunityGoalCategory;
 class UObject;
-class UCommnuityRewardSetup;
 
 UCLASS(Blueprintable)
 class UCommunityGoal : public UDataAsset {

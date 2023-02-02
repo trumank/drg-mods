@@ -5,9 +5,9 @@
 #include "GunLogicComponent.generated.h"
 
 class UMeshComponent;
-class UWeaponFireComponent;
 class UParticleSystem;
 class USoundCue;
+class UWeaponFireComponent;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
 class UGunLogicComponent : public UActorComponent {

@@ -1,17 +1,17 @@
 #include "SeasonsSubsystem.h"
 
-class AFSDPlayerState;
-class UObject;
-class UMissionStat;
-class USeasonChallenge;
-class UDataAsset;
-class UVanityItem;
-class UPlayerCharacterID;
-class UTextureRenderTarget2D;
-class UItemSkin;
-class UPickaxePart;
-class USeasonEventData;
 class AFSDPlayerController;
+class AFSDPlayerState;
+class UDataAsset;
+class UItemSkin;
+class UMissionStat;
+class UObject;
+class UPickaxePart;
+class UPlayerCharacterID;
+class USeasonChallenge;
+class USeasonEventData;
+class UTextureRenderTarget2D;
+class UVanityItem;
 
 FTimespan USeasonsSubsystem::TimeToNewChallenge() {
     return FTimespan{};
@@ -175,6 +175,5 @@ bool USeasonsSubsystem::BuyTreeNode(UObject* WorldContextObject, AFSDPlayerContr
 }
 
 USeasonsSubsystem::USeasonsSubsystem() {
-    this->ForceSeasonEventIndex = -999;
 }
 

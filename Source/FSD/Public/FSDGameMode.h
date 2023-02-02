@@ -1,35 +1,36 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Templates/SubclassOf.h"
-#include "MatchStartedSignatureDelegate.h"
 #include "GameFramework/GameMode.h"
-#include "AllReadySignatureDelegate.h"
-#include "PlayerLoggedInDelegate.h"
-#include "CallDonkeyDelegate.h"
 #include "UObject/NoExportTypes.h"
+#include "AllReadySignatureDelegate.h"
+#include "CallDonkeyDelegate.h"
+#include "ECriticalItemPass.h"
 #include "EPauseReason.h"
+#include "MatchStartedSignatureDelegate.h"
+#include "PlayerLoggedInDelegate.h"
+#include "Templates/SubclassOf.h"
 #include "FSDGameMode.generated.h"
 
-class UDifficultyManager;
+class AActor;
+class ABosco;
+class AFSDGameMode;
 class AFSDPlayerController;
-class UEnemySpawnManager;
-class UPheromoneSpawnerComponent;
-class UObjectivesManager;
-class UKeepInsideWorld;
-class UMissionManager;
-class UEncounterManager;
-class UCritterManager;
-class UFormationsManagerComponent;
 class AMiningPod;
 class AMolly;
-class ABosco;
-class UWidget;
-class UEnemyDescriptor;
-class UEnemyWaveManager;
-class AActor;
-class AFSDGameMode;
-class APlayerController;
 class APlayerCharacter;
+class APlayerController;
+class UCritterManager;
+class UDifficultyManager;
+class UEncounterManager;
+class UEnemyDescriptor;
+class UEnemySpawnManager;
+class UEnemyWaveManager;
+class UFormationsManagerComponent;
+class UKeepInsideWorld;
+class UMissionManager;
+class UObjectivesManager;
+class UPheromoneSpawnerComponent;
+class UWidget;
 
 UCLASS(Blueprintable, NonTransient)
 class FSD_API AFSDGameMode : public AGameMode {
@@ -129,7 +130,7 @@ public:
     void StartGame();
     
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-    void SpawnMissionCriticalItems();
+    void SpawnMissionCriticalItems(const ECriticalItemPass& pass);
     
 protected:
     UFUNCTION(BlueprintCallable)
@@ -186,6 +187,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     TSubclassOf<AMolly> GetMuleClass() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetMissionWasAborted();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UEncounterManager* GetEncounterManager() const;

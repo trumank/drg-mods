@@ -4,8 +4,8 @@
 #include "UObject/NoExportTypes.h"
 #include "AIPlayerControlComponent.generated.h"
 
-class UControlEnemyUsable;
 class UAnimMontage;
+class UControlEnemyUsable;
 class UDialogDataAsset;
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

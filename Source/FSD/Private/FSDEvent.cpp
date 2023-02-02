@@ -1,8 +1,8 @@
 #include "FSDEvent.h"
 
-class UObject;
-class UFSDEvent;
 class APlayerController;
+class UFSDEvent;
+class UObject;
 class UTexture2D;
 
 void UFSDEvent::MarkClaimableRewardsSeen(UObject* WorldContext) {
@@ -32,7 +32,10 @@ UFSDEvent::UFSDEvent() {
     this->EventType = EHolidayType::None;
     this->bHasClaimableRewards = false;
     this->bFreeBeerEvent = false;
+    this->bFreeBeerConfettiVisible = true;
     this->SpecialEventBeer = NULL;
+    this->SeasonEndScreenImage = NULL;
+    this->UseDifferentBarLightColor = false;
     this->bIsEventDebrisInDeepDives = true;
 }
 

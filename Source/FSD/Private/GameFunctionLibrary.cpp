@@ -1,22 +1,23 @@
 #include "GameFunctionLibrary.h"
 
-class AFSDGameModeSpaceRig;
-class UObject;
-class UAudioComponent;
-class UWindowManager;
-class USoundBase;
-class UWindowWidget;
-class APlayerCharacter;
-class UGoogleAnalyticsWrapper;
-class UFSDSaveGame;
-class AFSDGameState;
-class AFSDGameMode;
-class UFSDGameInstance;
-class UGameData;
-class UDeepDiveManager;
 class ADeepCSGWorld;
-class UCampaignManager;
+class AFSDGameMode;
+class AFSDGameModeSpaceRig;
+class AFSDGameState;
+class APlayerCharacter;
+class IMissionModeManager;
+class UMissionModeManager;
 class UAsyncManager;
+class UAudioComponent;
+class UCampaignManager;
+class UFSDGameInstance;
+class UFSDSaveGame;
+class UGameData;
+class UGoogleAnalyticsWrapper;
+class UObject;
+class USoundBase;
+class UWindowManager;
+class UWindowWidget;
 
 void UGameFunctionLibrary::SpawnOrUpdateAudio2D(UObject* WorldContext, UAudioComponent*& AudioComponent, USoundBase* Sound, float VolumeMultiplier, float PitchMultiplier, FName FloatParamName, float FloatParam) {
 }
@@ -109,7 +110,7 @@ UGameData* UGameFunctionLibrary::GetFSDGameData() {
     return NULL;
 }
 
-UDeepDiveManager* UGameFunctionLibrary::GetDeepDiveManager(UObject* WorldContextObject) {
+TScriptInterface<IMissionModeManager> UGameFunctionLibrary::GetDeepDiveManager(UObject* WorldContextObject) {
     return NULL;
 }
 
