@@ -13,7 +13,7 @@ public:
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TSoftClassPtr<UEnemyWaveController> WaveController;
+    TSoftClassPtr<UObject> WaveController;
     
 public:
     FSD_API FWaveEntry();

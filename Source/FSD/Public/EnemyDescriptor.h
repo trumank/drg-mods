@@ -57,8 +57,8 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool UsesSpawnEffects;
     
-    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
-    ECreatureSize CreatureSize;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 CreatureSize;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDebrisPositioning* Positioning;
