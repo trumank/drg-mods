@@ -22,7 +22,7 @@ UEnemyDescriptor::UEnemyDescriptor() {
     this->VeteranScaling = EVeteranScaling::NormalEnemy;
     this->EnemySignificance = EEnemySignificance::Swarmer;
     this->UsesSpawnEffects = true;
-    this->CreatureSize = 0;
+    this->CreatureSize = ECreatureSize::Tiny;
     this->Positioning = NULL;
     this->PlacementCategories = 0;
     this->CaveInfluencer = NULL;

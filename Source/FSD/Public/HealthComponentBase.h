@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
 #include "UObject/NoExportTypes.h"
+#include "Components/ActorComponent.h"
 #include "BodypartHitSigDelegate.h"
 #include "DamageData.h"
 #include "DamageSigDelegate.h"
@@ -114,7 +114,7 @@ public:
     
     
     // Fix for true pure virtual functions not being implemented
-    //UFUNCTION(BlueprintCallable)
+	//UFUNCTION(BlueprintCallable)
     AActor* GetOwner() const override PURE_VIRTUAL(GetOwner, return NULL;);
     
     UFUNCTION(BlueprintCallable)

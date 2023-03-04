@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Curves/CurveFloat.h"
 #include "UObject/NoExportTypes.h"
+#include "Curves/CurveFloat.h"
 #include "EnemyDeepPathfinderCharacter.h"
 #include "HalloweenSkull.generated.h"
 
@@ -31,6 +31,9 @@ protected:
 public:
     AHalloweenSkull();
 protected:
+    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+    void OnJawClosed();
+    
     UFUNCTION(BlueprintCallable)
     void OnAlert();
     

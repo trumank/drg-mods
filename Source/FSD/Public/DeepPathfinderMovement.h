@@ -1,14 +1,14 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
 #include "Engine/EngineTypes.h"
+#include "Engine/LatentActionManager.h"
 #include "GameFramework/PawnMovementComponent.h"
-#include "DeepPathFinderType.h"
 #include "DeepPathFinderPreference.h"
 #include "DeepPathFinderSize.h"
-#include "Engine/LatentActionManager.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
+#include "DeepPathFinderType.h"
 #include "AsyncPathRequestsInterface.h"
 #include "DeepRepPath.h"
 #include "EDeepMovementMode.h"
@@ -65,8 +65,8 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float AngleSpeedFilterFactor;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    int32 AIAvoidanceWeight;
+    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
+    uint32 AIAvoidanceWeight;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     DeepPathFinderType PathfinderType;

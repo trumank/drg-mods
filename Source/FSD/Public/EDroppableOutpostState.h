@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EDropPodState.generated.h"
+#include "EDroppableOutpostState.generated.h"
 
 UENUM(BlueprintType)
-enum class EDropPodState : uint8 {
+enum class EDroppableOutpostState : uint8 {
     WaitingToDrop,
     Drilling,
     Landed,

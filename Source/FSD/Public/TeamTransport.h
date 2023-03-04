@@ -1,20 +1,19 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
 #include "GameFramework/Actor.h"
+#include "GameplayTagContainer.h"
 #include "GameplayTagAssetInterface.h"
 #include "GameplayTagContainer.h"
-#include "GameplayTagContainer.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
 #include "EMiningPodMission.h"
 #include "EMiningPodRampState.h"
 #include "EMiningPodState.h"
-#include "MiningPodDialogs.h"
 #include "Templates/SubclassOf.h"
-#include "MiningPod.generated.h"
+#include "TeamTransport.generated.h"
 
-class AMiningPod;
 class AMolly;
+class ATeamTransport;
 class UAutoCarverComponent;
 class UBoxComponent;
 class UCurveFloat;
@@ -23,7 +22,7 @@ class UObjectivesManager;
 class UOutlineComponent;
 
 UCLASS(Blueprintable)
-class FSD_API AMiningPod : public AActor, public IGameplayTagAssetInterface {
+class FSD_API ATeamTransport : public AActor, public IGameplayTagAssetInterface {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -64,9 +63,6 @@ protected:
     FText DepartueCountdownName;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    FMiningPodDialogs Dialogs;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     EMiningPodMission MissionType;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -82,7 +78,7 @@ protected:
     FVector StartLocation;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_State, meta=(AllowPrivateAccess=true))
-    EMiningPodState State;
+    EMiningPodState TransportState;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_RampState, meta=(AllowPrivateAccess=true))
     EMiningPodRampState rampState;
@@ -100,11 +96,11 @@ protected:
     UObjectivesManager* ObjectivesManager;
     
 public:
-    AMiningPod();
+    ATeamTransport();
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
-    static AMiningPod* SpawnPodAtLocation(UObject* WorldContextObject, TSubclassOf<AMiningPod> podClass, const FTransform& Transform);
+    static ATeamTransport* SpawnPodAtLocation(UObject* WorldContextObject, TSubclassOf<ATeamTransport> podClass, const FTransform& Transform);
     
 protected:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
@@ -177,19 +173,16 @@ public:
     bool GetHasLanded() const;
     
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-    FVector GetDonkeyReturnPickupLocation();
-    
-    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
     void ForceTakeoff();
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void ExitSpacerig();
     
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
-    static void DropToTarget(UObject* WorldContextObject, TSubclassOf<AMiningPod> podClass, const FTransform& dropLocation, int32 DropDelay);
+    static void DropToTarget(UObject* WorldContextObject, TSubclassOf<ATeamTransport> podClass, const FTransform& dropLocation, int32 DropDelay);
     
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
-    static AMiningPod* DropToMission(UObject* WorldContextObject, TSubclassOf<AMiningPod> podClass, const FVector& Location);
+    static ATeamTransport* DropToMission(UObject* WorldContextObject, TSubclassOf<ATeamTransport> podClass, const FVector& Location);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void DepositAllPlayersMaterials();

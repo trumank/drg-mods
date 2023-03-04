@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
-#include "GameplayTagContainer.h"
-#include "DeepPathFinderType.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/DataAsset.h"
+#include "DeepPathFinderType.h"
+#include "GameplayTagContainer.h"
 #include "ECreatureSize.h"
 #include "EEnemyDescriptorCheatClass.h"
 #include "EEnemySignificance.h"
@@ -57,8 +57,8 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool UsesSpawnEffects;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    int32 CreatureSize;
+    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
+    ECreatureSize CreatureSize;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UDebrisPositioning* Positioning;
