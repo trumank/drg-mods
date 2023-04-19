@@ -83,3 +83,8 @@ DerivedDataCache/*
 compile_commands.json
 Plugins/Nvidia/DLSS/Binaries/
 Plugins/Nvidia/DLSS/Intermediate/
+
+# Rust binaries
+/target
+
+/PackagedMods
