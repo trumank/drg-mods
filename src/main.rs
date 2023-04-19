@@ -210,18 +210,17 @@ fn package_mod(job: &'static PackageJob, no_zip: bool) -> Result<()> {
 
     let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, job.globs)
         .follow_links(true)
+        .file_type(globwalk::FileType::FILE)
         .build()?
         .filter_map(Result::ok)
         .collect::<Vec<_>>();
 
     for entry in &walker {
-        if entry.file_type().is_file() {
-            //println!("{}", entry.path().strip_prefix(&base)?.display());
-            pak.write_file(
-                entry.path().strip_prefix(&base)?.to_str().unwrap(),
-                &mut BufReader::new(File::open(entry.path())?),
-            )?;
-        }
+        //println!("{}", entry.path().strip_prefix(&base)?.display());
+        pak.write_file(
+            entry.path().strip_prefix(&base)?.to_str().unwrap(),
+            &mut BufReader::new(File::open(entry.path())?),
+        )?;
     }
     pak.write_index()?;
     let out = output.join(format!("{}.pak", job.mod_name));
