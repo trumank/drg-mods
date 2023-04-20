@@ -1,3 +1,6 @@
+mod ar;
+mod util;
+
 use std::{
     fs::{self, File},
     io::{BufReader, Cursor},
@@ -6,7 +9,9 @@ use std::{
 };
 
 use anyhow::{anyhow, bail, Context, Result};
+use ar::Readable;
 use clap::Parser;
+use rayon::prelude::*;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -33,18 +38,15 @@ fn main() -> Result<()> {
         println!("Skipping cook...");
     } else {
         cook_project()?;
-        println!("Finished building");
+        println!("Finished cooking");
     }
 
     package_mods(cli.no_zip)?;
 
+    make_remove_all_particles()?;
+
     Ok(())
 }
-
-#[cfg(target_os = "windows")]
-const TARGET: &str = "WindowsNoEditor";
-#[cfg(target_os = "linux")]
-const TARGET: &str = "LinuxNoEditor";
 
 fn cook_project() -> Result<()> {
     let ue = &std::env::var("UNREAL")
@@ -56,7 +58,7 @@ fn cook_project() -> Result<()> {
     let success = Command::new(Path::new(ue).join("UE4Editor-Cmd"))
         .arg(Path::new("FSD.uproject").absolutize()?.to_str().unwrap())
         .arg("-run=cook")
-        .arg(format!("-targetplatform={TARGET}"))
+        .arg(format!("-targetplatform={}", util::TARGET))
         .status()
         .context("Cook failed")?
         .success();
@@ -67,17 +69,25 @@ fn cook_project() -> Result<()> {
     }
 }
 
-struct PackageJob {
-    mod_name: &'static str,
-    globs: &'static [&'static str],
+struct PakOutput {
+    name: String,
+    data: Vec<u8>,
+}
+
+enum PackageJob {
+    Normal {
+        mod_name: &'static str,
+        globs: &'static [&'static str],
+    },
+    Custom(fn() -> Result<Vec<PakOutput>>),
 }
 fn package_mods(no_zip: bool) -> Result<()> {
     let jobs = &[
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "mission-log",
             globs: &["FSD/Content/_AssemblyStorm/MissionLog/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "customdifficulty",
             globs: &[
                 "FSD/Content/_AssemblyStorm/CustomDifficulty/**",
@@ -86,7 +96,7 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_Interop/StateManager/**",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "custom-difficulty2",
             globs: &[
                 "FSD/Content/_AssemblyStorm/CustomDifficulty2/**",
@@ -96,15 +106,15 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 // TODO patch PLS_Base
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "betterspectator",
             globs: &["FSD/Content/_AssemblyStorm/BetterSpectator/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "missionselector",
             globs: &["FSD/Content/_AssemblyStorm/MissionSelector/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "sandboxutilities",
             globs: &[
                 "FSD/Content/_AssemblyStorm/SandboxUtilities/**",
@@ -112,29 +122,29 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_Interop/StateManager/**",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "generousmanagement",
             globs: &[
                 "FSD/Content/_AssemblyStorm/GenerousManagement/**",
                 "FSD/Content/_AssemblyStorm/Common/**",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "better-post-processing",
             globs: &["FSD/Content/_AssemblyStorm/BetterPostProcessing/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "advanced-darkness",
             globs: &[
                 "FSD/Content/_AssemblyStorm/AdvancedDarkness/**",
                 "FSD/Content/_AssemblyStorm/Common/GlobalFunctionsV4.{uasset,uexp}",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "event-log",
             globs: &["FSD/Content/_AssemblyStorm/EventLog/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "test-mod",
             globs: &[
                 "FSD/Content/_AssemblyStorm/TestMod/**",
@@ -142,15 +152,15 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_Interop/StateManager/**",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "test-assets",
             globs: &["FSD/Content/_AssemblyStorm/TestAssets/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "mod-integration",
             globs: &["FSD/Content/_AssemblyStorm/ModIntegration/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "take-me-home",
             globs: &[
                 "FSD/Content/_AssemblyStorm/TakeMeHome/**",
@@ -158,22 +168,22 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_Interop/StateManager/**",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "build-inspector",
             globs: &[
                 "FSD/Content/_AssemblyStorm/BuildInspector/**",
                 "FSD/Content/_Interop/StateManager/**",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "no-ragdolls",
             globs: &["FSD/Content/_AssemblyStorm/NoRagdolls/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "a-better-modding-menu",
             globs: &["FSD/Content/_AssemblyStorm/ABetterModdingMenu/**"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "testing",
             globs: &[
                 "FSD/Content/_AssemblyStorm/Testing/**",
@@ -181,34 +191,64 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_Interop/StateManager/**",
             ],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "skipstart",
             globs: &["FSD/Content/UI/Menu_StartScreen/UI_StartScreen.{uasset,uexp}"],
         },
-        PackageJob {
+        PackageJob::Normal {
             mod_name: "open-hub",
             globs: &["FSD/Content/_AssemblyStorm/OpenHub/**"],
         },
+        PackageJob::Custom(make_remove_all_particles),
     ];
-    use rayon::prelude::*;
+    let output = Path::new("PackagedMods");
+    fs::create_dir(output).ok();
     jobs.par_iter().try_for_each(|j| package_mod(j, no_zip))?;
     Ok(())
 }
 
 fn package_mod(job: &'static PackageJob, no_zip: bool) -> Result<()> {
+    let paks = match job {
+        PackageJob::Normal { mod_name, globs } => make_mod(mod_name, globs)?,
+        PackageJob::Custom(f) => f()?,
+    };
+
     let output = Path::new("PackagedMods");
-    fs::create_dir(output).ok();
-    let mut buf = vec![];
+    for pak in paks {
+        let out = output.join(format!("{}.pak", pak.name));
+        fs::write(&out, &pak.data)?;
+        println!("Packaged mod to {}", out.display());
+
+        if !no_zip {
+            let mut zip_buf = vec![];
+            let mut zip = zip::ZipWriter::new(Cursor::new(&mut zip_buf));
+            zip.start_file(format!("{}.pak", pak.name), Default::default())?;
+            use std::io::Write;
+            zip.write_all(&pak.data)?;
+            zip.finish()?;
+            drop(zip);
+
+            let out = output.join(format!("{}.zip", pak.name));
+            fs::write(&out, &zip_buf)?;
+            println!("Zipped mod to {}", out.display());
+        }
+    }
+
+    Ok(())
+}
+
+fn make_mod(mod_name: &str, globs: &[&str]) -> Result<Vec<PakOutput>> {
+    let mut data = vec![];
     let mut pak = repak::PakWriter::new(
-        Cursor::new(&mut buf),
+        Cursor::new(&mut data),
         None,
         repak::Version::V11,
         "../../../".to_owned(),
         None,
     );
-    let base = Path::new("Saved/Cooked").join(TARGET);
+    let base = util::get_cooked_dir();
 
-    let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, job.globs)
+    let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, globs)
         .follow_links(true)
         .file_type(globwalk::FileType::FILE)
         .build()?
@@ -223,23 +263,104 @@ fn package_mod(job: &'static PackageJob, no_zip: bool) -> Result<()> {
         )?;
     }
     pak.write_index()?;
-    let out = output.join(format!("{}.pak", job.mod_name));
-    fs::write(&out, &buf)?;
-    println!("Packaged {} files to {}", walker.len(), out.display());
+    Ok(vec![PakOutput {
+        name: mod_name.to_string(),
+        data,
+    }])
+}
 
-    if !no_zip {
-        let mut zip_buf = vec![];
-        let mut zip = zip::ZipWriter::new(Cursor::new(&mut zip_buf));
-        zip.start_file(format!("{}.pak", job.mod_name), Default::default())?;
-        use std::io::Write;
-        zip.write_all(&buf)?;
-        zip.finish()?;
-        drop(zip);
+fn make_remove_all_particles() -> Result<Vec<PakOutput>> {
+    let fsd = util::get_fsd_pak()?;
+    let mut reader = BufReader::new(File::open(&fsd)?);
+    let pak = repak::PakReader::new_any(&mut reader, None)?;
 
-        let out = output.join(format!("{}.zip", job.mod_name));
-        fs::write(&out, &zip_buf)?;
-        println!("Zipped mod to {}", out.display());
+    let ar = ar::AssetRegistry::read(&mut Cursor::new(
+        pak.get("FSD/AssetRegistry.bin", &mut reader)?,
+    ))?;
+
+    let cooked = util::get_cooked_dir();
+    let mut ps_asset = {
+        let path = cooked.join("FSD/Content/_Tests/Dummy/EmptyParticleSystem.uasset");
+        let uasset = BufReader::new(File::open(&path)?);
+        let uexp = BufReader::new(File::open(path.with_extension("uexp"))?);
+        let asset = unreal_asset::Asset::new(
+            uasset,
+            Some(uexp),
+            unreal_asset::engine_version::EngineVersion::UNKNOWN,
+        )?;
+        (
+            asset
+                .search_name_reference(&"EmptyParticleSystem".to_owned())
+                .unwrap(),
+            asset
+                .search_name_reference(&"/Game/_Tests/Dummy/EmptyParticleSystem".to_owned())
+                .unwrap(),
+            asset,
+        )
+    };
+    let mut ns_asset = {
+        let path = cooked.join("FSD/Content/_Tests/Dummy/EmptyNiagaraSystem.uasset");
+        let uasset = BufReader::new(File::open(&path)?);
+        let uexp = BufReader::new(File::open(path.with_extension("uexp"))?);
+        let asset = unreal_asset::Asset::new(
+            uasset,
+            Some(uexp),
+            unreal_asset::engine_version::EngineVersion::UNKNOWN,
+        )?;
+        (
+            asset
+                .search_name_reference(&"EmptyNiagaraSystem".to_owned())
+                .unwrap(),
+            asset
+                .search_name_reference(&"/Game/_Tests/Dummy/EmptyNiagaraSystem".to_owned())
+                .unwrap(),
+            asset,
+        )
+    };
+
+    let mut data = vec![];
+    let mut pak = repak::PakWriter::new(
+        Cursor::new(&mut data),
+        None,
+        repak::Version::V11,
+        "../../../".to_owned(),
+        None,
+    );
+    for asset in ar.asset_data {
+        let path = &ar.names[asset.package_name.0];
+        let name = &ar.names[asset.asset_name.0];
+        let class = &ar.names[asset.asset_class.0];
+        let asset = match class.as_str() {
+            "ParticleSystem" => Some(&mut ps_asset),
+            "NiagaraSystem" => Some(&mut ns_asset),
+            _ => None,
+        };
+        if let Some((name_index, path_index, asset)) = asset {
+            *asset.get_name_reference_mut(*name_index) = name.to_owned();
+            *asset.get_name_reference_mut(*path_index) = path.to_owned();
+            //println!("{} {}", path, name);
+            let mut uasset = Cursor::new(vec![]);
+            let mut uexp = Cursor::new(vec![]);
+            asset.write_data(&mut uasset, Some(&mut uexp))?;
+            uasset.set_position(0);
+            uexp.set_position(0);
+            pak.write_file(
+                &format!(
+                    "FSD/Content/{}.uasset",
+                    path.strip_prefix("/Game/").unwrap()
+                ),
+                &mut uasset,
+            )?;
+            pak.write_file(
+                &format!("FSD/Content/{}.uexp", path.strip_prefix("/Game/").unwrap()),
+                &mut uexp,
+            )?;
+        }
     }
+    pak.write_index()?;
 
-    Ok(())
+    Ok(vec![PakOutput {
+        name: String::from("remove-all-particles"),
+        data,
+    }])
 }
