@@ -74,20 +74,26 @@ struct PakOutput {
     data: Vec<u8>,
 }
 
-enum PackageJob {
-    Normal {
-        mod_name: &'static str,
-        globs: &'static [&'static str],
-    },
-    Custom(fn() -> Result<Vec<PakOutput>>),
+struct FileEntry {
+    path: String,
+    data: Vec<u8>,
+}
+
+type FileProvider = fn() -> Result<Vec<FileEntry>>;
+
+struct PackageJob {
+    mod_name: &'static str,
+    globs: &'static [&'static str],
+    providers: &'static [FileProvider],
 }
 fn package_mods(no_zip: bool) -> Result<()> {
     let jobs = &[
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "mission-log",
             globs: &["FSD/Content/_AssemblyStorm/MissionLog/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "customdifficulty",
             globs: &[
                 "FSD/Content/_AssemblyStorm/CustomDifficulty/**",
@@ -95,8 +101,9 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_Interop/ResupplyCost/**",
                 "FSD/Content/_Interop/StateManager/**",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "custom-difficulty2",
             globs: &[
                 "FSD/Content/_AssemblyStorm/CustomDifficulty2/**",
@@ -105,101 +112,123 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_Interop/StateManager/**",
                 // TODO patch PLS_Base
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "betterspectator",
             globs: &["FSD/Content/_AssemblyStorm/BetterSpectator/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "missionselector",
             globs: &["FSD/Content/_AssemblyStorm/MissionSelector/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "sandboxutilities",
             globs: &[
                 "FSD/Content/_AssemblyStorm/SandboxUtilities/**",
                 "FSD/Content/_AssemblyStorm/Common/**",
                 "FSD/Content/_Interop/StateManager/**",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "generousmanagement",
             globs: &[
                 "FSD/Content/_AssemblyStorm/GenerousManagement/**",
                 "FSD/Content/_AssemblyStorm/Common/**",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "better-post-processing",
             globs: &["FSD/Content/_AssemblyStorm/BetterPostProcessing/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "advanced-darkness",
             globs: &[
                 "FSD/Content/_AssemblyStorm/AdvancedDarkness/**",
                 "FSD/Content/_AssemblyStorm/Common/GlobalFunctionsV4.{uasset,uexp}",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "event-log",
             globs: &["FSD/Content/_AssemblyStorm/EventLog/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "test-mod",
             globs: &[
                 "FSD/Content/_AssemblyStorm/TestMod/**",
                 "FSD/Content/_AssemblyStorm/Common/**",
                 "FSD/Content/_Interop/StateManager/**",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "test-assets",
             globs: &["FSD/Content/_AssemblyStorm/TestAssets/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "mod-integration",
             globs: &["FSD/Content/_AssemblyStorm/ModIntegration/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "take-me-home",
             globs: &[
                 "FSD/Content/_AssemblyStorm/TakeMeHome/**",
                 "FSD/Content/_AssemblyStorm/Common/Logger/**",
                 "FSD/Content/_Interop/StateManager/**",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "build-inspector",
             globs: &[
                 "FSD/Content/_AssemblyStorm/BuildInspector/**",
                 "FSD/Content/_Interop/StateManager/**",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "no-ragdolls",
             globs: &["FSD/Content/_AssemblyStorm/NoRagdolls/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "a-better-modding-menu",
             globs: &["FSD/Content/_AssemblyStorm/ABetterModdingMenu/**"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "testing",
             globs: &[
                 "FSD/Content/_AssemblyStorm/Testing/**",
                 "FSD/Content/_AssemblyStorm/Common/Logger/**",
                 "FSD/Content/_Interop/StateManager/**",
             ],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "skipstart",
             globs: &["FSD/Content/UI/Menu_StartScreen/UI_StartScreen.{uasset,uexp}"],
+            providers: &[],
         },
-        PackageJob::Normal {
+        PackageJob {
             mod_name: "open-hub",
             globs: &["FSD/Content/_AssemblyStorm/OpenHub/**"],
+            providers: &[],
         },
-        PackageJob::Custom(make_remove_all_particles),
+        PackageJob {
+            mod_name: "remove-all-particles",
+            globs: &[],
+            providers: &[make_remove_all_particles],
+        },
     ];
     let output = Path::new("PackagedMods");
     fs::create_dir(output).ok();
@@ -208,10 +237,7 @@ fn package_mods(no_zip: bool) -> Result<()> {
 }
 
 fn package_mod(job: &'static PackageJob, no_zip: bool) -> Result<()> {
-    let paks = match job {
-        PackageJob::Normal { mod_name, globs } => make_mod(mod_name, globs)?,
-        PackageJob::Custom(f) => f()?,
-    };
+    let paks = make_mod(job)?;
 
     let output = Path::new("PackagedMods");
     for pak in paks {
@@ -237,7 +263,7 @@ fn package_mod(job: &'static PackageJob, no_zip: bool) -> Result<()> {
     Ok(())
 }
 
-fn make_mod(mod_name: &str, globs: &[&str]) -> Result<Vec<PakOutput>> {
+fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
     let mut data = vec![];
     let mut pak = repak::PakWriter::new(
         Cursor::new(&mut data),
@@ -248,7 +274,7 @@ fn make_mod(mod_name: &str, globs: &[&str]) -> Result<Vec<PakOutput>> {
     );
     let base = util::get_cooked_dir();
 
-    let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, globs)
+    let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, job.globs)
         .follow_links(true)
         .file_type(globwalk::FileType::FILE)
         .build()?
@@ -256,20 +282,24 @@ fn make_mod(mod_name: &str, globs: &[&str]) -> Result<Vec<PakOutput>> {
         .collect::<Vec<_>>();
 
     for entry in &walker {
-        //println!("{}", entry.path().strip_prefix(&base)?.display());
         pak.write_file(
             entry.path().strip_prefix(&base)?.to_str().unwrap(),
             &mut BufReader::new(File::open(entry.path())?),
         )?;
     }
+    for provider in job.providers {
+        for file in provider()? {
+            pak.write_file(&file.path, &mut Cursor::new(file.data))?;
+        }
+    }
     pak.write_index()?;
     Ok(vec![PakOutput {
-        name: mod_name.to_string(),
+        name: job.mod_name.to_string(),
         data,
     }])
 }
 
-fn make_remove_all_particles() -> Result<Vec<PakOutput>> {
+fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
     let fsd = util::get_fsd_pak()?;
     let mut reader = BufReader::new(File::open(&fsd)?);
     let pak = repak::PakReader::new_any(&mut reader, None)?;
@@ -289,11 +319,9 @@ fn make_remove_all_particles() -> Result<Vec<PakOutput>> {
             unreal_asset::engine_version::EngineVersion::UNKNOWN,
         )?;
         (
+            asset.search_name_reference("EmptyParticleSystem").unwrap(),
             asset
-                .search_name_reference(&"EmptyParticleSystem".to_owned())
-                .unwrap(),
-            asset
-                .search_name_reference(&"/Game/_Tests/Dummy/EmptyParticleSystem".to_owned())
+                .search_name_reference("/Game/_Tests/Dummy/EmptyParticleSystem")
                 .unwrap(),
             asset,
         )
@@ -308,24 +336,15 @@ fn make_remove_all_particles() -> Result<Vec<PakOutput>> {
             unreal_asset::engine_version::EngineVersion::UNKNOWN,
         )?;
         (
+            asset.search_name_reference("EmptyNiagaraSystem").unwrap(),
             asset
-                .search_name_reference(&"EmptyNiagaraSystem".to_owned())
-                .unwrap(),
-            asset
-                .search_name_reference(&"/Game/_Tests/Dummy/EmptyNiagaraSystem".to_owned())
+                .search_name_reference("/Game/_Tests/Dummy/EmptyNiagaraSystem")
                 .unwrap(),
             asset,
         )
     };
 
-    let mut data = vec![];
-    let mut pak = repak::PakWriter::new(
-        Cursor::new(&mut data),
-        None,
-        repak::Version::V11,
-        "../../../".to_owned(),
-        None,
-    );
+    let mut files = vec![];
     for asset in ar.asset_data {
         let path = &ar.names[asset.package_name.0];
         let name = &ar.names[asset.asset_name.0];
@@ -336,31 +355,28 @@ fn make_remove_all_particles() -> Result<Vec<PakOutput>> {
             _ => None,
         };
         if let Some((name_index, path_index, asset)) = asset {
-            *asset.get_name_map().get_mut().get_name_reference_mut(*name_index) = name.to_owned();
-            *asset.get_name_map().get_mut().get_name_reference_mut(*path_index) = path.to_owned();
+            *asset
+                .get_name_map()
+                .get_mut()
+                .get_name_reference_mut(*name_index) = name.to_owned();
+            *asset
+                .get_name_map()
+                .get_mut()
+                .get_name_reference_mut(*path_index) = path.to_owned();
             //println!("{} {}", path, name);
             let mut uasset = Cursor::new(vec![]);
             let mut uexp = Cursor::new(vec![]);
             asset.write_data(&mut uasset, Some(&mut uexp))?;
-            uasset.set_position(0);
-            uexp.set_position(0);
-            pak.write_file(
-                &format!(
-                    "FSD/Content/{}.uasset",
-                    path.strip_prefix("/Game/").unwrap()
-                ),
-                &mut uasset,
-            )?;
-            pak.write_file(
-                &format!("FSD/Content/{}.uexp", path.strip_prefix("/Game/").unwrap()),
-                &mut uexp,
-            )?;
+            let path = path.strip_prefix("/Game/").unwrap();
+            files.push(FileEntry {
+                path: format!("FSD/Content/{path}.uasset",),
+                data: uasset.into_inner(),
+            });
+            files.push(FileEntry {
+                path: format!("FSD/Content/{path}.uexp"),
+                data: uexp.into_inner(),
+            });
         }
     }
-    pak.write_index()?;
-
-    Ok(vec![PakOutput {
-        name: String::from("remove-all-particles"),
-        data,
-    }])
+    Ok(files)
 }
