@@ -52,9 +52,9 @@ impl AssetVersion {
 #[derive(Debug)]
 pub struct TrackedStatement {
     pub origin: (Option<String>, PackageIndex),
+    pub points_to: Option<(Option<String>, PackageIndex)>,
     pub original_offset: Option<usize>,
     pub ex: KismetExpression,
-    pub rewire: bool,
 }
 
 impl Deref for TrackedStatement {
@@ -73,6 +73,7 @@ impl DerefMut for TrackedStatement {
 pub struct Hook<'a> {
     pub function: PackageIndex,
     pub statements: Vec<&'a TrackedStatement>,
+    pub start_offset: usize,
     pub end_offset: Option<usize>,
 }
 
@@ -721,9 +722,9 @@ fn to_tracked_statements(
             shift_switch(&mut ex, -(oi as i32));
             TrackedStatement {
                 origin: origin.clone(),
+                points_to: None,
                 original_offset: Some(oi),
                 ex,
-                rewire: true,
             }
         })
         .collect()
@@ -739,10 +740,8 @@ fn resolve_tracked_statements<C: std::io::Read + std::io::Seek>(
 
     inst.into_iter()
         .map(|mut inst| {
-            if !inst.rewire {
-                return inst.ex;
-            };
             //println!( "{:?} {} {:#?}", pi, export.get_base_export().object_name.get_content(), mappings.get(&pi));
+            let dest = inst.points_to.as_ref().unwrap_or(&inst.origin);
             match &mut inst.ex {
                 // fix jumps into ubergraph
                 KismetExpression::ExLocalFinalFunction(ex) => {
@@ -758,14 +757,13 @@ fn resolve_tracked_statements<C: std::io::Read + std::io::Seek>(
                     }
                 }
                 KismetExpression::ExJumpIfNot(ex) => {
-                    ex.code_offset = mappings[&inst.origin][&(ex.code_offset as usize)] as u32;
+                    ex.code_offset = mappings[dest][&(ex.code_offset as usize)] as u32;
                 }
                 KismetExpression::ExJump(ex) => {
-                    ex.code_offset = mappings[&inst.origin][&(ex.code_offset as usize)] as u32;
+                    ex.code_offset = mappings[dest][&(ex.code_offset as usize)] as u32;
                 }
                 KismetExpression::ExPushExecutionFlow(ex) => {
-                    ex.pushing_address =
-                        mappings[&inst.origin][&(ex.pushing_address as usize)] as u32;
+                    ex.pushing_address = mappings[dest][&(ex.pushing_address as usize)] as u32;
                 }
                 KismetExpression::ExCallMath(ex) => {
                     if let Some(sla) = struct_latent_action {
@@ -786,7 +784,7 @@ fn resolve_tracked_statements<C: std::io::Read + std::io::Seek>(
                                         // TODO: check name actually points to
                                         // ubergraph
                                         offset.value =
-                                            mappings[&inst.origin][&(offset.value as usize)] as u32;
+                                            mappings[dest][&(offset.value as usize)] as u32;
                                         name.value = asset
                                             .get_export(ubergraph.unwrap())
                                             .unwrap()
@@ -803,9 +801,8 @@ fn resolve_tracked_statements<C: std::io::Read + std::io::Seek>(
                                         // used in LoadAssetClass and is -1
                                         // possibly means no output?
                                         if offset.value != -1 {
-                                            offset.value = mappings[&inst.origin]
-                                                [&(offset.value as usize)]
-                                                as i32;
+                                            offset.value =
+                                                mappings[dest][&(offset.value as usize)] as i32;
                                         }
                                     } else {
                                         todo!(
@@ -997,6 +994,7 @@ pub fn find_hooks<'a, C: std::io::Read + std::io::Seek>(
                     let function = addr.0;
                     let name = s.value.to_owned();
                     let mut end_offset = None;
+                    let start_offset = jumps[addr][0].1;
 
                     let mut addresses = HashSet::<Address>::new();
                     let mut visited = HashSet::<Address>::new();
@@ -1026,6 +1024,7 @@ pub fn find_hooks<'a, C: std::io::Read + std::io::Seek>(
                         Hook {
                             function,
                             statements,
+                            start_offset,
                             end_offset,
                         },
                     );

@@ -455,6 +455,16 @@ mod cd2 {
                     new.push(statement);
 
                     if index == insert_index {
+                        new.push(splice::TrackedStatement {
+                            ex: ExJump {
+                                token: EExprToken::ExJump,
+                                code_offset: hook.start_offset as u32,
+                            }
+                            .into(),
+                            origin: hook.statements[0].origin.clone(),
+                            points_to: None,
+                            original_offset: None,
+                        });
                         for inst in &hook.statements {
                             if inst.original_offset == hook.end_offset {
                                 if let Some((_index, next)) = iter.peek() {
@@ -465,13 +475,14 @@ mod cd2 {
                                         }
                                         .into(),
                                         origin: inst.origin.clone(),
+                                        points_to: Some((None, *pi)),
                                         original_offset: inst.original_offset,
-                                        rewire: false,
                                     });
                                 }
                             } else {
                                 new.push(splice::TrackedStatement {
                                     origin: inst.origin.clone(),
+                                    points_to: None,
                                     original_offset: inst.original_offset,
                                     ex: splice::copy_expression(
                                         &src,
@@ -480,7 +491,6 @@ mod cd2 {
                                         *pi,
                                         inst,
                                     ),
-                                    rewire: false,
                                 })
                             }
                         }
