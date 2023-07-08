@@ -336,8 +336,8 @@ fn make_remove_all_particles() -> Result<Vec<PakOutput>> {
             _ => None,
         };
         if let Some((name_index, path_index, asset)) = asset {
-            *asset.get_name_reference_mut(*name_index) = name.to_owned();
-            *asset.get_name_reference_mut(*path_index) = path.to_owned();
+            *asset.get_name_map().get_mut().get_name_reference_mut(*name_index) = name.to_owned();
+            *asset.get_name_map().get_mut().get_name_reference_mut(*path_index) = path.to_owned();
             //println!("{} {}", path, name);
             let mut uasset = Cursor::new(vec![]);
             let mut uexp = Cursor::new(vec![]);
