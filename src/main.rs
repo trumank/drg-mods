@@ -1,4 +1,5 @@
 mod ar;
+mod splice;
 mod util;
 
 use std::{
@@ -110,9 +111,8 @@ fn package_mods(no_zip: bool) -> Result<()> {
                 "FSD/Content/_AssemblyStorm/Common/**",
                 "FSD/Content/_Interop/ResupplyCost/**",
                 "FSD/Content/_Interop/StateManager/**",
-                // TODO patch PLS_Base
             ],
-            providers: &[],
+            providers: &[cd2::splice_pls_base],
         },
         PackageJob {
             mod_name: "betterspectator",
@@ -379,4 +379,130 @@ fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
         }
     }
     Ok(files)
+}
+
+mod cd2 {
+    use super::*;
+    use unreal_asset::{
+        engine_version::EngineVersion,
+        kismet::{EExprToken, ExJump, KismetExpression},
+        reader::archive_trait::ArchiveTrait,
+    };
+
+    pub(crate) fn splice_pls_base() -> Result<Vec<FileEntry>> {
+        let version = EngineVersion::VER_UE4_27;
+        let pls_base_path = "FSD/Content/Landscape/PLS_Base";
+
+        let mut src = {
+            let cooked = util::get_cooked_dir();
+            splice::read_asset(
+                cooked.join("FSD/Content/_AssemblyStorm/CustomDifficulty2/Hook_PLS_Base.uasset"),
+                version,
+            )?
+        };
+
+        let mut dst = {
+            let fsd = util::get_fsd_pak()?;
+            let mut reader = BufReader::new(File::open(&fsd)?);
+            let pak = repak::PakReader::new_any(&mut reader, None)?;
+
+            let uasset = Cursor::new(pak.get(&format!("{pls_base_path}.uasset"), &mut reader)?);
+            let uexp = Cursor::new(pak.get(&format!("{pls_base_path}.uexp"), &mut reader)?);
+            unreal_asset::Asset::new(uasset, Some(uexp), version)?
+        };
+
+        let ver = splice::AssetVersion::new_from(&dst);
+        let src_statements =
+            splice::extract_tracked_statements(&mut src, ver, &Some("src".to_string()));
+        let hook = &splice::find_hooks(&src, &src_statements)["wait loop"];
+        let mut statements = splice::extract_tracked_statements(&mut dst, ver, &None);
+
+        for (pi, statements) in statements.iter_mut() {
+            let insert_index = statements
+                .iter()
+                .enumerate()
+                .find(|(_, ex)| {
+                    if let KismetExpression::ExFinalFunction(ex) = &ex.ex {
+                        if dst
+                            .get_import(ex.stack_node)
+                            .is_some_and(|f| f.object_name.get_content() == "SetSeed")
+                        {
+                            if let [KismetExpression::ExLocalVariable(ex)] =
+                                ex.parameters.as_slice()
+                            {
+                                return ex
+                                    .variable
+                                    .new
+                                    .as_ref()
+                                    .and_then(|p| p.path.last())
+                                    .is_some_and(|n| n.get_content() == "K2Node_Event_seed");
+                            }
+                        }
+                    }
+                    false
+                })
+                .map(|(i, _)| i);
+
+            if let Some(insert_index) = insert_index {
+                let mut iter = std::mem::take(statements)
+                    .into_iter()
+                    .enumerate()
+                    .peekable();
+
+                let mut new = vec![];
+
+                while let Some((index, statement)) = iter.next() {
+                    new.push(statement);
+
+                    if index == insert_index {
+                        for inst in &hook.statements {
+                            if inst.original_offset == hook.end_offset {
+                                if let Some((_index, next)) = iter.peek() {
+                                    new.push(splice::TrackedStatement {
+                                        ex: ExJump {
+                                            token: EExprToken::ExJump,
+                                            code_offset: next.original_offset.unwrap() as u32,
+                                        }
+                                        .into(),
+                                        origin: inst.origin.clone(),
+                                        original_offset: inst.original_offset,
+                                        rewire: false,
+                                    });
+                                }
+                            } else {
+                                new.push(splice::TrackedStatement {
+                                    origin: inst.origin.clone(),
+                                    original_offset: inst.original_offset,
+                                    ex: splice::copy_expression(
+                                        &src,
+                                        &mut dst,
+                                        hook.function,
+                                        *pi,
+                                        inst,
+                                    ),
+                                    rewire: false,
+                                })
+                            }
+                        }
+                    }
+                }
+                *statements = new;
+            }
+        }
+        splice::inject_tracked_statements(&mut dst, ver, statements);
+
+        let mut uasset = Cursor::new(vec![]);
+        let mut uexp = Cursor::new(vec![]);
+        dst.write_data(&mut uasset, Some(&mut uexp))?;
+        Ok(vec![
+            FileEntry {
+                path: format!("{pls_base_path}.uasset",),
+                data: uasset.into_inner(),
+            },
+            FileEntry {
+                path: format!("{pls_base_path}.uexp"),
+                data: uexp.into_inner(),
+            },
+        ])
+    }
 }
