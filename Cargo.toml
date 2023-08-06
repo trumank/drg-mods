@@ -4,18 +4,18 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.70"
+anyhow = "1.0.72"
 byteorder = "1.4.3"
-clap = { version = "4.2.3", features = ["derive"] }
+clap = { version = "4.3.19", features = ["derive"] }
 dotenvy = "0.15.7"
 globwalk = "0.8.1"
-path-absolutize = "3.0.14"
+path-absolutize = "3.1.0"
 rayon = "1.7.0"
 repak = { git = "https://github.com/trumank/repak.git", version = "0.1.5" }
 steamlocate = "2.0.0-alpha.0"
 unreal_asset = { git = "https://github.com/AstroTechies/unrealmodding" }
 walkdir = "2.3.3"
-zip = "0.6.4"
+zip = "0.6.6"
 
 [patch.'https://github.com/AstroTechies/unrealmodding']
 unreal_asset = { git = "https://github.com/trumank/unrealmodding", branch = "patches" }

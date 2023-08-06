@@ -316,7 +316,8 @@ fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
         let asset = unreal_asset::Asset::new(
             uasset,
             Some(uexp),
-            unreal_asset::engine_version::EngineVersion::UNKNOWN,
+            unreal_asset::engine_version::EngineVersion::VER_UE4_27,
+            None,
         )?;
         (
             asset.search_name_reference("EmptyParticleSystem").unwrap(),
@@ -333,7 +334,8 @@ fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
         let asset = unreal_asset::Asset::new(
             uasset,
             Some(uexp),
-            unreal_asset::engine_version::EngineVersion::UNKNOWN,
+            unreal_asset::engine_version::EngineVersion::VER_UE4_27,
+            None,
         )?;
         (
             asset.search_name_reference("EmptyNiagaraSystem").unwrap(),
@@ -408,7 +410,7 @@ mod cd2 {
 
             let uasset = Cursor::new(pak.get(&format!("{pls_base_path}.uasset"), &mut reader)?);
             let uexp = Cursor::new(pak.get(&format!("{pls_base_path}.uexp"), &mut reader)?);
-            unreal_asset::Asset::new(uasset, Some(uexp), version)?
+            unreal_asset::Asset::new(uasset, Some(uexp), version, None)?
         };
 
         let ver = splice::AssetVersion::new_from(&dst);
@@ -425,7 +427,7 @@ mod cd2 {
                     if let KismetExpression::ExFinalFunction(ex) = &ex.ex {
                         if dst
                             .get_import(ex.stack_node)
-                            .is_some_and(|f| f.object_name.get_content() == "SetSeed")
+                            .is_some_and(|f| f.object_name.get_content(|s| s == "SetSeed"))
                         {
                             if let [KismetExpression::ExLocalVariable(ex)] =
                                 ex.parameters.as_slice()
@@ -435,7 +437,7 @@ mod cd2 {
                                     .new
                                     .as_ref()
                                     .and_then(|p| p.path.last())
-                                    .is_some_and(|n| n.get_content() == "K2Node_Event_seed");
+                                    .is_some_and(|n| n.get_content(|s| s == "K2Node_Event_seed"));
                             }
                         }
                     }

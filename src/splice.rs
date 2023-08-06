@@ -83,7 +83,7 @@ pub fn read_asset<P: AsRef<Path>>(
 ) -> Result<Asset<Cursor<Vec<u8>>>> {
     let uasset = Cursor::new(fs::read(&path)?);
     let uexp = Cursor::new(fs::read(path.as_ref().with_extension("uexp"))?);
-    let asset = Asset::new(uasset, Some(uexp), version)?;
+    let asset = Asset::new(uasset, Some(uexp), version, None)?;
 
     /*
     let mut out_uasset = Cursor::new(vec![]);
@@ -119,7 +119,7 @@ fn get_size(ex: &KismetExpression, version: AssetVersion) -> Result<usize> {
 }
 
 /// walk all expressions and subexpressions
-fn walk(ex: &mut KismetExpression, f: &dyn Fn(&mut KismetExpression)) {
+pub fn walk(ex: &mut KismetExpression, f: &dyn Fn(&mut KismetExpression)) {
     f(ex);
     match ex {
         KismetExpression::ExFieldPathConst(ex) => walk(&mut ex.value, f),
@@ -272,8 +272,7 @@ fn find_ubergraph<C: std::io::Read + std::io::Seek>(asset: &Asset<C>) -> Option<
         if let unreal_asset::exports::Export::FunctionExport(f) = &e {
             if f.get_base_export()
                 .object_name
-                .get_content()
-                .starts_with("ExecuteUbergraph")
+                .get_content(|s| s.starts_with("ExecuteUbergraph"))
             {
                 return Some(PackageIndex::from_export(i as i32).unwrap());
             };
@@ -290,9 +289,9 @@ fn find_struct_latent_action<C: std::io::Read + std::io::Seek>(
         .iter()
         .enumerate()
         .find(|(_, i)| {
-            i.class_package.get_content() == "/Script/CoreUObject"
-                && i.class_name.get_content() == "ScriptStruct"
-                && i.object_name.get_content() == "LatentActionInfo"
+            i.class_package.get_content(|s| s == "/Script/CoreUObject")
+                && i.class_name.get_content(|s| s == "ScriptStruct")
+                && i.object_name.get_content(|s| s == "LatentActionInfo")
         })
         .map(|(pi, _)| PackageIndex::from_import(pi as i32).unwrap())
 }
@@ -348,7 +347,7 @@ pub fn copy_expression<C: std::io::Read + std::io::Seek>(from: &Asset<C>, to: &m
             value: copy_package(from, to, ex.value),
         }.into(),
         KismetExpression::ExNameConst(ex) => ExNameConst { token: ex.token,
-            value: to.add_fname(&ex.value.get_content()),
+            value: to.add_fname(&ex.value.get_owned_content()),
         }.into(),
         //KismetExpression::ExRotationConst(ex) => {}
         //KismetExpression::ExVectorConst(ex) => {}
@@ -395,7 +394,7 @@ pub fn copy_expression<C: std::io::Read + std::io::Seek>(from: &Asset<C>, to: &m
         //KismetExpression::ExLetMulticastDelegate(ex) => {}
         //KismetExpression::ExLetDelegate(ex) => {}
         KismetExpression::ExLocalVirtualFunction(ex) => ExLocalVirtualFunction { token: ex.token,
-            virtual_function_name: to.add_fname(&ex.virtual_function_name.get_content()),
+            virtual_function_name: to.add_fname(&ex.virtual_function_name.get_owned_content()),
             parameters: ex.parameters.iter().map(|ex| copy_expression(from, to, fn_from, fn_to, ex)).collect(),
         }.into(),
         //KismetExpression::ExLocalFinalFunction(ex) => {}
@@ -470,18 +469,18 @@ fn copy_fgenericproperty<C: std::io::Read + std::io::Seek>(
     p: &FGenericProperty,
 ) -> FGenericProperty {
     FGenericProperty {
-        name: to.add_fname(&p.name.get_content()),
+        name: to.add_fname(&p.name.get_owned_content()),
         flags: p.flags,
         array_dim: p.array_dim,
         element_size: p.element_size,
         property_flags: p.property_flags,
         rep_index: p.rep_index,
-        rep_notify_func: to.add_fname(&p.rep_notify_func.get_content()),
+        rep_notify_func: to.add_fname(&p.rep_notify_func.get_owned_content()),
         blueprint_replication_condition: p.blueprint_replication_condition,
         serialized_type: p
             .serialized_type
             .as_ref()
-            .map(|n| to.add_fname(&n.get_content())),
+            .map(|n| to.add_fname(&n.get_owned_content())),
     }
 }
 
@@ -598,7 +597,7 @@ fn copy_kismetpropertypointer<C: std::io::Read + std::io::Seek>(
                     path: fp
                         .path
                         .iter()
-                        .map(|n| to.add_fname(&n.get_content()))
+                        .map(|n| to.add_fname(&n.get_owned_content()))
                         .collect(),
                     resolved_owner: fp.resolved_owner,
                 }
@@ -610,15 +609,17 @@ fn copy_kismetpropertypointer<C: std::io::Read + std::io::Seek>(
                 };
 
                 assert_eq!(fp.path.len(), 1, "path should have only one element");
-                let name = &fp.path[0].get_content();
+                let name = &fp.path[0];
                 let new_prop = copy_fproperty(
                     from,
                     to,
                     ff.struct_export
                         .loaded_properties
                         .iter()
-                        .find(|p| &get_generic_property(p).name.get_content() == name)
-                        .unwrap_or_else(|| panic!("invalid property reference {}", name)),
+                        .find(|p| get_generic_property(p).name.eq_content(name))
+                        .unwrap_or_else(|| {
+                            panic!("invalid property reference {}", name.get_owned_content())
+                        }),
                 );
 
                 let ft = if let Some(Export::FunctionExport(f)) = to.get_export_mut(fn_to) {
@@ -631,7 +632,7 @@ fn copy_kismetpropertypointer<C: std::io::Read + std::io::Seek>(
                     .struct_export
                     .loaded_properties
                     .iter()
-                    .any(|p| &get_generic_property(p).name.get_content() == name)
+                    .any(|p| get_generic_property(p).name.eq_content(name))
                 {
                     ft.struct_export.loaded_properties.push(new_prop);
                 } else {
@@ -642,7 +643,7 @@ fn copy_kismetpropertypointer<C: std::io::Read + std::io::Seek>(
                     path: fp
                         .path
                         .iter()
-                        .map(|n| to.add_fname(&n.get_content()))
+                        .map(|n| to.add_fname(&n.get_owned_content()))
                         .collect(),
                     resolved_owner: fn_to,
                 }
@@ -665,7 +666,7 @@ fn copy_fieldpath<C: std::io::Read + std::io::Seek>(
         path: path
             .path
             .iter()
-            .map(|n| to.add_fname(&n.get_content()))
+            .map(|n| to.add_fname(&n.get_owned_content()))
             .collect(),
         resolved_owner: copy_package(from, to, path.resolved_owner),
     }
@@ -688,10 +689,10 @@ fn copy_package<C: std::io::Read + std::io::Seek>(
             return PackageIndex::new(existing);
         } else {
             let new = Import {
-                class_package: to.add_fname(&from_import.class_package.get_content()),
-                class_name: to.add_fname(&from_import.class_name.get_content()),
+                class_package: to.add_fname(&from_import.class_package.get_owned_content()),
+                class_name: to.add_fname(&from_import.class_name.get_owned_content()),
                 outer_index: to_outer,
-                object_name: to.add_fname(&from_import.object_name.get_content()),
+                object_name: to.add_fname(&from_import.object_name.get_owned_content()),
                 optional: false,
             };
             return to.add_import(new);
@@ -703,7 +704,7 @@ fn copy_package<C: std::io::Read + std::io::Seek>(
                 .unwrap()
                 .get_base_export()
                 .object_name
-                .get_content()
+                .get_owned_content()
         )
     }
     package
@@ -731,7 +732,7 @@ fn to_tracked_statements(
 }
 
 fn resolve_tracked_statements<C: std::io::Read + std::io::Seek>(
-    asset: &mut Asset<C>,
+    asset: &Asset<C>,
     mappings: &NamedSpliceMappings,
     inst: Vec<TrackedStatement>,
 ) -> Vec<KismetExpression> {
@@ -988,7 +989,7 @@ pub fn find_hooks<'a, C: std::io::Read + std::io::Seek>(
     for (addr, statement) in &mapping {
         match &statement.ex {
             KismetExpression::ExLocalVirtualFunction(f)
-                if f.virtual_function_name.get_content() == "HOOK START" =>
+                if f.virtual_function_name.get_content(|s| s == "HOOK START") =>
             {
                 if let [KismetExpression::ExStringConst(s)] = &f.parameters[..] {
                     let function = addr.0;
@@ -1006,7 +1007,7 @@ pub fn find_hooks<'a, C: std::io::Read + std::io::Seek>(
                         let inst = mapping[&next];
                         match &inst.ex {
                             KismetExpression::ExLocalVirtualFunction(f)
-                                if f.virtual_function_name.get_content() == "HOOK END" =>
+                                if f.virtual_function_name.get_content(|s| s == "HOOK END") =>
                             {
                                 end_offset = inst.original_offset;
                             }
