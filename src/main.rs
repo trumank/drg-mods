@@ -1,5 +1,4 @@
 mod ar;
-mod splice;
 mod util;
 
 use std::{
@@ -385,6 +384,7 @@ fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
 
 mod cd2 {
     use super::*;
+    use uasset_utils::splice;
     use unreal_asset::{
         engine_version::EngineVersion,
         kismet::{EExprToken, ExJump, KismetExpression},
