@@ -1,8 +1,5 @@
 #include "PlayerAnimInstance.h"
 
-class UItemCharacterAnimationSet;
-class UUseAnimationSetting;
-
 bool UPlayerAnimInstance::StopUseMontage(bool stopImmediately) {
     return false;
 }
@@ -61,6 +58,7 @@ UPlayerAnimInstance::UPlayerAnimInstance() {
     this->BeingRevived = false;
     this->IsLookingAtMap = false;
     this->IsControllingEnemy = false;
+    this->IsUsingJetBoots = false;
     this->IsUsingTraversalTool = false;
     this->TraversalToolTargetHorizontalOffset = 0.00f;
     this->TraversalToolTargetVerticalOffset = 0.00f;

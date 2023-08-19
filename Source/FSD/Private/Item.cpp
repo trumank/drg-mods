@@ -3,16 +3,6 @@
 #include "Templates/SubclassOf.h"
 #include "UpgradableItemComponent.h"
 
-class AActor;
-class AItem;
-class UAudioComponent;
-class UItemCharacterAnimationSet;
-class USceneComponent;
-class USoundAttenuation;
-class USoundBase;
-class USoundConcurrency;
-class UTexture2D;
-
 void AItem::UpdateSkin() {
 }
 
@@ -109,7 +99,7 @@ FString AItem::GetAnalyticsItemCategory() const {
 void AItem::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     
-    DOREPLIFETIME(AItem, Overheated);
+    DOREPLIFETIME(AItem, overHeated);
     DOREPLIFETIME(AItem, IsUsing);
 }
 
@@ -131,7 +121,7 @@ AItem::AItem() {
     this->AudioTemperatureFadeout = 0.00f;
     this->TemperatureFloatParam = TEXT("Temperature");
     this->TemperatureAudioComponent = NULL;
-    this->Overheated = false;
+    this->overHeated = false;
     this->ShoutOverheated = NULL;
     this->bAimAssistEnabled = true;
     this->MovementRateWhileUsing = 1.00f;

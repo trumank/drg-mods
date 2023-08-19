@@ -7,7 +7,6 @@ public class FSDGameTarget : TargetRules {
 		ExtraModuleNames.AddRange(new string[] {
 			"FSD",
 			"FSDEngine",
-			"RenderCore"
 		});
 	}
 }

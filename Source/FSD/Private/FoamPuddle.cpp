@@ -3,8 +3,8 @@
 #include "NiagaraComponent.h"
 #include "Net/UnrealNetwork.h"
 
-class AActor;
-class UPrimitiveComponent;
+void AFoamPuddle::SetState(EVacuumState NewState) {
+}
 
 
 
@@ -39,8 +39,9 @@ AFoamPuddle::AFoamPuddle() {
     this->AttractorPowerWhenVacuuming = 1000.00f;
     this->ScaleTimeVacuuming = 1.00f;
     this->Speed = 0.00f;
-    this->State = EVacuumState::EPuddle;
+    this->State = EVacuumState::EFalling;
     this->VacuumSource = NULL;
     this->MaxSoapPiles = 100;
+    this->UsesLocalSpace = false;
 }
 

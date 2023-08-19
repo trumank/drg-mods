@@ -1,7 +1,5 @@
 #include "Season.h"
 
-class UReward;
-
 void USeason::AddUnassignedReward(int32 Index, UReward* Reward) {
 }
 
@@ -13,6 +11,7 @@ USeason::USeason() {
     this->TreeOfVanity = NULL;
     this->SeasonDLC = NULL;
     this->NumberOfScripChallenges = 0;
+    this->SeasonWaveInMissionChance = 0.00f;
     this->SeasonWarning = NULL;
 }
 

@@ -1,11 +1,10 @@
 #include "PickaxeFunctionLibrary.h"
 
-class UItemID;
-class UObject;
-class UPickaxePart;
-
 bool UPickaxeFunctionLibrary::RemovePickaxePartFromOwned(UObject* WorldContextObject, const UPickaxePart* part) {
     return false;
+}
+
+void UPickaxeFunctionLibrary::RandomizePickaxe(UObject* WorldContextObject, UPlayerCharacterID* PlayerId) {
 }
 
 bool UPickaxeFunctionLibrary::IsPickaxePartEquipped(UObject* WorldContextObject, EPickaxePartLocation Location, UPickaxePart* part, UItemID* pickaxeID) {
@@ -36,6 +35,9 @@ UPickaxePart* UPickaxeFunctionLibrary::GetEquippedPickaxePart(UObject* WorldCont
 }
 
 void UPickaxeFunctionLibrary::EquipPickaxePart(UObject* WorldContextObject, UPickaxePart* part, EPickaxePartLocation partLocation, UItemID* pickaxeID) {
+}
+
+void UPickaxeFunctionLibrary::CopyPastePickaxeLoadout(UObject* WorldContextObject, UPlayerCharacterID* PlayerId, int32 fromIndex, int32 toIndex) {
 }
 
 UPickaxeFunctionLibrary::UPickaxeFunctionLibrary() {

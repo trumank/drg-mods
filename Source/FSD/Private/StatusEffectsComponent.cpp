@@ -1,11 +1,6 @@
 #include "StatusEffectsComponent.h"
 #include "Templates/SubclassOf.h"
 
-class AActor;
-class UHealthComponentBase;
-class UObject;
-class UStatusEffect;
-
 bool UStatusEffectsComponent::TryPushActiveStatusEffect(TSubclassOf<UStatusEffect> StatusEffect, AActor* Target, AActor* Owner) {
     return false;
 }
@@ -41,6 +36,14 @@ void UStatusEffectsComponent::OnDeath(UHealthComponentBase* HealthComponent) {
 
 bool UStatusEffectsComponent::HasActiveEffect(TSubclassOf<UStatusEffect> StatusEffect) const {
     return false;
+}
+
+int32 UStatusEffectsComponent::GetStackAmount(TSubclassOf<UStatusEffect> StatusEffect, AActor* Owner) const {
+    return 0;
+}
+
+int32 UStatusEffectsComponent::GetFullStackAmount(TSubclassOf<UStatusEffect> StatusEffect) const {
+    return 0;
 }
 
 UStatusEffect* UStatusEffectsComponent::CreateStatusEffectInstance(TSubclassOf<UStatusEffect> StatusEffect, UObject* Owner) {

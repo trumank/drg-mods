@@ -10,17 +10,6 @@
 #include "SpawnEffectsComponent.h"
 #include "TeamResourcesComponent.h"
 
-class AFSDGameState;
-class AFSDPlayerState;
-class AGameStats;
-class AProceduralSetup;
-class UDifficultySetting;
-class UFSDEvent;
-class UGeneratedMission;
-class UObjective;
-class UResourceData;
-class USoundCue;
-
 void AFSDGameState::WaitForInitialGenerationDone(AFSDGameState* GameState, FLatentActionInfo LatentInfo) {
 }
 
@@ -164,7 +153,7 @@ TArray<FCreditsReward> AFSDGameState::GetMissionRewardCredits() const {
     return TArray<FCreditsReward>();
 }
 
-bool AFSDGameState::GetMissionCompletedCreditReward(bool primary, int32& OutReward) const {
+bool AFSDGameState::GetMissionCompletedCreditReward(bool Primary, int32& OutReward) const {
     return false;
 }
 

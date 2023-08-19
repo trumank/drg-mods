@@ -1,9 +1,15 @@
 #include "CarvedResourceData.h"
 
-class UCarvedResourceCreator;
-
 UCarvedResourceCreator* UCarvedResourceData::LoadResourceCreator() const {
     return NULL;
+}
+
+float UCarvedResourceData::GetUnitsPerCarver() const {
+    return 0.0f;
+}
+
+float UCarvedResourceData::GetTargetAmount(AProceduralSetup* pls) const {
+    return 0.0f;
 }
 
 UCarvedResourceData::UCarvedResourceData() {

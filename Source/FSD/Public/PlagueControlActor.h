@@ -56,7 +56,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool DebugDrawDebrisLight;
     
-    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<APlagueInfectionNode> TargetedPlagueNode;
     
 public:
@@ -77,7 +77,7 @@ protected:
     void EquipPlaguePod(APlayerCharacter* Player);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool CanDropWeaponPod(float& timeLeft);
+    bool CanDropWeaponPod(float& TimeLeft);
     
 };
 

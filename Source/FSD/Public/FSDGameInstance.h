@@ -50,6 +50,7 @@ class ACharacterSelectionSwitcher;
 class AFSDPlayerController;
 class AMolly;
 class APlayerCharacter;
+class APlayerController;
 class APostProcessingManager;
 class AProceduralSetup;
 class ATutorialManager;
@@ -95,7 +96,7 @@ public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDonkeyCharacterDelegate, AMolly*, InDonkey);
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    FTemporaryBuffChanged OnTemporaryBuffChanged;
+    FTemporaryBuffChanged OnTemporaryBuffAdded;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FGenericSignature OnGameSettingsChanged;
@@ -169,7 +170,7 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool ShowingReconnectScreen;
     
-    UPROPERTY(EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, Transient, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<UMouseCursorWidget> MouseCursorWidget;
     
     UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -250,7 +251,7 @@ public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FDonkeyCharacterDelegate OnDonkeyChanged;
     
-    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<AMolly> Donkey;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -308,19 +309,19 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LastDreadnaughtKillTime;
     
-    UPROPERTY(EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<UWindowWidget> ActiveEscapeMenu;
     
-    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<APostProcessingManager> PostProcessingManager;
     
-    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<ABosco> Drone;
     
-    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<APlayerCharacter> LocalPlayerCharacter;
     
-    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<ATutorialManager> TutorialManager;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
@@ -441,7 +442,7 @@ protected:
     bool PreSpawnNigaraParticles;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    UTemporaryBuff* TemporaryBuff;
+    TArray<UTemporaryBuff*> TemporaryBuffs;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     TSoftObjectPtr<ULevelSequence> NextLoaderSequence;
@@ -489,6 +490,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void SetSteamSearchRegion(ESteamSearchRegion NewRegion);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetShouldAdvertiseInServerlist(bool bShouldAdvertise);
     
     UFUNCTION(BlueprintCallable)
     void SetServerSearchOptions(const FFSDServerSearchOptions& options);
@@ -554,13 +558,16 @@ public:
     void ResetAlwaysLoadedWorldsAndGameData();
     
     UFUNCTION(BlueprintCallable)
-    void RemoveRemporaryBuff();
-    
-    UFUNCTION(BlueprintCallable)
     void RemoveBosco();
     
     UFUNCTION(BlueprintCallable)
+    void RemoveAllTemporaryBuff(APlayerController* PlayerController);
+    
+    UFUNCTION(BlueprintCallable)
     void RefreshIsGameModded();
+    
+    UFUNCTION(BlueprintCallable)
+    void PreClientTravelCleanup(APlayerController* PlayerController);
     
 private:
     UFUNCTION(BlueprintCallable)
@@ -616,6 +623,9 @@ public:
     bool HasSignedIn();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool HasRandomBeerBuff() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool HasPendingInvite() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -638,6 +648,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     TArray<FBlueprintSessionResult> GetServersFriendsArePlaying(TArray<FBlueprintSessionResult> servers);
+    
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
+    static FString GetSeedString(UObject* WorldContextObject);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     int32 GetOverrideMaxPlayerCount() const;

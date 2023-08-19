@@ -65,8 +65,8 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float AngleSpeedFilterFactor;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    int32 AIAvoidanceWeight;
+    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
+    uint32 AIAvoidanceWeight;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     DeepPathFinderType PathfinderType;
@@ -334,6 +334,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     UFakeMoverSettings* GetCurrentFakePhysicsMoveSet();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetApproximatePathLength(FVector Start, FVector End) const;
     
     UFUNCTION(BlueprintCallable)
     bool FlyToConnectedPosition(const FVector& destPos);

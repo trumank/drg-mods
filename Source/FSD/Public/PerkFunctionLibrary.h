@@ -22,6 +22,9 @@ public:
     UFUNCTION(BlueprintCallable)
     static TArray<UPerkAsset*> SortPerksByUsage(UPARAM(Ref) TArray<UPerkAsset*>& perks);
     
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContext"))
+    static void RandomizePerkLoadout(UObject* WorldContext, UPlayerCharacterID* characterID);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContext"))
     static bool IsPerkTierUnLocked(UObject* WorldContext, int32 Tier);
     

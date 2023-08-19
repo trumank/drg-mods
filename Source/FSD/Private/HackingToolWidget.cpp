@@ -1,13 +1,12 @@
 #include "HackingToolWidget.h"
 
-class AHackingToolItem;
-class UHackingUsableComponent;
-
 void UHackingToolWidget::StartHacking(UHackingUsableComponent* InHackingUsable, AHackingToolItem* InHackingTool) {
 }
 
 void UHackingToolWidget::RequestUnequipHackingTool() {
 }
+
+
 
 
 

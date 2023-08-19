@@ -1,6 +1,10 @@
 #include "FSDEventManager.h"
 
-class UFSDEvent;
+void UFSDEventManager::TryGetJettyBootSettings(bool& OutHasSettings, FJettyBootEventSettings& OutSettings) {
+}
+
+void UFSDEventManager::RequestSeasonEndTime(FOnRequestSeasonEndTimeComplete OnComplete) {
+}
 
 bool UFSDEventManager::IsEventTypeActive(const EHolidayType FSDEvent) const {
     return false;

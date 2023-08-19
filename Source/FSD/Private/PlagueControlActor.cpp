@@ -3,8 +3,6 @@
 #include "Net/UnrealNetwork.h"
 #include "PlagueUsable.h"
 
-class APlayerCharacter;
-
 void APlagueControlActor::SpawnPodHack(APlayerCharacter* Player) const {
 }
 
@@ -17,7 +15,7 @@ void APlagueControlActor::PushDebrisLights() {
 void APlagueControlActor::EquipPlaguePod(APlayerCharacter* Player) {
 }
 
-bool APlagueControlActor::CanDropWeaponPod(float& timeLeft) {
+bool APlagueControlActor::CanDropWeaponPod(float& TimeLeft) {
     return false;
 }
 

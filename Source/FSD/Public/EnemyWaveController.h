@@ -3,7 +3,7 @@
 #include "UObject/Object.h"
 #include "EnemyWaveController.generated.h"
 
-UCLASS(Blueprintable, Meta = (ShowWorldContextPin))
+UCLASS(Blueprintable)
 class UEnemyWaveController : public UObject {
     GENERATED_BODY()
 public:

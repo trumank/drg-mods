@@ -1,12 +1,6 @@
 #include "GeneratedMission.h"
 #include "Templates/SubclassOf.h"
 
-class AFSDPlayerController;
-class AProceduralSetup;
-class UGeneratedMission;
-class UMissionDNA;
-class UMutator;
-
 
 bool UGeneratedMission::IsSingleMission() const {
     return false;
@@ -64,5 +58,6 @@ UGeneratedMission::UGeneratedMission() {
     this->MissionDNA = NULL;
     this->MissionStructure = EMissionStructure::SingleMission;
     this->IsInSeasonEventZone = false;
+    this->CanHaveMutators = false;
 }
 

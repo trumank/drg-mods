@@ -1,10 +1,5 @@
 #include "DrinkableDataAsset.h"
 
-class APlayerCharacter;
-class UDrinkableDataAsset;
-class UObject;
-class UTexture2D;
-
 bool UDrinkableDataAsset::TryUnlockSpecialDrinks(UObject* WorldContext) {
     return false;
 }
@@ -50,6 +45,7 @@ bool UDrinkableDataAsset::AreSpecialDrinksUnlocked(UObject* WorldContext) {
 
 UDrinkableDataAsset::UDrinkableDataAsset() {
     this->DrinkablePrice = 50;
+    this->IsSpecialBeer = false;
     this->RequiredPlayerRank = 0;
     this->ParticipatesInFreeBeerEvent = false;
     this->AlcoholStrength = EDrinkableAlcoholStrength::Regular;

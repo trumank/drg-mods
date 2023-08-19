@@ -1,14 +1,6 @@
 #include "FSDSaveGame.h"
 #include "Templates/SubclassOf.h"
 
-class AActor;
-class UFSDGameInstance;
-class UFSDSaveGame;
-class UItemID;
-class UObject;
-class UPlayerCharacterID;
-class UResourceData;
-
 bool UFSDSaveGame::TrySellResource(UResourceData* Resource, int32 Amount, int32& Price) {
     return false;
 }
@@ -49,6 +41,9 @@ void UFSDSaveGame::SetIsModded(bool modded) {
 }
 
 void UFSDSaveGame::SetIndexAndName(int32 NewIndex, const FString& NewName) {
+}
+
+void UFSDSaveGame::SetIgnoreRandomLoadout(bool inIgnoreRandomLoadout) {
 }
 
 void UFSDSaveGame::SetHasSentSteamInfo() {
@@ -356,9 +351,10 @@ UFSDSaveGame::UFSDSaveGame() {
     this->Faction = EFSDFaction::NoFaction;
     this->Credits = 0;
     this->LastBoughtDailyDealSeed = 0;
+    this->bIgnoreRandomLoadout = false;
     this->LastCollectedCommunityRewardPeriodID = 0;
     this->FirstRejoinAttempt = false;
-    this->HaveSkinsBeenReset = false;
+    this->HaveItemUpgradesBeenFixed = false;
     this->bHasOpenedDeepDiveTerminal = false;
     this->FirstSession = true;
     this->HasCompletedTutorial = false;

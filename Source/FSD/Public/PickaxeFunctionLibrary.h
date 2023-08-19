@@ -8,6 +8,7 @@
 class UItemID;
 class UObject;
 class UPickaxePart;
+class UPlayerCharacterID;
 
 UCLASS(Blueprintable)
 class UPickaxeFunctionLibrary : public UBlueprintFunctionLibrary {
@@ -16,6 +17,9 @@ public:
     UPickaxeFunctionLibrary();
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static bool RemovePickaxePartFromOwned(UObject* WorldContextObject, const UPickaxePart* part);
+    
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
+    static void RandomizePickaxe(UObject* WorldContextObject, UPlayerCharacterID* PlayerId);
     
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
     static bool IsPickaxePartEquipped(UObject* WorldContextObject, EPickaxePartLocation Location, UPickaxePart* part, UItemID* pickaxeID);
@@ -40,6 +44,9 @@ public:
     
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static void EquipPickaxePart(UObject* WorldContextObject, UPickaxePart* part, EPickaxePartLocation partLocation, UItemID* pickaxeID);
+    
+    UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
+    static void CopyPastePickaxeLoadout(UObject* WorldContextObject, UPlayerCharacterID* PlayerId, int32 fromIndex, int32 toIndex);
     
 };
 

@@ -3,9 +3,6 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
-class AActor;
-class UPrimitiveComponent;
-
 void ABomber::StopSpinAndDie() {
 }
 
@@ -72,5 +69,6 @@ ABomber::ABomber() {
     this->IsRightDestroyed = false;
     this->IsLeftDestroyed = false;
     this->dropAcid = false;
+    this->NoDeathSpiral = false;
 }
 

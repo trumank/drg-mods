@@ -5,9 +5,6 @@
 #include "Net/UnrealNetwork.h"
 #include "TerrainPlacementComponent.h"
 
-class AProceduralSetup;
-class ARockCrackerPod;
-
 void APlagueMeteor::SignalEventStarted() {
 }
 
@@ -55,7 +52,7 @@ int32 APlagueMeteor::GetNumActivePods() const {
 
 
 
-void APlagueMeteor::DropRockCrackerPods(int32 Amount, float MinRadius, float maRadius, AProceduralSetup* setup) {
+void APlagueMeteor::DropRockCrackerPods(int32 Amount, float MinRadius, float maRadius, AProceduralSetup* Setup) {
 }
 
 

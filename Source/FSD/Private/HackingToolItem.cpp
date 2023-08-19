@@ -1,10 +1,10 @@
 #include "HackingToolItem.h"
 #include "Net/UnrealNetwork.h"
 
-class UHackingUsableComponent;
-
 void AHackingToolItem::Server_HackingCompleted_Implementation(UHackingUsableComponent* InUsable, bool InHackingSuccessful) {
 }
+
+
 
 
 

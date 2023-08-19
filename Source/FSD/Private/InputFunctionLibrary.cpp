@@ -1,8 +1,5 @@
 #include "InputFunctionLibrary.h"
 
-class APlayerController;
-class UTexture2D;
-
 void UInputFunctionLibrary::SetMouseSmoothingOn(bool smoothingOn) {
 }
 
@@ -27,6 +24,10 @@ bool UInputFunctionLibrary::IsInputActionDown(const APlayerController* InPlayerC
 }
 
 bool UInputFunctionLibrary::IsAxisMappedToDirectional(FName InActionName, FKey Key, int32 Direction, bool IgnoreCustomBindings) {
+    return false;
+}
+
+bool UInputFunctionLibrary::IsAnyInputActionDown(const APlayerController* InPlayerController, const TArray<FName>& InActionNames) {
     return false;
 }
 

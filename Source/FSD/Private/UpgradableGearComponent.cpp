@@ -1,17 +1,6 @@
 #include "UpgradableGearComponent.h"
 #include "Templates/SubclassOf.h"
 
-class AActor;
-class AFSDPlayerController;
-class AFSDPlayerState;
-class APlayerCharacter;
-class UItemID;
-class UItemUpgrade;
-class UObject;
-class UPlayerCharacterID;
-class UResourceData;
-class UTexture2D;
-
 void UUpgradableGearComponent::SetGearStatText(FGearStatEntry& Entry, FText Text) {
 }
 
@@ -34,11 +23,11 @@ bool UUpgradableGearComponent::IsUpgradeEquipped(TSubclassOf<AActor> itemClass, 
     return false;
 }
 
-bool UUpgradableGearComponent::IsTierUnLocked(TSubclassOf<AActor> itemClass, int32 tierIndex, AFSDPlayerState* Player, UPlayerCharacterID* characterID) {
+bool UUpgradableGearComponent::IsTierUnLocked(UObject* WorldContextObject, TSubclassOf<AActor> itemClass, int32 tierIndex, UPlayerCharacterID* characterID) {
     return false;
 }
 
-bool UUpgradableGearComponent::IsOverclockingEnabled(UObject* WorldContextObject, AFSDPlayerState* Player, UPlayerCharacterID* characterID, TSubclassOf<AActor> itemClass) {
+bool UUpgradableGearComponent::IsOverclockingEnabled(UObject* WorldContextObject, UPlayerCharacterID* characterID, TSubclassOf<AActor> itemClass) {
     return false;
 }
 

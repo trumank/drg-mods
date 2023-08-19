@@ -1,16 +1,14 @@
 #include "PerkFunctionLibrary.h"
 #include "Templates/SubclassOf.h"
 
-class APlayerCharacter;
-class UObject;
-class UPerkAsset;
-class UPlayerCharacterID;
-
 void UPerkFunctionLibrary::SplitPerksByUsage(const TArray<UPerkAsset*>& perks, TArray<UPerkAsset*>& OutPassivePerks, TArray<UPerkAsset*>& OutActivePerks) {
 }
 
 TArray<UPerkAsset*> UPerkFunctionLibrary::SortPerksByUsage(TArray<UPerkAsset*>& perks) {
     return TArray<UPerkAsset*>();
+}
+
+void UPerkFunctionLibrary::RandomizePerkLoadout(UObject* WorldContext, UPlayerCharacterID* characterID) {
 }
 
 bool UPerkFunctionLibrary::IsPerkTierUnLocked(UObject* WorldContext, int32 Tier) {

@@ -83,7 +83,7 @@ public:
     void SetFastMovement(bool fast);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
-    void Server_Refresh_Daily_Special();
+    void Server_Refresh_Daily_Special(int32 Index);
     
     UFUNCTION(BlueprintCallable, Exec)
     void ResetTutorials();
@@ -514,7 +514,7 @@ public:
     void C_RefreshDailyDeal(int32 Seed);
     
     UFUNCTION(BlueprintCallable, Exec)
-    void C_Refresh_Daily_Special();
+    void C_Refresh_Daily_Special(int32 Index);
     
     UFUNCTION(BlueprintCallable, Exec)
     void C_Refinery_BreakPipes();
@@ -539,6 +539,9 @@ public:
     
     UFUNCTION(BlueprintCallable, Exec)
     void C_ProjectileDebugPrintToggle();
+    
+    UFUNCTION(BlueprintCallable, Exec)
+    void C_PrintLoadout();
     
     UFUNCTION(BlueprintCallable, Exec)
     void C_MissionMap_TestDistribution();
@@ -586,6 +589,9 @@ public:
     void C_JumpToNextRoom();
     
     UFUNCTION(BlueprintCallable, Exec)
+    void C_JetBoots_Enable();
+    
+    UFUNCTION(BlueprintCallable, Exec)
     void C_Intoxication_SetAll(int32 Percent);
     
     UFUNCTION(BlueprintCallable, Exec)
@@ -593,6 +599,9 @@ public:
     
     UFUNCTION(BlueprintCallable, Exec)
     void C_IncrementAllMissionStats(int32 Amount);
+    
+    UFUNCTION(BlueprintCallable, Exec)
+    void C_IncreasePlagueInfection(float Increment);
     
     UFUNCTION(BlueprintCallable, Exec)
     void C_GodMode(int32 forceEnable);

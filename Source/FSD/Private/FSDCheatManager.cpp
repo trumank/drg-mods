@@ -1,17 +1,6 @@
 #include "FSDCheatManager.h"
 #include "Templates/SubclassOf.h"
 
-class AActor;
-class AFSDAIController;
-class APawn;
-class APlayerCharacter;
-class UBaseCritterDescriptor;
-class UEnemyDescriptor;
-class UItemID;
-class UObject;
-class UPlayerCharacterID;
-class UResourceData;
-
 void UFSDCheatManager::SwitchCharacter(UPlayerCharacterID* characterID) {
 }
 
@@ -49,7 +38,7 @@ void UFSDCheatManager::SetGodMode(bool God) {
 void UFSDCheatManager::SetFastMovement(bool fast) {
 }
 
-void UFSDCheatManager::Server_Refresh_Daily_Special_Implementation() {
+void UFSDCheatManager::Server_Refresh_Daily_Special_Implementation(int32 Index) {
 }
 
 void UFSDCheatManager::ResetTutorials() {
@@ -482,7 +471,7 @@ void UFSDCheatManager::C_RemoveAllWidgets() {
 void UFSDCheatManager::C_RefreshDailyDeal(int32 Seed) {
 }
 
-void UFSDCheatManager::C_Refresh_Daily_Special() {
+void UFSDCheatManager::C_Refresh_Daily_Special(int32 Index) {
 }
 
 void UFSDCheatManager::C_Refinery_BreakPipes() {
@@ -507,6 +496,9 @@ void UFSDCheatManager::C_ProjectileDrawPaths() {
 }
 
 void UFSDCheatManager::C_ProjectileDebugPrintToggle() {
+}
+
+void UFSDCheatManager::C_PrintLoadout() {
 }
 
 void UFSDCheatManager::C_MissionMap_TestDistribution() {
@@ -554,6 +546,9 @@ void UFSDCheatManager::C_KillAll() {
 void UFSDCheatManager::C_JumpToNextRoom() {
 }
 
+void UFSDCheatManager::C_JetBoots_Enable() {
+}
+
 void UFSDCheatManager::C_Intoxication_SetAll(int32 Percent) {
 }
 
@@ -561,6 +556,9 @@ void UFSDCheatManager::C_Intoxication_Set(int32 Percent) {
 }
 
 void UFSDCheatManager::C_IncrementAllMissionStats(int32 Amount) {
+}
+
+void UFSDCheatManager::C_IncreasePlagueInfection(float Increment) {
 }
 
 void UFSDCheatManager::C_GodMode(int32 forceEnable) {

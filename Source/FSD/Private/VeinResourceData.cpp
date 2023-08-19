@@ -1,9 +1,11 @@
 #include "VeinResourceData.h"
 
-class UTerrainMaterial;
-
 UTerrainMaterial* UVeinResourceData::GetTerrainMaterial() const {
     return NULL;
+}
+
+float UVeinResourceData::GetDesiredAmount(AProceduralSetup* pls) const {
+    return 0.0f;
 }
 
 UVeinResourceData::UVeinResourceData() {

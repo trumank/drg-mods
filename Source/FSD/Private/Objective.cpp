@@ -2,12 +2,6 @@
 #include "Net/UnrealNetwork.h"
 #include "Templates/SubclassOf.h"
 
-class UObjective;
-class UObjectiveWidget;
-class UOptionalObjectiveWidget;
-class UResourceData;
-class UTexture2D;
-
 void UObjective::SignalObjectiveUpdated() {
 }
 
@@ -108,6 +102,7 @@ UObjective::UObjective() {
     this->ScaleObjectiveToMission = true;
     this->bHasReturnObjective = false;
     this->RequiredReturnObjectiveCompleted = false;
+    this->ShowObjectiveInHUD = true;
     this->ObjectiveCompletedStat = NULL;
     this->IsPrimaryObjective = -1;
     this->bIsNeededForMissionCompletion = false;

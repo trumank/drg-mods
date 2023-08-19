@@ -1,11 +1,5 @@
 #include "FSDGameUserSettings.h"
 
-class APlayerController;
-class UDifficultySetting;
-class UFSDGameUserSettings;
-class UObject;
-class USoundClass;
-
 void UFSDGameUserSettings::UpdateVolumeSettings(USoundClass* CharacterVoices, USoundClass* MissionControl, USoundClass* Master, USoundClass* Music, USoundClass* SFX, USoundClass* UI, USoundClass* Voice) {
 }
 
@@ -156,6 +150,12 @@ void UFSDGameUserSettings::SetInvertFlightControls(bool Invert) {
 }
 
 void UFSDGameUserSettings::SetInputSource(EFSDInputSource NewSource) {
+}
+
+void UFSDGameUserSettings::SetHoldToFire(bool HoldToFire) {
+}
+
+void UFSDGameUserSettings::SetHoldToBreakImmobilization(bool holdToBreak) {
 }
 
 void UFSDGameUserSettings::SetHeadBobbingScale(float NewHeadbobbingScale) {
@@ -474,6 +474,14 @@ EFSDInputSource UFSDGameUserSettings::GetInputSource() {
     return EFSDInputSource::None;
 }
 
+bool UFSDGameUserSettings::GetHoldToFire() const {
+    return false;
+}
+
+bool UFSDGameUserSettings::GetHoldToBreakImmobilization() const {
+    return false;
+}
+
 float UFSDGameUserSettings::GetHeadBobbingScale() const {
     return 0.0f;
 }
@@ -658,12 +666,12 @@ UFSDGameUserSettings::UFSDGameUserSettings() {
     this->bJukeboxStreamerMode = true;
     this->bGraphicSettingsChanged = false;
     this->ServerSearchRegion = 3;
-    this->ServerSearchPasswordRequired = false;
+    this->ServerSearchPasswordRequired = true;
     this->volumeCharacterVoice = 56.99f;
     this->volumeMissionControl = 58.84f;
-    this->volumeMaster = 108.25f;
-    this->volumeSFX = 43.62f;
-    this->volumeMusic = 56.99f;
+    this->volumeMaster = 80.06f;
+    this->volumeSFX = 38.54f;
+    this->volumeMusic = 22.86f;
     this->CurrentAudioOutputDeviceId = TEXT("{0.0.0.00000000}.{e5f88e95-6344-4763-bd61-70b04ceb23f9}");
     this->UseDefaultAudioOutputDevice = true;
     this->Sharpening = 0.00f;
@@ -678,7 +686,7 @@ UFSDGameUserSettings::UFSDGameUserSettings() {
     this->NvidiaDlssMode = UDLSSMode::Auto;
     this->NvidiaDlssSharpness = 0.50f;
     this->FSDResolutionScale = 1.00f;
-    this->ReflexMode = ENVidiaReflexMode::Enabled;
+    this->ReflexMode = ENVidiaReflexMode::Disabled;
     this->soundClassCharacterVoices = NULL;
     this->soundClassMissionControl = NULL;
     this->soundClassMaster = NULL;
@@ -735,8 +743,8 @@ UFSDGameUserSettings::UFSDGameUserSettings() {
     this->SwapControllerThumbsticks = false;
     this->bTutorialHintsEnabled = false;
     this->bShowSubtitles = false;
-    this->bShowFPS = false;
-    this->ShowNetInfoLevel = 0;
+    this->bShowFPS = true;
+    this->ShowNetInfoLevel = 1;
     this->bCanShowBlood = true;
     this->PreventLatejoinCharacterDuplication = false;
     this->TranslatorDebugModeEnabled = false;

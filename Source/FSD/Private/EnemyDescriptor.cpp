@@ -1,10 +1,6 @@
 #include "EnemyDescriptor.h"
 #include "Templates/SubclassOf.h"
 
-class APawn;
-class UBiome;
-class UEnemyDescriptor;
-
 TSubclassOf<APawn> UEnemyDescriptor::GetEnemyClass(UBiome* Biome, bool IsElite) const {
     return NULL;
 }
@@ -22,9 +18,8 @@ UEnemyDescriptor::UEnemyDescriptor() {
     this->VeteranScaling = EVeteranScaling::NormalEnemy;
     this->EnemySignificance = EEnemySignificance::Swarmer;
     this->UsesSpawnEffects = true;
-    this->CreatureSize = 0;
+    this->CreatureSize = ECreatureSize::Tiny;
     this->Positioning = NULL;
-    this->PlacementCategories = 0;
     this->CaveInfluencer = NULL;
     this->InfluencerRange = 1000.00f;
     this->PlacementCarver = NULL;

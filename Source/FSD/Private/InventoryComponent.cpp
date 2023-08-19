@@ -2,10 +2,6 @@
 #include "Net/UnrealNetwork.h"
 #include "Templates/SubclassOf.h"
 
-class AActor;
-class AItem;
-class ARecallableSentryGunItem;
-
 void UInventoryComponent::UpdateFromSaveGameInSlot(EItemCategory Category) {
 }
 
@@ -51,6 +47,10 @@ int32 UInventoryComponent::GetTotalAmmoLeft() const {
 }
 
 ARecallableSentryGunItem* UInventoryComponent::GetRecallableSentryGunItem() const {
+    return NULL;
+}
+
+AItem* UInventoryComponent::GetOrCreateUnlistedItem(TSubclassOf<AItem> ItemType) {
     return NULL;
 }
 

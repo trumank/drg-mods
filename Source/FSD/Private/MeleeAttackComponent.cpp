@@ -1,7 +1,5 @@
 #include "MeleeAttackComponent.h"
 
-class UAnimMontage;
-
 UAnimMontage* UMeleeAttackComponent::SelectMontage_Implementation() const {
     return NULL;
 }
@@ -13,6 +11,7 @@ void UMeleeAttackComponent::OnMontageEnded(UAnimMontage* Montage, bool interrupt
 }
 
 UMeleeAttackComponent::UMeleeAttackComponent() {
+    this->HitValidator = NULL;
     this->CenterOnTarget = true;
 }
 

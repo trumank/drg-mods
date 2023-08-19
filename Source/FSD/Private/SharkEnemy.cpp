@@ -8,13 +8,6 @@
 #include "InDangerComponent.h"
 #include "Net/UnrealNetwork.h"
 
-class AActor;
-class APawn;
-class UDamageTag;
-class UHealthComponent;
-class UHealthComponentBase;
-class UPrimitiveComponent;
-
 void ASharkEnemy::SetVulnerable() {
 }
 
@@ -36,7 +29,6 @@ void ASharkEnemy::OnRep_DiveTime() {
 
 void ASharkEnemy::OnNearTarget(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
 }
-
 
 
 
@@ -90,35 +82,32 @@ ASharkEnemy::ASharkEnemy() {
     this->Damage = CreateDefaultSubobject<UDamageComponent>(TEXT("Damage"));
     this->BumpDamage = CreateDefaultSubobject<UDamageComponent>(TEXT("BumpDamage"));
     this->RestrictedGrabberComponent = CreateDefaultSubobject<UFakePhysGrabberComponent>(TEXT("RestrictedGrabberComponent"));
-    this->RagdollSpeedFactor = 0.20f;
     this->ImpactCue = NULL;
     this->JumpSound = NULL;
     this->DiveForSeconds = 0.00f;
     this->LaunchPower = 0.00f;
     this->GrabTime = 3.00f;
-    this->StopSpeedThreshold = 10.00f;
+    this->RagdollSpeedFactor = 0.20f;
     this->UpsideDownTime = 0.00f;
-    this->RaiseSpeed = 0.00f;
-    this->TiltInSpeed = 1.00f;
     this->TiltOutSpeed = 1.00f;
     this->SafeTimeAfterVounerable = 0.00f;
     this->RaiseHeight = 60.00f;
     this->AttackDuration = 0.00f;
-    this->HitLaunchPower = 0.50f;
     this->ChanceToGrab = 0.50f;
     this->MinTimeBetweenBumps = 1.00f;
     this->ChanceForJump = 0.30f;
     this->MinJumpCooldown = 0.00f;
     this->MaxJumpCooldown = 0.00f;
     this->JumpForce = 0.00f;
-    this->TimeBeforeGroundCheck = 0.00f;
+    this->NormalHeight = -60.00f;
+    this->DiveHeight = -200.00f;
     this->MinCirclingTime = 0.00f;
     this->MaxCirclingTime = 0.00f;
     this->CircleSetttings = NULL;
     this->AttackSettings = NULL;
     this->PostHitSettings = NULL;
     this->JumpSettings = NULL;
-    this->VounerableSettings = NULL;
+    this->VulnerableSettings = NULL;
     this->MaxInGroundTime = 0.00f;
     this->MinInGroundTime = 0.00f;
     this->StartParticleTime = 0.00f;

@@ -78,6 +78,9 @@ public:
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ToggleCanTakeDamage();
     
+    UFUNCTION(BlueprintCallable)
+    float TakePercentDamage(float PercentOfMax, const FDamageData& DamageData);
+    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void Resupply(float percentage);
     
