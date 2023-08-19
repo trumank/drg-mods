@@ -18,7 +18,7 @@ UEnemyDescriptor::UEnemyDescriptor() {
     this->VeteranScaling = EVeteranScaling::NormalEnemy;
     this->EnemySignificance = EEnemySignificance::Swarmer;
     this->UsesSpawnEffects = true;
-    this->CreatureSize = ECreatureSize::Tiny;
+    this->CreatureSize = 0;
     this->Positioning = NULL;
     this->CaveInfluencer = NULL;
     this->InfluencerRange = 1000.00f;
