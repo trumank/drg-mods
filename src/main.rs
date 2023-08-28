@@ -266,10 +266,9 @@ fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
     let mut data = vec![];
     let mut pak = repak::PakWriter::new(
         Cursor::new(&mut data),
-        None,
         repak::Version::V11,
         "../../../".to_owned(),
-        None,
+        None
     );
     let base = util::get_cooked_dir();
 
@@ -301,7 +300,7 @@ fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
 fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
     let fsd = util::get_fsd_pak()?;
     let mut reader = BufReader::new(File::open(&fsd)?);
-    let pak = repak::PakReader::new_any(&mut reader, None)?;
+    let pak = repak::PakReader::new_any(&mut reader)?;
 
     let ar = ar::AssetRegistry::read(&mut Cursor::new(
         pak.get("FSD/AssetRegistry.bin", &mut reader)?,
@@ -406,7 +405,7 @@ mod cd2 {
         let mut dst = {
             let fsd = util::get_fsd_pak()?;
             let mut reader = BufReader::new(File::open(&fsd)?);
-            let pak = repak::PakReader::new_any(&mut reader, None)?;
+            let pak = repak::PakReader::new_any(&mut reader)?;
 
             let uasset = Cursor::new(pak.get(&format!("{pls_base_path}.uasset"), &mut reader)?);
             let uexp = Cursor::new(pak.get(&format!("{pls_base_path}.uexp"), &mut reader)?);
