@@ -228,6 +228,11 @@ fn package_mods(no_zip: bool) -> Result<()> {
             globs: &[],
             providers: &[make_remove_all_particles],
         },
+        PackageJob {
+            mod_name: "custom-map-rotation",
+            globs: &["FSD/Content/_AssemblyStorm/CustomMapRotation/**"],
+            providers: &[cmr::make],
+        },
     ];
     let output = Path::new("PackagedMods");
     fs::create_dir(output).ok();
@@ -268,7 +273,7 @@ fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
         Cursor::new(&mut data),
         repak::Version::V11,
         "../../../".to_owned(),
-        None
+        None,
     );
     let base = util::get_cooked_dir();
 
@@ -512,6 +517,201 @@ mod cd2 {
             },
             FileEntry {
                 path: format!("{pls_base_path}.uexp"),
+                data: uexp.into_inner(),
+            },
+        ])
+    }
+}
+
+mod cmr {
+    use std::io::{Read, Seek};
+
+    use super::*;
+    use uasset_utils::splice::{self, walk};
+    use unreal_asset::{
+        engine_version::EngineVersion,
+        kismet::{EExprToken, ExLocalVirtualFunction, ExObjectConst, ExSelf, KismetExpression},
+        types::PackageIndex,
+        Asset,
+    };
+
+    fn find_import<C: Read + Seek>(
+        asset: &Asset<C>,
+        class_package: &str,
+        class_name: &str,
+        object_name: &str,
+    ) -> Option<PackageIndex> {
+        asset
+            .imports
+            .iter()
+            .enumerate()
+            .find(|(_, import)| {
+                import.class_package.get_content(|n| n == class_package)
+                    && import.class_name.get_content(|n| n == class_name)
+                    && import.object_name.get_content(|n| n == object_name)
+            })
+            .map(|(index, _)| PackageIndex::from_import(index as i32).unwrap())
+    }
+
+    type ImportChain<'a> = Vec<ImportStr<'a>>;
+
+    struct ImportStr<'a> {
+        class_package: &'a str,
+        class_name: &'a str,
+        object_name: &'a str,
+    }
+    impl<'a> ImportStr<'a> {
+        fn new(class_package: &'a str, class_name: &'a str, object_name: &'a str) -> ImportStr<'a> {
+            ImportStr {
+                class_package,
+                class_name,
+                object_name,
+            }
+        }
+    }
+
+    fn get_import<C: Read + Seek>(asset: &mut Asset<C>, import: ImportChain) -> PackageIndex {
+        let mut pi = PackageIndex::new(0);
+        for i in import {
+            let ai = &asset
+                .imports
+                .iter()
+                .enumerate()
+                .find(|(_, ai)| {
+                    ai.class_package.get_content(|n| n == i.class_package)
+                        && ai.class_name.get_content(|n| n == i.class_name)
+                        && ai.object_name.get_content(|n| n == i.object_name)
+                        && ai.outer_index == pi
+                })
+                .map(|(index, _)| PackageIndex::from_import(index as i32).unwrap());
+            pi = ai.unwrap_or_else(|| {
+                let new_import = unreal_asset::Import::new(
+                    asset.add_fname(i.class_package),
+                    asset.add_fname(i.class_name),
+                    pi,
+                    asset.add_fname(i.object_name),
+                    false,
+                );
+                asset.add_import(new_import)
+            });
+        }
+        pi
+    }
+
+    pub(crate) fn make() -> Result<Vec<FileEntry>> {
+        let mut files = vec![];
+        files.extend(patch_asset(
+            "FSD/Content/UI/Menu_MissionSelectionMK3/_SCREEN_MissionSelectionMK3",
+        )?);
+        files.extend(patch_asset(
+            "FSD/Content/UI/Menu_MissionSelectionMK3/ITM_MisSel_PlanetZone",
+        )?);
+        Ok(files)
+    }
+
+    fn patch_asset(path: &str) -> Result<Vec<FileEntry>> {
+        let version = EngineVersion::VER_UE4_27;
+
+        let mut asset = {
+            let fsd = util::get_fsd_pak()?;
+            let mut reader = BufReader::new(File::open(&fsd)?);
+            let pak = repak::PakReader::new_any(&mut reader)?;
+
+            let uasset = Cursor::new(pak.get(&format!("{path}.uasset"), &mut reader)?);
+            let uexp = Cursor::new(pak.get(&format!("{path}.uexp"), &mut reader)?);
+            unreal_asset::Asset::new(uasset, Some(uexp), version, None)?
+        };
+
+        let import = find_import(
+            &asset,
+            "/Script/CoreUObject",
+            "Function",
+            "GetAvailableMissions",
+        )
+        .unwrap();
+
+        let cmr_lib = get_import(
+            &mut asset,
+            vec![
+                ImportStr::new(
+                    "/Script/CoreUObject",
+                    "Package",
+                    "/Game/_AssemblyStorm/CustomMapRotation/CMR_Lib",
+                ),
+                ImportStr::new(
+                    "/Game/_AssemblyStorm/CustomMapRotation/CMR_Lib",
+                    "CMR_Lib_C",
+                    "Default__CMR_Lib_C",
+                ),
+            ],
+        );
+
+        let get_available_missions = asset
+            .get_name_map()
+            .get_mut()
+            .add_fname("GetAvailableMissions");
+
+        let ver = splice::AssetVersion::new_from(&asset);
+        let mut statements = splice::extract_tracked_statements(&mut asset, ver, &None);
+
+        for (_pi, statements) in statements.iter_mut() {
+            for statement in statements {
+                walk(&mut statement.ex, &|ex| {
+                    if let KismetExpression::ExLet(let_) = ex {
+                        if let KismetExpression::ExContext(ctx) = &mut *let_.expression {
+                            if let KismetExpression::ExFinalFunction(f) = &*ctx.context_expression {
+                                if f.stack_node == import {
+                                    ctx.object_expression = Box::new(
+                                        ExObjectConst {
+                                            token: EExprToken::ExObjectConst,
+                                            value: cmr_lib,
+                                        }
+                                        .into(),
+                                    );
+
+                                    ctx.context_expression = Box::new(
+                                        ExLocalVirtualFunction {
+                                            token: EExprToken::ExLocalVirtualFunction,
+                                            virtual_function_name: get_available_missions.clone(),
+                                            parameters: vec![
+                                                ExSelf {
+                                                    token: EExprToken::ExSelf,
+                                                }
+                                                .into(),
+                                                *let_.variable.clone(),
+                                            ],
+                                        }
+                                        .into(),
+                                    );
+
+                                    ctx.r_value_pointer.new.as_mut().unwrap().path.clear();
+                                    ctx.r_value_pointer
+                                        .new
+                                        .as_mut()
+                                        .unwrap()
+                                        .resolved_owner
+                                        .index = 0;
+
+                                    *ex = *let_.expression.clone();
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        splice::inject_tracked_statements(&mut asset, ver, statements);
+
+        let mut uasset = Cursor::new(vec![]);
+        let mut uexp = Cursor::new(vec![]);
+        asset.write_data(&mut uasset, Some(&mut uexp))?;
+        Ok(vec![
+            FileEntry {
+                path: format!("{path}.uasset",),
+                data: uasset.into_inner(),
+            },
+            FileEntry {
+                path: format!("{path}.uexp"),
                 data: uexp.into_inner(),
             },
         ])
