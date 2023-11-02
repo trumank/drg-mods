@@ -34,36 +34,55 @@ fn main() -> Result<()> {
         bail!("FSD.uproject missing. Is the FSD project the working directory?")
     }
 
-    if cli.no_cook {
+    let platform = if cli.no_cook {
         println!("Skipping cook...");
+        if util::get_cooked_dir(util::Platform::Win64).exists() {
+            util::Platform::Win64
+        } else if util::get_cooked_dir(util::Platform::Linux).exists() {
+            util::Platform::Linux
+        } else {
+            bail!("No existing cooked assets found, please run without --no-cook to cook");
+        }
     } else {
-        cook_project()?;
+        let platform = cook_project()?;
         println!("Finished cooking");
-    }
+        platform
+    };
 
-    package_mods(cli.no_zip)?;
-
-    make_remove_all_particles()?;
+    package_mods(platform, cli.no_zip)?;
 
     Ok(())
 }
 
-fn cook_project() -> Result<()> {
-    let ue = &std::env::var("UNREAL")
-        .context("$UNREAL env var not set (must point to Unreal Engine editor install directory")?;
+fn cook_project() -> Result<util::Platform> {
+    let ue = &std::env::var("UNREAL").context(
+        "$UNREAL env var not set (must point to root of Unreal Engine editor install directory",
+    )?;
 
     use path_absolutize::*;
 
-    println!("Cooking project...");
-    let success = Command::new(Path::new(ue).join("UE4Editor-Cmd"))
+    println!("Cooking project using Unreal Engine {}", ue);
+
+    let path_win = Path::new(ue).join("Engine/Binaries/Win64/UE4Editor-Cmd.exe");
+    let path_linux = Path::new(ue).join("Engine/Binaries/Linux/UE4Editor-Cmd");
+
+    let (platform, cmd) = if path_win.exists() {
+        (util::Platform::Win64, path_win)
+    } else if path_linux.exists() {
+        (util::Platform::Linux, path_linux)
+    } else {
+        bail!("Could not locate UE4Editor-Cmd");
+    };
+
+    let success = Command::new(cmd)
         .arg(Path::new("FSD.uproject").absolutize()?.to_str().unwrap())
         .arg("-run=cook")
-        .arg(format!("-targetplatform={}", util::TARGET))
+        .arg(format!("-targetplatform={}", platform.target()))
         .status()
         .context("Cook failed")?
         .success();
     if success {
-        Ok(())
+        Ok(platform)
     } else {
         Err(anyhow!("Cook failed"))
     }
@@ -79,14 +98,18 @@ struct FileEntry {
     data: Vec<u8>,
 }
 
-type FileProvider = fn() -> Result<Vec<FileEntry>>;
+struct Ctx {
+    platform: util::Platform,
+}
+
+type FileProvider = fn(ctx: &Ctx) -> Result<Vec<FileEntry>>;
 
 struct PackageJob {
     mod_name: &'static str,
     globs: &'static [&'static str],
     providers: &'static [FileProvider],
 }
-fn package_mods(no_zip: bool) -> Result<()> {
+fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
     let jobs = &[
         PackageJob {
             mod_name: "mission-log",
@@ -236,12 +259,13 @@ fn package_mods(no_zip: bool) -> Result<()> {
     ];
     let output = Path::new("PackagedMods");
     fs::create_dir(output).ok();
-    jobs.par_iter().try_for_each(|j| package_mod(j, no_zip))?;
+    jobs.par_iter()
+        .try_for_each(|j| package_mod(platform, j, no_zip))?;
     Ok(())
 }
 
-fn package_mod(job: &'static PackageJob, no_zip: bool) -> Result<()> {
-    let paks = make_mod(job)?;
+fn package_mod(platform: util::Platform, job: &'static PackageJob, no_zip: bool) -> Result<()> {
+    let paks = make_mod(Ctx { platform }, job)?;
 
     let output = Path::new("PackagedMods");
     for pak in paks {
@@ -267,7 +291,7 @@ fn package_mod(job: &'static PackageJob, no_zip: bool) -> Result<()> {
     Ok(())
 }
 
-fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
+fn make_mod(ctx: Ctx, job: &PackageJob) -> Result<Vec<PakOutput>> {
     let mut data = vec![];
     let mut pak = repak::PakWriter::new(
         Cursor::new(&mut data),
@@ -275,7 +299,7 @@ fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
         "../../../".to_owned(),
         None,
     );
-    let base = util::get_cooked_dir();
+    let base = util::get_cooked_dir(ctx.platform);
 
     let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, job.globs)
         .follow_links(true)
@@ -291,7 +315,7 @@ fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
         )?;
     }
     for provider in job.providers {
-        for file in provider()? {
+        for file in provider(&ctx)? {
             pak.write_file(&file.path, &mut Cursor::new(file.data))?;
         }
     }
@@ -302,7 +326,7 @@ fn make_mod(job: &PackageJob) -> Result<Vec<PakOutput>> {
     }])
 }
 
-fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
+fn make_remove_all_particles(ctx: &Ctx) -> Result<Vec<FileEntry>> {
     let fsd = util::get_fsd_pak()?;
     let mut reader = BufReader::new(File::open(&fsd)?);
     let pak = repak::PakReader::new_any(&mut reader)?;
@@ -311,7 +335,7 @@ fn make_remove_all_particles() -> Result<Vec<FileEntry>> {
         pak.get("FSD/AssetRegistry.bin", &mut reader)?,
     ))?;
 
-    let cooked = util::get_cooked_dir();
+    let cooked = util::get_cooked_dir(ctx.platform);
     let mut ps_asset = {
         let path = cooked.join("FSD/Content/_Tests/Dummy/EmptyParticleSystem.uasset");
         let uasset = BufReader::new(File::open(&path)?);
@@ -395,12 +419,12 @@ mod cd2 {
         reader::archive_trait::ArchiveTrait,
     };
 
-    pub(crate) fn splice_pls_base() -> Result<Vec<FileEntry>> {
+    pub(crate) fn splice_pls_base(ctx: &Ctx) -> Result<Vec<FileEntry>> {
         let version = EngineVersion::VER_UE4_27;
         let pls_base_path = "FSD/Content/Landscape/PLS_Base";
 
         let mut src = {
-            let cooked = util::get_cooked_dir();
+            let cooked = util::get_cooked_dir(ctx.platform);
             splice::read_asset(
                 cooked.join("FSD/Content/_AssemblyStorm/CustomDifficulty2/Hook_PLS_Base.uasset"),
                 version,
@@ -598,7 +622,7 @@ mod cmr {
         pi
     }
 
-    pub(crate) fn make() -> Result<Vec<FileEntry>> {
+    pub(crate) fn make(_ctx: &Ctx) -> Result<Vec<FileEntry>> {
         let mut files = vec![];
         files.extend(patch_asset(
             "FSD/Content/UI/Menu_MissionSelectionMK3/_SCREEN_MissionSelectionMK3",

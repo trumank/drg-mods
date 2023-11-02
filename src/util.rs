@@ -2,10 +2,19 @@ use std::path::{Path, PathBuf};
 
 use anyhow::{bail, Result};
 
-#[cfg(target_os = "windows")]
-pub const TARGET: &str = "WindowsNoEditor";
-#[cfg(target_os = "linux")]
-pub const TARGET: &str = "LinuxNoEditor";
+#[derive(Debug, Clone, Copy)]
+pub enum Platform {
+    Win64,
+    Linux,
+}
+impl Platform {
+    pub fn target(&self) -> &str {
+        match self {
+            Platform::Win64 => "WindowsNoEditor",
+            Platform::Linux => "LinuxNoEditor",
+        }
+    }
+}
 
 pub fn get_fsd_pak() -> Result<PathBuf> {
     if let Ok(path) = std::env::var("FSD_PAK") {
@@ -21,6 +30,6 @@ pub fn get_fsd_pak() -> Result<PathBuf> {
     }
 }
 
-pub fn get_cooked_dir() -> PathBuf {
-    Path::new("Saved/Cooked").join(TARGET)
+pub fn get_cooked_dir(platform: Platform) -> PathBuf {
+    Path::new("Saved/Cooked").join(platform.target())
 }
