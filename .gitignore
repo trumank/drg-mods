@@ -83,8 +83,11 @@ DerivedDataCache/*
 compile_commands.json
 Plugins/Nvidia/DLSS/Binaries/
 Plugins/Nvidia/DLSS/Intermediate/
+Plugins/Nvidia/FSDAnsel/Binaries/
+Plugins/Nvidia/FSDAnsel/Intermediate/
 
 # Rust binaries
 /target
 
 /PackagedMods
+.env
