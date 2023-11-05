@@ -256,6 +256,11 @@ fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
             globs: &["FSD/Content/_AssemblyStorm/CustomMapRotation/**"],
             providers: &[cmr::make],
         },
+        PackageJob {
+            mod_name: "launch-override",
+            globs: &["FSD/Content/_AssemblyStorm/LaunchOverride/**"],
+            providers: &[],
+        },
     ];
     let output = Path::new("PackagedMods");
     fs::create_dir(output).ok();
