@@ -339,6 +339,10 @@
 		{
 			"Name": "DSTelemetry",
 			"Enabled": true
+		},
+		{
+			"Name": "BPGen",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
