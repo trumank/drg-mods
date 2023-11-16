@@ -261,6 +261,11 @@ fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
             globs: &["FSD/Content/_AssemblyStorm/LaunchOverride/**"],
             providers: &[],
         },
+        PackageJob {
+            mod_name: "disable-season",
+            globs: &[],
+            providers: &[disable_season::make],
+        },
     ];
     let output = Path::new("PackagedMods");
     fs::create_dir(output).ok();
@@ -725,6 +730,103 @@ mod cmr {
                                 }
                             }
                         }
+                    }
+                });
+            }
+        }
+        splice::inject_tracked_statements(&mut asset, ver, statements);
+
+        let mut uasset = Cursor::new(vec![]);
+        let mut uexp = Cursor::new(vec![]);
+        asset.write_data(&mut uasset, Some(&mut uexp))?;
+        Ok(vec![
+            FileEntry {
+                path: format!("{path}.uasset",),
+                data: uasset.into_inner(),
+            },
+            FileEntry {
+                path: format!("{path}.uexp"),
+                data: uexp.into_inner(),
+            },
+        ])
+    }
+}
+
+mod disable_season {
+    use std::io::{Read, Seek};
+
+    use super::*;
+    use uasset_utils::splice::{self, walk};
+    use unreal_asset::{
+        engine_version::EngineVersion,
+        kismet::{EExprToken, ExTrue, KismetExpression},
+        types::PackageIndex,
+        Asset,
+    };
+
+    fn find_import<C: Read + Seek>(
+        asset: &Asset<C>,
+        class_package: &str,
+        class_name: &str,
+        object_name: &str,
+    ) -> Option<PackageIndex> {
+        asset
+            .imports
+            .iter()
+            .enumerate()
+            .find(|(_, import)| {
+                import.class_package.get_content(|n| n == class_package)
+                    && import.class_name.get_content(|n| n == class_name)
+                    && import.object_name.get_content(|n| n == object_name)
+            })
+            .map(|(index, _)| PackageIndex::from_import(index as i32).unwrap())
+    }
+    pub(crate) fn make(_ctx: &Ctx) -> Result<Vec<FileEntry>> {
+        let mut files = vec![];
+        files.extend(
+            [
+                patch_asset("FSD/Content/UI/Menu_Seasons/ITM_SeasonContentToggle")?,
+                patch_asset("FSD/Content/UI/Menu_Seasons/WND_SeasonOverview")?,
+            ]
+            .into_iter()
+            .flatten(),
+        );
+        Ok(files)
+    }
+
+    fn patch_asset(path: &str) -> Result<Vec<FileEntry>> {
+        let version = EngineVersion::VER_UE4_27;
+
+        let mut asset = {
+            let fsd = util::get_fsd_pak()?;
+            let mut reader = BufReader::new(File::open(&fsd)?);
+            let pak = repak::PakReader::new_any(&mut reader)?;
+
+            let uasset = Cursor::new(pak.get(&format!("{path}.uasset"), &mut reader)?);
+            let uexp = Cursor::new(pak.get(&format!("{path}.uexp"), &mut reader)?);
+            unreal_asset::Asset::new(uasset, Some(uexp), version, None)?
+        };
+
+        let can_opt_out = find_import(
+            &asset,
+            "/Script/CoreUObject",
+            "Function",
+            "CanOptOutOfSeasonContent",
+        )
+        .unwrap();
+
+        let ver = splice::AssetVersion::new_from(&asset);
+        let mut statements = splice::extract_tracked_statements(&mut asset, ver, &None);
+
+        for (_pi, statements) in statements.iter_mut() {
+            for statement in statements {
+                walk(&mut statement.ex, &|ex| {
+                    if matches!(ex, KismetExpression::ExFinalFunction(f) if f.stack_node == can_opt_out)
+                    {
+                        *ex = ExTrue {
+                            token: EExprToken::ExTrue,
+                        }
+                        .into()
                     }
                 });
             }
