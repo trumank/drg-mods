@@ -266,6 +266,11 @@ fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
             globs: &[],
             providers: &[disable_season::make],
         },
+        PackageJob {
+            mod_name: "revert-em-discharge",
+            globs: &[],
+            providers: &[revert_em_discharge::make],
+        },
     ];
     let output = Path::new("PackagedMods");
     fs::create_dir(output).ok();
@@ -827,6 +832,76 @@ mod disable_season {
                             token: EExprToken::ExTrue,
                         }
                         .into()
+                    }
+                });
+            }
+        }
+        splice::inject_tracked_statements(&mut asset, ver, statements);
+
+        let mut uasset = Cursor::new(vec![]);
+        let mut uexp = Cursor::new(vec![]);
+        asset.write_data(&mut uasset, Some(&mut uexp))?;
+        Ok(vec![
+            FileEntry {
+                path: format!("{path}.uasset",),
+                data: uasset.into_inner(),
+            },
+            FileEntry {
+                path: format!("{path}.uexp"),
+                data: uexp.into_inner(),
+            },
+        ])
+    }
+}
+
+mod revert_em_discharge {
+    use super::*;
+    use uasset_utils::splice::{self, walk};
+    use unreal_asset::{
+        engine_version::EngineVersion,
+        kismet::{ExByteConst, ExVirtualFunction, KismetExpression},
+    };
+
+    pub(crate) fn make(_ctx: &Ctx) -> Result<Vec<FileEntry>> {
+        let mut files = vec![];
+        files.extend(patch_asset(
+            "FSD/Content/WeaponsNTools/SentryGun/SentryGun_Engineer/BP_SentryGun_Redeployable",
+        )?);
+        Ok(files)
+    }
+
+    fn patch_asset(path: &str) -> Result<Vec<FileEntry>> {
+        let version = EngineVersion::VER_UE4_27;
+
+        let mut asset = {
+            let fsd = util::get_fsd_pak()?;
+            let mut reader = BufReader::new(File::open(&fsd)?);
+            let pak = repak::PakReader::new_any(&mut reader)?;
+
+            let uasset = Cursor::new(pak.get(&format!("{path}.uasset"), &mut reader)?);
+            let uexp = Cursor::new(pak.get(&format!("{path}.uexp"), &mut reader)?);
+            unreal_asset::Asset::new(uasset, Some(uexp), version, None)?
+        };
+
+        let ver = splice::AssetVersion::new_from(&asset);
+        let mut statements = splice::extract_tracked_statements(&mut asset, ver, &None);
+
+        for (_pi, statements) in statements.iter_mut() {
+            for statement in statements {
+                walk(&mut statement.ex, &|ex| {
+                    if let KismetExpression::ExVirtualFunction(ExVirtualFunction {
+                        virtual_function_name,
+                        parameters,
+                        ..
+                    }) = ex
+                    {
+                        if virtual_function_name.get_content(|c| c == "SetCollisionEnabled") {
+                            if let [KismetExpression::ExByteConst(ExByteConst { value, .. })] =
+                                parameters.as_mut_slice()
+                            {
+                                *value = 1;
+                            }
+                        }
                     }
                 });
             }
