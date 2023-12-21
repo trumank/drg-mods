@@ -323,15 +323,19 @@ fn make_mod(ctx: Ctx, job: &PackageJob) -> Result<Vec<PakOutput>> {
         .filter_map(Result::ok)
         .collect::<Vec<_>>();
 
+    fn forward_slash(path: &str) -> String {
+        path.replace('\\', "/")
+    }
+
     for entry in &walker {
         pak.write_file(
-            entry.path().strip_prefix(&base)?.to_str().unwrap(),
+            &forward_slash(entry.path().strip_prefix(&base)?.to_str().unwrap()),
             &mut BufReader::new(File::open(entry.path())?),
         )?;
     }
     for provider in job.providers {
         for file in provider(&ctx)? {
-            pak.write_file(&file.path, &mut Cursor::new(file.data))?;
+            pak.write_file(&forward_slash(&file.path), &mut Cursor::new(file.data))?;
         }
     }
     pak.write_index()?;
