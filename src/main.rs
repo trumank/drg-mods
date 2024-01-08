@@ -117,6 +117,11 @@ fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
             providers: &[],
         },
         PackageJob {
+            mod_name: "proximity-chat",
+            globs: &["FSD/Content/_AssemblyStorm/ProximityChat/**"],
+            providers: &[],
+        },
+        PackageJob {
             mod_name: "customdifficulty",
             globs: &[
                 "FSD/Content/_AssemblyStorm/CustomDifficulty/**",
