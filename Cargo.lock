@@ -925,8 +925,8 @@ checksum = "e5ea92a5b6195c6ef2a0295ea818b312502c6fc94dde986c5553242e18fd4ce2"
 
 [[package]]
 name = "repak"
-version = "0.1.7"
-source = "git+https://github.com/trumank/repak.git#a749449f8c82afc2f80fbb387b980e74bbe3ce43"
+version = "0.2.1"
+source = "git+https://github.com/trumank/repak.git#f8c345d37ed52056739a63801ee2cec84ce29a64"
 dependencies = [
  "aes",
  "byteorder",

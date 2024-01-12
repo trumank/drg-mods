@@ -313,12 +313,13 @@ fn package_mod(platform: util::Platform, job: &'static PackageJob, no_zip: bool)
 
 fn make_mod(ctx: Ctx, job: &PackageJob) -> Result<Vec<PakOutput>> {
     let mut data = vec![];
-    let mut pak = repak::PakWriter::new(
-        Cursor::new(&mut data),
-        repak::Version::V11,
-        "../../../".to_owned(),
-        None,
-    );
+    let mut pak = repak::PakBuilder::new()
+        .writer(
+            Cursor::new(&mut data),
+            repak::Version::V11,
+            "../../../".to_owned(),
+            None,
+        );
     let base = util::get_cooked_dir(ctx.platform);
 
     let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, job.globs)
@@ -335,12 +336,12 @@ fn make_mod(ctx: Ctx, job: &PackageJob) -> Result<Vec<PakOutput>> {
     for entry in &walker {
         pak.write_file(
             &forward_slash(entry.path().strip_prefix(&base)?.to_str().unwrap()),
-            &mut BufReader::new(File::open(entry.path())?),
+            std::fs::read(entry.path())?,
         )?;
     }
     for provider in job.providers {
         for file in provider(&ctx)? {
-            pak.write_file(&forward_slash(&file.path), &mut Cursor::new(file.data))?;
+            pak.write_file(&forward_slash(&file.path), file.data)?;
         }
     }
     pak.write_index()?;
@@ -353,7 +354,7 @@ fn make_mod(ctx: Ctx, job: &PackageJob) -> Result<Vec<PakOutput>> {
 fn make_remove_all_particles(ctx: &Ctx) -> Result<Vec<FileEntry>> {
     let fsd = util::get_fsd_pak()?;
     let mut reader = BufReader::new(File::open(&fsd)?);
-    let pak = repak::PakReader::new_any(&mut reader)?;
+    let pak = repak::PakBuilder::new().reader(&mut reader)?;
 
     let ar = ar::AssetRegistry::read(&mut Cursor::new(
         pak.get("FSD/AssetRegistry.bin", &mut reader)?,
@@ -458,7 +459,7 @@ mod cd2 {
         let mut dst = {
             let fsd = util::get_fsd_pak()?;
             let mut reader = BufReader::new(File::open(&fsd)?);
-            let pak = repak::PakReader::new_any(&mut reader)?;
+            let pak = repak::PakBuilder::new().reader(&mut reader)?;
 
             let uasset = Cursor::new(pak.get(&format!("{pls_base_path}.uasset"), &mut reader)?);
             let uexp = Cursor::new(pak.get(&format!("{pls_base_path}.uexp"), &mut reader)?);
@@ -663,7 +664,7 @@ mod cmr {
         let mut asset = {
             let fsd = util::get_fsd_pak()?;
             let mut reader = BufReader::new(File::open(&fsd)?);
-            let pak = repak::PakReader::new_any(&mut reader)?;
+            let pak = repak::PakBuilder::new().reader(&mut reader)?;
 
             let uasset = Cursor::new(pak.get(&format!("{path}.uasset"), &mut reader)?);
             let uexp = Cursor::new(pak.get(&format!("{path}.uexp"), &mut reader)?);
@@ -814,7 +815,7 @@ mod disable_season {
         let mut asset = {
             let fsd = util::get_fsd_pak()?;
             let mut reader = BufReader::new(File::open(&fsd)?);
-            let pak = repak::PakReader::new_any(&mut reader)?;
+            let pak = repak::PakBuilder::new().reader(&mut reader)?;
 
             let uasset = Cursor::new(pak.get(&format!("{path}.uasset"), &mut reader)?);
             let uexp = Cursor::new(pak.get(&format!("{path}.uexp"), &mut reader)?);
@@ -885,7 +886,7 @@ mod revert_em_discharge {
         let mut asset = {
             let fsd = util::get_fsd_pak()?;
             let mut reader = BufReader::new(File::open(&fsd)?);
-            let pak = repak::PakReader::new_any(&mut reader)?;
+            let pak = repak::PakBuilder::new().reader(&mut reader)?;
 
             let uasset = Cursor::new(pak.get(&format!("{path}.uasset"), &mut reader)?);
             let uexp = Cursor::new(pak.get(&format!("{path}.uexp"), &mut reader)?);
