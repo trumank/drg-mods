@@ -248,7 +248,7 @@ fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
         },
         PackageJob {
             mod_name: "open-hub",
-            globs: &["FSD/Content/_AssemblyStorm/OpenHub/**"],
+            globs: &["FSD/Content/_ModHub/**", "FSD/Content/_AssemblyStorm/OpenHub/**"],
             providers: &[],
         },
         PackageJob {
