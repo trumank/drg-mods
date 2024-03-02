@@ -23,6 +23,9 @@ struct Cli {
     /// Skip zipping
     #[arg(long)]
     no_zip: bool,
+
+    /// Only package mods matching filter
+    filter: Option<String>,
 }
 
 fn main() -> Result<()> {
@@ -49,7 +52,11 @@ fn main() -> Result<()> {
         platform
     };
 
-    package_mods(platform, cli.no_zip)?;
+    package_mods(
+        platform,
+        cli.filter.as_ref().map(|f| f.as_str()),
+        cli.no_zip,
+    )?;
 
     Ok(())
 }
@@ -109,7 +116,7 @@ struct PackageJob {
     globs: &'static [&'static str],
     providers: &'static [FileProvider],
 }
-fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
+fn package_mods(platform: util::Platform, filter: Option<&str>, no_zip: bool) -> Result<()> {
     let jobs = &[
         PackageJob {
             mod_name: "mission-log",
@@ -282,8 +289,13 @@ fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
     ];
     let output = Path::new("PackagedMods");
     fs::create_dir(output).ok();
-    jobs.par_iter()
-        .try_for_each(|j| package_mod(platform, j, no_zip))?;
+    jobs.par_iter().try_for_each(|j| {
+        if filter.map(|f| j.mod_name.contains(f)).unwrap_or(true) {
+            package_mod(platform, j, no_zip)
+        } else {
+            Ok(())
+        }
+    })?;
     Ok(())
 }
 
