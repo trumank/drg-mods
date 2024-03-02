@@ -248,7 +248,10 @@ fn package_mods(platform: util::Platform, no_zip: bool) -> Result<()> {
         },
         PackageJob {
             mod_name: "open-hub",
-            globs: &["FSD/Content/_ModHub/**", "FSD/Content/_AssemblyStorm/OpenHub/**"],
+            globs: &[
+                "FSD/Content/_ModHub/**",
+                "FSD/Content/_AssemblyStorm/OpenHub/**",
+            ],
             providers: &[],
         },
         PackageJob {
@@ -313,13 +316,12 @@ fn package_mod(platform: util::Platform, job: &'static PackageJob, no_zip: bool)
 
 fn make_mod(ctx: Ctx, job: &PackageJob) -> Result<Vec<PakOutput>> {
     let mut data = vec![];
-    let mut pak = repak::PakBuilder::new()
-        .writer(
-            Cursor::new(&mut data),
-            repak::Version::V11,
-            "../../../".to_owned(),
-            None,
-        );
+    let mut pak = repak::PakBuilder::new().writer(
+        Cursor::new(&mut data),
+        repak::Version::V11,
+        "../../../".to_owned(),
+        None,
+    );
     let base = util::get_cooked_dir(ctx.platform);
 
     let walker = globwalk::GlobWalkerBuilder::from_patterns(&base, job.globs)
