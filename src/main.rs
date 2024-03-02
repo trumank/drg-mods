@@ -1,8 +1,8 @@
 mod ar;
 mod util;
 
+use fs_err::{self as fs, File};
 use std::{
-    fs::{self, File},
     io::{BufReader, Cursor},
     path::Path,
     process::Command,
@@ -336,7 +336,7 @@ fn make_mod(ctx: Ctx, job: &PackageJob) -> Result<Vec<PakOutput>> {
     for entry in &walker {
         pak.write_file(
             &forward_slash(entry.path().strip_prefix(&base)?.to_str().unwrap()),
-            std::fs::read(entry.path())?,
+            fs::read(entry.path())?,
         )?;
     }
     for provider in job.providers {
